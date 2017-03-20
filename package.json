@@ -1,0 +1,41 @@
+{
+  "name": "unnamed",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --use_strict index.js",
+    "bundle": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lisahoong/unnamed.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lisahoong/unnamed/issues"
+  },
+  "homepage": "https://github.com/lisahoong/unnamed#readme",
+  "dependencies": {
+    "babel-core": "^6.24.0",
+    "babel-loader": "^6.4.1",
+    "babel-preset-es2015": "^6.24.0",
+    "babel-preset-react": "^6.23.0",
+    "bcrypt": "^1.0.2",
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "jsonwebtoken": "^7.3.0",
+    "material-ui": "^0.17.1",
+    "mongoose": "^4.9.1",
+    "nodemon": "^1.11.0",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-router": "^2.6.1",
+    "validator": "^7.0.0",
+    "webpack": "^2.2.1"
+  }
+}
