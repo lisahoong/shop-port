@@ -1,6 +1,155 @@
+@font-face {
+    font-family: CoutureBold;
+    src:url('../fonts/couture-bld.otf');
+}
+
+@font-face {
+    font-family: Nordica;
+    src:url('../fonts/NordicaThin.otf');
+}
+
+@font-face {
+    font-family: Telegrafico;
+    src:url('../fonts/Telegrafico.ttf');
+}
+
+@font-face {
+    font-family: FineStyle;
+    src:url('../fonts/FineStyle.ttf');
+}
+
+@font-face {
+    font-family: Yeseva;
+    src:url('../fonts/YesevaOne-Regular.ttf');
+}
+
 body {
   margin: 0;
   font-size: 16px;
+}
+
+h1 {
+  font-family: Yeseva;
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.nav-container {
+  display: flex;
+  top: 0px;
+  left: 0px;
+  margin: 20px;
+  background-color: white;
+}
+
+.link-container {
+  display: flex;
+  float: right;
+  flex: 2;
+  flex-direction: row;
+  align-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-link {
+  display: flex;
+  align-self: center;
+}
+
+.nav-logo-container {
+  display: flex;
+  flex: 3;
+  justify-content: flex-start;
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  border: 1px solid #797A7E;
+  background-color: white;
+  height: 800px;
+}
+
+.clothes-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.clothing-item-container {
+  display: flex;
+  margin: 10px 10px;
+  padding: 10px 10px;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+}
+
+.clothing-item-image {
+  display: flex;
+  height: 100px;
+  width: 75px;
+
+}
+
+.clothing-item-image {
+  display: flex;
+  align-self: center;
+  height: 150px;
+  width: 100px;
+}
+
+.clothing-item-info {
+  display: flex;
+  align-self: center;
+  text-align: center;
+}
+
+.clothing-item-price {
+  display: flex;
+  align-self: center;
+  text-align: center;
+}
+
+.content{
+  display: flex;
+  margin: 20px 20px;
+  border: 5px solid pink;
+}
+
+#nav-logo {
+height: 50px;
+width: auto;
+}
+
+#nav-link {
+  font-family: Telegrafico;
+  font-size: 12;
+  color: #797A7E
+}
+
+#mint {
+  color: #DDEDE3
+}
+
+#cream {
+  color: #F6F2E6
+}
+
+#slate {
+  color: #797A7E
+}
+
+#taupe {
+  color: #D8D3CD
 }
 
 a {
@@ -16,6 +165,16 @@ a:hover {
 
 .text-center {
   text-align: center;
+}
+
+z {
+  font-family: Telegrafico;
+  font-size: 30px
+}
+
+w {
+  font-family: Nordica;
+  font-size: 12px
 }
 
 .top-bar {
@@ -40,12 +199,6 @@ a:hover {
 .top-bar a,
 .nav a {
   margin: 0 8px;
-}
-
-.container {
-  margin: 0 auto;
-  text-align: center;
-  width: 700px;
 }
 
 .card-heading {
