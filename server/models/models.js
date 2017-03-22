@@ -63,7 +63,7 @@ const ProductSchema = mongoose.Schema({
   title: String,
   link: String,
   src: String,
-  price: Number
+  price: String
 });
 
 const CartItemSchema = mongoose.Schema({
