@@ -12,6 +12,7 @@ app.use(express.static('./server/public/'));
 app.use(express.static('./client/dist/'));
 
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json())
 
 app.use(passport.initialize());
 

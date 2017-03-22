@@ -1,6 +1,10 @@
 const express = require('express');
 const validator = require('validator');
 const passport = require('passport');
+const Merchant = require('mongoose').model('Merchant');
+const Product = require('mongoose').model('Product');
+const User = require('mongoose').model('User');
+const CartItem = require('mongoose').model('CartItem');
 
 const router = new express.Router();
 
@@ -60,6 +64,43 @@ function validateLoginForm(payload) {
     errors
   };
 }
+
+router.post('/addmerchant', function(req, res) {
+  console.log('body:', req.body);
+  var merch = new Merchant(req.body);
+  merch.save()
+  .then(res.status(200).send())
+  .catch((err) => {
+    console.log('Error: ', err);
+    res.status(500).send(err);
+  })
+})
+
+router.get('/allmerchants', function(req, res) {
+  Merchant.find({})
+  .sort({name: 1})
+  .exec(function(err, merchants) {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).json({
+        allmerchants: merchants
+      })
+    }
+  })
+})
+
+router.post('/addMerchantItem/:merchant', function(req, res) {
+  Merchant.findById(req.params.merchant)
+  .then((merchant) => console.log('name: ', merchant.name));
+  //console.log('body: ',req.body);
+  res.status(200).send();
+  // var product = new Product(req.body);
+  // product.save().catch(function(err) {
+  //   console.log('Error: ', err);
+  //   res.status(500).send();
+  // })
+})
 
 
 router.post('/signup', function(req, res, next) {

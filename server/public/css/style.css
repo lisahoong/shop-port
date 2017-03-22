@@ -43,7 +43,7 @@ h1 {
   display: flex;
   top: 0px;
   left: 0px;
-  margin: 20px;
+  margin: 10px 40px;
   background-color: white;
 }
 
@@ -71,7 +71,7 @@ h1 {
 .content-container {
   display: flex;
   flex-direction: column;
-  margin: 10px;
+  margin: 10px 40px;
   border: 1px solid #797A7E;
   background-color: white;
   height: 800px;
@@ -125,6 +125,33 @@ h1 {
   border: 5px solid pink;
 }
 
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-content-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.acct-nav-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1;
+  border-right: 1px solid black;
+}
+
+.acct-content-container {
+  display: flex;
+  flex: 4;
+}
+
+#border-btm {
+  border-bottom: 1px solid black;
+}
+
 #nav-logo {
 height: 50px;
 width: auto;
@@ -134,6 +161,13 @@ width: auto;
   font-family: Telegrafico;
   font-size: 12;
   color: #797A7E
+}
+
+#side-link {
+  color: #797A7E;
+  font-family: Nordica;
+  font-size: 12px;
+  margin-left: 3px;
 }
 
 #mint {
@@ -153,14 +187,14 @@ width: auto;
 }
 
 a {
-  color: #00bcd4;
+  color: #797A7E;
   font-weight: bold;
   text-decoration: none;
   transition: color 0.4s;
 }
 
 a:hover {
-  color: #1976d2;
+  color: #797A7E;
 }
 
 .text-center {
