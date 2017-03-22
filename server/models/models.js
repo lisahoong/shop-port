@@ -49,13 +49,13 @@ UserSchema.pre('save', function saveHook(next) {
 
 const MerchantSchema = mongoose.Schema({
   name: String,
-  // items: [{
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: 'Product'
-  // }]
   products: [{
-    type: Object
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Product'
   }]
+  // products: [{
+  //   type: Object
+  // }]
 });
 
 const ProductSchema = mongoose.Schema({
