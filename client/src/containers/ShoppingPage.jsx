@@ -44,37 +44,10 @@ class ShoppingPage extends React.Component {
     this.setState({
       products: clothes,
       loading: false
-    })
-
-    // var self = this;
-    // console.log('mounting');
-    // const xhr = new XMLHttpRequest();
-    // xhr.open('get', 'https://api.apifier.com/v1/execs/jaPXnbziXgaoRJALu/results');
-    // xhr.setRequestHeader('Content-Type', 'application/json');
-    // xhr.responseType = 'json';
-    // xhr.addEventListener('load', () => {
-    //   console.log('status: ', xhr.status);
-    //   if (xhr.status === 200) {
-    //     console.log('poop');
-    //     console.log(xhr.response);
-    //   } else {
-    //     const errors = xhr.response.errors ? xhr.response.errors : {};
-    //     errors.summary = xhr.response.message;
-    //
-    //     this.setState({
-    //       errors
-    //     });
-    //   }
-    // });
-
-
+    });
   }
 
   showInfo(item) {
-
-    //console.log('poop: ', item.title);
-    //console.log('hi:', this);
-
     popupS.confirm({
       mode: 'modal-ajax ',
       title: item.title,

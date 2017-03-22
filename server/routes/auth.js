@@ -65,6 +65,32 @@ function validateLoginForm(payload) {
   };
 }
 
+router.get('/loadmerchants', function(req, res) {
+  Merchant.find({})
+  .sort({name: 1})
+  .exec()
+  .then((merchants) => {
+    res.status(200).json({
+      message: 'Here are all your merchants bitch',
+      allmerchants: merchants
+    });
+  })
+  .catch((err) => res.sendStatus(500).send(err))
+})
+
+router.get('/showproducts/:merchid', function(req, res) {
+  console.log('the id is: ', req.query.merchid);
+})
+
+
+router.get('/showproducts', function(req, res) {
+  console.log('poop');
+  //console.log('query is: ', req.params.merch);
+  res.status(200).json({
+    name: 'Brandy'
+  });
+});
+
 router.post('/addmerchant', function(req, res) {
   console.log('body:', req.body);
   var merch = new Merchant(req.body);
@@ -76,31 +102,37 @@ router.post('/addmerchant', function(req, res) {
   })
 })
 
-router.get('/allmerchants', function(req, res) {
-  Merchant.find({})
-  .sort({name: 1})
-  .exec(function(err, merchants) {
-    if (err) {
-      res.status(500).send(err);
-    } else {
-      res.status(200).json({
-        allmerchants: merchants
-      })
-    }
-  })
-})
-
 router.post('/addMerchantItem/:merchant', function(req, res) {
-  Merchant.findById(req.params.merchant)
-  .then((merchant) => console.log('name: ', merchant.name));
-  //console.log('body: ',req.body);
-  res.status(200).send();
-  // var product = new Product(req.body);
-  // product.save().catch(function(err) {
-  //   console.log('Error: ', err);
-  //   res.status(500).send();
-  // })
-})
+
+  var findMerchantPromise = new Promise(function(resolve, reject) {
+    Merchant.findById(req.params.merchant, function(err, merchant) {
+      if (err) {
+        reject(err);
+      }
+      resolve(merchant);
+    });
+  });
+
+  findMerchantPromise.then(function(foundMerchant) {
+    req.body.forEach(function(item) {
+      var product = new Product(item);
+      product.merchantId = foundMerchant._id;
+      product.save(function(err, prod) {
+        if (err) {
+          res.status(500).json({
+            message: 'problem saving product'
+          })
+        }
+      })
+    })
+    res.status(200).json({
+      message: 'new products have been saved for ' + foundMerchant.name
+    })
+  })
+  .catch((err) => res.status(500).json({
+    message: 'merchant does not exist'
+  }));
+});
 
 
 router.post('/signup', function(req, res, next) {
