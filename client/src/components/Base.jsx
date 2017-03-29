@@ -3,31 +3,35 @@ import { Link, IndexLink } from 'react-router';
 import Auth from '../modules/Auth';
 
 const Base = ({children}) => (
-  <div>
-    <div className="top-bar">
-      <div className="top-bar-left">
-        <IndexLink to="/">React Application</IndexLink>
+  <div className="container">
+
+    <div>
+      <div className="nav-container">
+        <div className="nav-logo-container">
+          <z>Port</z>
+        </div>
+
+        <div className="link-container">
+          <div><Link to="/" id="nav-link" >Home</Link></div>
+          <div><Link to="/selectmerchant" id="nav-link">Select</Link></div>
+          <div><Link to="/shop" id="nav-link">Shop</Link></div>
+          {Auth.isUserAuthenticated() ?
+            (<div><Link to="/logout" id="nav-link">Log out</Link></div>) :
+            (<div><Link to="/login" id="nav-link">Log in</Link></div>)}
+          {!Auth.isUserAuthenticated() &&
+              (<div><Link to="/signup" id="nav-link">Sign up</Link></div>)}
+          </div>
+        </div>
       </div>
 
-      {Auth.isUserAuthenticated() ? (
-        <div className="top-bar-right">
-          <Link to="/logout">Log out</Link>
-        </div>
-      ) : (
-        <div className="top-bar-right">
-          <Link to="/login">Log in</Link>
-          <Link to="/signup">Sign up</Link>
-        </div>
-
-      )}
+      <div className="content-container">
+        {children}
+      </div>
     </div>
-    {children}
+  );
 
-  </div>
-);
+  Base.propTypes = {
+    children: PropTypes.object.isRequired
+  };
 
-Base.propTypes = {
-  children: PropTypes.object.isRequired
-};
-
-export default Base;
+  export default Base;

@@ -1,17 +1,24 @@
 import React, { PropTypes } from 'react';
-import { Card, CardTitle, CardText } from 'material-ui/Card';
+import { Link } from 'react-router';
 
 const Dashboard = ({ secretData }) => (
-  <Card className="container">
-    <CardTitle
-      title="Dashboard"
-      subtitle="You should have access to this page after authentication."
-      />
+  <div className="dashboard-container">
+    <div id="border-btm">
+      <z>Your Account</z>
+    </div>
+    <div className="dashboard-content-container">
+      <div className="acct-nav-container">
+        <div><Link to="/" id="side-link">My Account</Link></div>
+        <div><Link to="/" id="side-link">Order History</Link></div>
+        <div><Link to="/" id="side-link">Settings</Link></div>
+      </div>
 
-    {secretData && <CardText style={{fontSize: '16px', color: 'pink'}}>
-    {secretData}
-    </CardText>}
-  </Card>
+      <div className="acct-content-container">
+        <z>content</z>
+        {secretData && <p>{secretData}</p>}
+      </div>
+    </div>
+  </div>
 );
 
 Dashboard.propTypes = {

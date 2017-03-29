@@ -3,6 +3,8 @@ import HomePage from './components/HomePage.jsx';
 import DashBoardPage from './containers/DashboardPage.jsx';
 import LoginPage from './containers/LoginPage.jsx';
 import SignUpPage from './containers/SignUpPage.jsx';
+import ShoppingPage from './containers/ShoppingPage.jsx';
+import SelectMerchantPage from './containers/SelectMerchantPage.jsx';
 import Auth from './modules/Auth';
 
 const routes = {
@@ -29,6 +31,19 @@ const routes = {
     {
       path: '/signup',
       component: SignUpPage
+    },
+
+    {
+      path: '/shop',
+      component: ShoppingPage
+    },
+    {
+      path: '/additem',
+      component: ShoppingPage
+    },
+    {
+      path: '/selectmerchant',
+      component: SelectMerchantPage
     },
 
     {

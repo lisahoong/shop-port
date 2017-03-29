@@ -1,10 +1,11 @@
 import React from 'react'
-import { Card, CardTitle } from 'material-ui/Card';
 
 const HomePage = () => (
-  <Card className='container'>
-    <CardTitle title="React Application" subtitle="This is the home page"/>
-  </Card>
+  <div className='container'>
+    <h1>Welcome to ze home page</h1>
+    <z>does it work pls work</z><br/>
+    <w>testing if this looks okay</w>
+  </div>
 );
 
-export default HomePage 
+export default HomePage

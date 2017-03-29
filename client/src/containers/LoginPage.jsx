@@ -2,12 +2,7 @@ import React, { PropTypes } from 'react';
 import Auth from '../modules/Auth';
 import LoginForm from '../components/LoginForm.jsx';
 
-
 class LoginPage extends React.Component {
-
-  /**
-   * Class constructor.
-   */
   constructor(props, context) {
     super(props, context);
 
@@ -33,14 +28,9 @@ class LoginPage extends React.Component {
     this.changeUser = this.changeUser.bind(this);
   }
 
-  /**
-   * Process the form.
-   *
-   * @param {object} event - the JavaScript event object
-   */
-  processForm(event) {
+  processForm(e) {
     // prevent default action. in this case, action is the form submission event
-    event.preventDefault();
+    e.preventDefault();
 
     // create a string for an HTTP body message
     const email = encodeURIComponent(this.state.user.email);
@@ -64,7 +54,6 @@ class LoginPage extends React.Component {
         // save the token
         Auth.authenticateUser(xhr.response.token);
 
-
         // change the current URL to /
         this.context.router.replace('/');
       } else {
@@ -82,25 +71,18 @@ class LoginPage extends React.Component {
     xhr.send(formData);
   }
 
-  /**
-   * Change the user object.
-   *
-   * @param {object} event - the JavaScript event object
-   */
-  changeUser(event) {
-    const field = event.target.name;
+  changeUser(e) {
+    const field = e.target.name;
     const user = this.state.user;
-    user[field] = event.target.value;
+    user[field] = e.target.value;
 
     this.setState({
       user
     });
   }
 
-  /**
-   * Render the component.
-   */
   render() {
+    this.testing;
     return (
       <LoginForm
         onSubmit={this.processForm}
