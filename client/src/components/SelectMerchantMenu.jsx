@@ -5,10 +5,12 @@ import Dropdown from 'react-dropdown';
 
 
 const SelectMerchantMenu = ({
-  merchants, onClick
+  merchants, onClick, selected, products
 }) => (
   <div>
     {console.log('loading: ', merchants)}
+    {console.log('selected is ', selected)}
+    {console.log('products are ', products)}
 
     <z>Select a merchant from the list below</z>
     <div>
