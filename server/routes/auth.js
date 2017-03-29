@@ -63,7 +63,7 @@ function validateLoginForm(payload) {
     message,
     errors
   };
-}
+};
 
 router.get('/loadmerchants', function(req, res) {
   Merchant.find({})
@@ -76,18 +76,23 @@ router.get('/loadmerchants', function(req, res) {
     });
   })
   .catch((err) => res.sendStatus(500).send(err))
-})
+});
 
-router.get('/showproducts/:merchid', function(req, res) {
-  console.log('the id is: ', req.params.merchid);
-})
+// router.get('/showproducts/:merchid', function(req, res) {
+//   console.log('the id is: ', req.params.merchid);
+// })
 
 
-router.get('/showproducts', function(req, res) {
-  console.log('poop');
-  //console.log('query is: ', req.params.merch);
+router.get('/showproducts/:merchId', function(req, res) {
+  console.log('poop', req.params.merchId);
+  Product.find({merchantId: req.params.merchId})
+  .exec()
+  .then(function(clothes) {
+    console.log('clothes: ', clothes);
+  })
+  .catch((err)=>console.log('error: ', err));
   res.status(200).json({
-    name: 'Brandy'
+    name: 'Karen'
   });
 });
 
