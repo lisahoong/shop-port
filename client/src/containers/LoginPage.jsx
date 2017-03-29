@@ -28,7 +28,6 @@ class LoginPage extends React.Component {
     this.changeUser = this.changeUser.bind(this);
   }
 
-
   processForm(e) {
     // prevent default action. in this case, action is the form submission event
     e.preventDefault();
@@ -54,7 +53,6 @@ class LoginPage extends React.Component {
 
         // save the token
         Auth.authenticateUser(xhr.response.token);
-
 
         // change the current URL to /
         this.context.router.replace('/');
