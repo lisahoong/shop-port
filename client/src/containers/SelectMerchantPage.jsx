@@ -9,7 +9,9 @@ class SelectMerchantPage extends React.Component {
     super(props, context);
     this.state = {
       loading: true,
-      merchant: null
+      merchant: null,
+      picked: false,
+      products: []
     }
   }
   componentDidMount() {
@@ -22,6 +24,7 @@ class SelectMerchantPage extends React.Component {
         console.log('attempting to load merchants');
         console.log('message: ', xhr.response.message);
         console.log('RESPONSE: ', xhr.response.allmerchants);
+        console.log('*** this is ', this);
         this.setState({
           loading: false,
           merchants: xhr.response.allmerchants
@@ -33,7 +36,10 @@ class SelectMerchantPage extends React.Component {
     //setTimeout(console.log('after: ', this.state.merchants), 3000);
     xhr.send();
   }
-  showProducts(merchant) {
+  displayProducts(products) {
+    console.log('displaying', products);
+  }
+  findProducts(merchant) {
     console.log('found: ',merchant);
     const xhr = new XMLHttpRequest();
     xhr.open('get', '/auth/showproducts/'+merchant._id);
@@ -41,8 +47,11 @@ class SelectMerchantPage extends React.Component {
     xhr.responseType = 'json';
     xhr.addEventListener('load', () => {
       if (xhr.status === 200) {
-        console.log('help');
-        console.log('server got merchant: ', xhr.response.name);
+        console.log('server got products: ', xhr.response.products);
+
+
+        //this.displayProducts(xhr.response.products);
+        console.log('thissss: ', this);
       }
       else {
         console.log('FAIL');
@@ -51,13 +60,14 @@ class SelectMerchantPage extends React.Component {
     xhr.send();
   }
   render() {
-
     if (this.state.loading) {
       return (<div>Loading...</div>)
     } else return (
       <SelectMerchantMenu
         merchants={this.state.merchants}
-        onClick={this.showProducts}
+        onClick={this.findProducts.bind(this)}
+        selected={this.state.picked}
+        products={this.state.products}
       />
     );
   }
