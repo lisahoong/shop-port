@@ -34,7 +34,7 @@ class SelectMerchantPage extends React.Component {
     xhr.send();
   }
   showProducts(merchant) {
-    console.log('merchant retrieved\'s id: ', merchant._id);
+    console.log('found: ',merchant.name, merchant._id);
     const xhr = new XMLHttpRequest();
     xhr.open('get', '/auth/showproducts');
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');

@@ -79,7 +79,7 @@ router.get('/loadmerchants', function(req, res) {
 })
 
 router.get('/showproducts/:merchid', function(req, res) {
-  console.log('the id is: ', req.query.merchid);
+  console.log('the id is: ', req.params.merchid);
 })
 
 
