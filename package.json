@@ -37,6 +37,7 @@
     "react-dom": "^15.4.2",
     "react-dropdown": "^1.2.1",
     "react-router": "^2.6.1",
+    "scraperjs": "^1.2.0",
     "validator": "^7.0.0",
     "webpack": "^2.2.1"
   }

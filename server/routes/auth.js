@@ -8,6 +8,8 @@ const CartItem = require('mongoose').model('CartItem');
 
 const router = new express.Router();
 
+
+
 function validateSignupForm(payload) {
   const errors = {};
   let isFormValid = true;
@@ -64,6 +66,7 @@ function validateLoginForm(payload) {
     errors
   };
 };
+
 
 router.get('/loadmerchants', function(req, res) {
   Merchant.find({})
