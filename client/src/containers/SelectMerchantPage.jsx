@@ -34,20 +34,21 @@ class SelectMerchantPage extends React.Component {
     xhr.send();
   }
   showProducts(merchant) {
-    console.log('found: ',merchant.name, merchant._id);
+    console.log('found: ',merchant);
     const xhr = new XMLHttpRequest();
-    xhr.open('get', '/auth/showproducts');
+    xhr.open('get', '/auth/showproducts/'+merchant._id);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.responseType = 'json';
     xhr.addEventListener('load', () => {
       if (xhr.status === 200) {
+        console.log('help');
         console.log('server got merchant: ', xhr.response.name);
       }
       else {
         console.log('FAIL');
       }
-    })
-
+    });
+    xhr.send();
   }
   render() {
 
