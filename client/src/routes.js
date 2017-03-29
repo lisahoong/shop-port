@@ -42,7 +42,7 @@ const routes = {
       component: ShoppingPage
     },
     {
-      path: '/selectmerchant',
+      path: '/select',
       component: SelectMerchantPage
     },
 

@@ -10,6 +10,7 @@ module.exports = {
     loaders: [{
       test: /\.jsx?$/,
       include: path.join(__dirname, 'client/src'),
+      exclude: /node_modules/,
       loader: 'babel-loader?presets[]=es2015&presets[]=react'
     }]
   },

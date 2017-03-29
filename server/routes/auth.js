@@ -88,12 +88,12 @@ router.get('/showproducts/:merchId', function(req, res) {
   Product.find({merchantId: req.params.merchId})
   .exec()
   .then(function(clothes) {
-    console.log('clothes: ', clothes);
+    res.status(200).json({
+      products: clothes
+    });
   })
   .catch((err)=>console.log('error: ', err));
-  res.status(200).json({
-    name: 'Karen'
-  });
+
 });
 
 router.post('/addmerchant', function(req, res) {
