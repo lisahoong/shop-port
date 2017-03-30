@@ -6,6 +6,8 @@ import routes from './routes.js';
 import Base from './components/Base.jsx';
 import HomePage from './components/HomePage.jsx';
 import Products from './components/Products.jsx';
+import LaughAtSomeone from './components/LaughAtSomeone.jsx';
+import ProductsPage from './components/ProductsPage.jsx';
 import DashBoardPage from './containers/DashboardPage.jsx';
 import LoginPage from './containers/LoginPage.jsx';
 import SignUpPage from './containers/SignUpPage.jsx';
@@ -18,9 +20,13 @@ module.exports = (
     <IndexRoute component={HomePage}/>
     <Route path="/shop" component={SelectMerchantPage}>
       <IndexRoute component={SelectMerchantPage} /> //   /shop
-      <Route path=":merchName" component={ShoppingPage}/>
+      <Route path=":merchName" component={ShoppingPage}>
+        <Route path=":testing" component={LaughAtSomeone}/>
+      </Route>
+
     </Route>
-    <Route path="/lol" component={ShoppingPage}/>
+    <Route path="/lol" component={ProductsPage}/>
+    <Route path="/lol/:person" component={LaughAtSomeone}/>
     <Route path="/login" component={LoginPage}/>
     <Route path="/signup" component={SignUpPage}/>
     <Route path="/logout" onEnter={(nextState, replace) => {

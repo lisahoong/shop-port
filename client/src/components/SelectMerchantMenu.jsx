@@ -3,20 +3,25 @@ import { Link } from 'react-router';
 import Dropdown from 'react-dropdown';
 import Auth from '../modules/Auth';
 
+function generateLink(param) {
+  var sParameter = encodeURIComponent(param.trim())
+  return `/shop/${sParameter}`;
+}
+
 
 const SelectMerchantMenu = ({
   merchants, onClick, selected, products
 }) => (
   <div>
     {console.log('auth = ', Auth.isUserAuthenticated())}
-    {console.log('products are ', products)}
+
 
     <z>Select a merchant from the list below</z>
     <div>
       {merchants.map(function(merch, i) {
-        return <div key={i}><button onClick={()=> onClick(merch)}>
-          {merch.name}
-        </button></div>
+        return <div key={i}>
+        <div><Link to={generateLink(merch.name)} id="nav-link" >{merch.name}</Link></div>
+        </div>
       })}
     </div>
   </div>
