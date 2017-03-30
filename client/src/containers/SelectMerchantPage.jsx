@@ -10,7 +10,6 @@ class SelectMerchantPage extends React.Component {
     this.state = {
       loading: true,
       merchant: null,
-      picked: false,
       products: []
     }
   }
@@ -23,8 +22,6 @@ class SelectMerchantPage extends React.Component {
       if (xhr.status === 200) {
         console.log('attempting to load merchants');
         console.log('message: ', xhr.response.message);
-        console.log('RESPONSE: ', xhr.response.allmerchants);
-        console.log('*** this is ', this);
         this.setState({
           loading: false,
           merchants: xhr.response.allmerchants
@@ -68,12 +65,11 @@ class SelectMerchantPage extends React.Component {
       <div>
         {this.props.children}
 
-      <SelectMerchantMenu
-        merchants={this.state.merchants}
-        onClick={this.findProducts.bind(this)}
-        selected={this.state.picked}
-        products={this.state.products}
-      />
+        <SelectMerchantMenu
+          merchants={this.state.merchants}
+          onClick={this.findProducts.bind(this)}
+          products={this.state.products}
+        />
 
   </div>
     );

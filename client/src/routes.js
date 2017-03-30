@@ -5,6 +5,7 @@ import routes from './routes.js';
 
 import Base from './components/Base.jsx';
 import HomePage from './components/HomePage.jsx';
+import Products from './components/Products.jsx';
 import DashBoardPage from './containers/DashboardPage.jsx';
 import LoginPage from './containers/LoginPage.jsx';
 import SignUpPage from './containers/SignUpPage.jsx';
