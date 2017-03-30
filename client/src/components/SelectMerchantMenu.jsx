@@ -1,14 +1,14 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import Dropdown from 'react-dropdown';
-
+import Auth from '../modules/Auth';
 
 
 const SelectMerchantMenu = ({
   merchants, onClick, selected, products
 }) => (
   <div>
-    {console.log('loading: ', merchants)}
+    {console.log('auth = ', Auth.isUserAuthenticated())}
     {console.log('selected is ', selected)}
     {console.log('products are ', products)}
 
