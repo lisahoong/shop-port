@@ -9,7 +9,6 @@ const SelectMerchantMenu = ({
 }) => (
   <div>
     {console.log('auth = ', Auth.isUserAuthenticated())}
-    {console.log('selected is ', selected)}
     {console.log('products are ', products)}
 
     <z>Select a merchant from the list below</z>

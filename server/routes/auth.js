@@ -5,7 +5,6 @@ const Merchant = require('mongoose').model('Merchant');
 const Product = require('mongoose').model('Product');
 const User = require('mongoose').model('User');
 const CartItem = require('mongoose').model('CartItem');
-
 const router = new express.Router();
 
 function validateSignupForm(payload) {
@@ -85,16 +84,36 @@ router.get('/loadmerchants', function(req, res) {
 
 router.get('/showproducts/:merchId', function(req, res) {
   console.log('poop', req.params.merchId);
-  Product.find({merchantId: req.params.merchId})
+  Product.findOne({merchantId: req.params.merchId})
   .exec()
-  .then(function(clothes) {
+  .then(function(products) {
     res.status(200).json({
-      products: clothes
+      products: products
     });
   })
   .catch((err)=>console.log('error: ', err));
-
 });
+
+router.get('/findProductsByName/:name', function(req, res) {
+
+  Merchant.findOne({name: req.params.name}, function(err, found) {
+    if (err) {
+      console.log('error: ', err);
+    } else {
+      Product.find({merchantId : found._id}, function(err, products) {
+        if (err) {
+          console.log('error: ', err);
+        } else {
+          res.status(200).json({
+            message: 'got the products for ' + found.name,
+            products: products
+          })
+        }
+      })
+    }
+  })
+
+})
 
 router.post('/addmerchant', function(req, res) {
   console.log('body:', req.body);

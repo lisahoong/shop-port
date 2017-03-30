@@ -17,6 +17,7 @@ class ShoppingPage extends React.Component {
 
       console.log(this.props.params.merchName)
       // use this to get DATUHHHB
+
     var clothes = [
       {
         title: "Adalia Tank",
@@ -44,10 +45,25 @@ class ShoppingPage extends React.Component {
       }
     ]
 
-    this.setState({
-      products: clothes,
-      loading: false
+    const xhr = new XMLHttpRequest();
+    xhr.open('get', '/auth/findProductsByName/'+this.props.params.merchName);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', () => {
+      if (xhr.status === 200) {
+        console.log('success ', xhr.response.message);
+        this.setState({
+          products: xhr.response.products,
+          loading: false
+        });
+      }
+      else {
+        console.log('error');
+      }
     });
+    xhr.send();
+
+
   }
 
   showInfo(item) {
