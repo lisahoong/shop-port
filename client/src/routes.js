@@ -1,3 +1,8 @@
+import React from 'react';
+import ReactDom from 'react-dom';
+import { browserHistory, Router, Route, IndexRoute } from 'react-router';
+import routes from './routes.js';
+
 import Base from './components/Base.jsx';
 import HomePage from './components/HomePage.jsx';
 import DashBoardPage from './containers/DashboardPage.jsx';
@@ -7,54 +12,19 @@ import ShoppingPage from './containers/ShoppingPage.jsx';
 import SelectMerchantPage from './containers/SelectMerchantPage.jsx';
 import Auth from './modules/Auth';
 
-const routes = {
-  // base component (wrapper for the whole application).
-  component: Base,
-  childRoutes: [
-
-    {
-      path: '/',
-      getComponent: (location, cb) => {
-        if (Auth.isUserAuthenticated()) {
-          cb(null, DashBoardPage);
-        } else {
-          cb(null, HomePage);
-        }
-      }
-    },
-
-    {
-      path: '/login',
-      component: LoginPage
-    },
-
-    {
-      path: '/signup',
-      component: SignUpPage
-    },
-
-    {
-      path: '/shop',
-      component: ShoppingPage
-    },
-    {
-      path: '/additem',
-      component: ShoppingPage
-    },
-    {
-      path: '/select',
-      component: SelectMerchantPage
-    },
-
-    {
-      path: '/logout',
-      onEnter: (nextState, replace) => {
+module.exports = (
+  <Route path="/" component={Base}>
+    <IndexRoute component={HomePage}/>
+    <Route path="/shop" component={SelectMerchantPage}>
+      <IndexRoute component={SelectMerchantPage} /> //   /shop
+      <Route path=":merchName" component={ShoppingPage}/>
+    </Route>
+    <Route path="/lol" component={ShoppingPage}/>
+    <Route path="/login" component={LoginPage}/>
+    <Route path="/signup" component={SignUpPage}/>
+    <Route path="/logout" onEnter={(nextState, replace) => {
         Auth.deauthenticateUser();
         replace('/');
-      }
-    }
-
-  ]
-};
-
-export default routes;
+      }} />
+  </Route>
+)
