@@ -37,7 +37,11 @@ class SelectMerchantPage extends React.Component {
     xhr.send();
   }
   displayProducts(products) {
-    console.log('displaying', products);
+    console.log('displaying', this);
+    // this.setState({
+    //   picked: true,
+    //   products: products
+    // })
   }
   findProducts(merchant) {
     console.log('found: ',merchant);
@@ -48,10 +52,8 @@ class SelectMerchantPage extends React.Component {
     xhr.addEventListener('load', () => {
       if (xhr.status === 200) {
         console.log('server got products: ', xhr.response.products);
-
-
-        //this.displayProducts(xhr.response.products);
-        console.log('thissss: ', this);
+        this.displayProducts(xhr.response.products);
+        this.context.router.replace('/shop/'+merchant.name);
       }
       else {
         console.log('FAIL');
@@ -63,14 +65,23 @@ class SelectMerchantPage extends React.Component {
     if (this.state.loading) {
       return (<div>Loading...</div>)
     } else return (
+      <div>
+        {this.props.children}
+
       <SelectMerchantMenu
         merchants={this.state.merchants}
         onClick={this.findProducts.bind(this)}
         selected={this.state.picked}
         products={this.state.products}
       />
+
+  </div>
     );
   }
 }
+
+SelectMerchantPage.contextTypes = {
+  router: PropTypes.object.isRequired
+};
 
 export default SelectMerchantPage;

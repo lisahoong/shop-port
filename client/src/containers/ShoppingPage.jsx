@@ -14,6 +14,9 @@ class ShoppingPage extends React.Component {
   }
 
   componentDidMount() {
+
+      console.log(this.props.params.merchName)
+      // use this to get DATUHHHB
     var clothes = [
       {
         title: "Adalia Tank",
