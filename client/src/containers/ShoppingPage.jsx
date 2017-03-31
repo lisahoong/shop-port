@@ -60,15 +60,18 @@ class ShoppingPage extends React.Component {
         const title = encodeURIComponent(item.title);
         const link = encodeURIComponent(item.link);
         const price = encodeURIComponent(item.price);
-        const formData = `title=${title}&link=${link}&price=${price}`;
+        const merchantId = encodeURIComponent(item.merchantId);
+        const formData = `title=${title}&link=${link}&price=${price}&merchantId=${merchantId}`;
 
         const xhr = new XMLHttpRequest();
-        xhr.open('post', '/api/additem');
+        xhr.open('post', '/api/addcartitem');
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
         xhr.responseType = 'json';
         xhr.addEventListener('load', () => {
           if (xhr.status === 200) {
+
+            //clurs heres
             console.log('gottem');
           } else if (xhr.status === 401) {
             popupS.confirm({
@@ -76,7 +79,8 @@ class ShoppingPage extends React.Component {
               labelOk:     'Cancel',
               labelCancel: 'Log in',
               onSubmit: function() {
-                console.log(':)');
+
+                console.log(':) ** 400 err');
               },
               onClose: function() {
                 console.log(':(');

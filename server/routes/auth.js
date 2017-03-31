@@ -5,7 +5,15 @@ const Merchant = require('mongoose').model('Merchant');
 const Product = require('mongoose').model('Product');
 const User = require('mongoose').model('User');
 const CartItem = require('mongoose').model('CartItem');
+
+const scraperjs = require('scraperjs');
 const router = new express.Router();
+const scrape = new scraperjs.Router();
+
+
+scrape.otherwise(function(url){
+  console.log("FUCK YA'LL BITHCESS");
+})
 
 function validateSignupForm(payload) {
   const errors = {};
@@ -63,6 +71,60 @@ function validateLoginForm(payload) {
     errors
   };
 };
+//
+// const urls = ["rings","pendants","earrings","bracelets"]
+//
+// if(!urls || !urls.length) {
+// 	console.log("nooooo");
+// 	return;
+// }
+//
+// scrape.on('https?://mejuri.com/shop/t/type/:id')
+// .createStatic()
+//     .scrape(function($) {
+//       return $('[data-hook=products_list_item]').map(function() {
+//         // return {name:$(this).first().text().trim(), colors: $(this).children().next().text().trim(), price: $(this).children().next().next().text().trim()}
+// 				return({
+// 					name:$(this).children('.product-info').children(".product-name").text().trim(),
+// 					colors:$(this).children('.product-info').children(".product-details").text().trim(),
+// 					price:$(this).children('.product-info').children(".product-price").text().trim().split("\n")[0],
+// 					link:"http://www.mejuri.com"+ $(this).children('.product-image').attr('href'),
+// 					img:"http:" + $(this).children('.product-image').children('.main-image').attr('src')
+// 			})
+//       }).get();
+//
+//     })
+//     .then(function(links,utils) {
+//       var category = utils.params.id;
+//
+//       for(var i=0; i <links.length;i++){
+//
+//         var product = new Product({
+//           merchantId: "58d1c46cb31f3e83b68ad78a",
+//           title:links[i].name,
+//           link:links[i].link,
+//           src: links[i].img,
+//           price: links[i].price
+//
+//         })
+//         product.save().catch(function(err) {
+//           console.log('Error: ', err);
+//           res.status(500).send();
+//         })
+//       }
+//
+//
+//
+//
+//
+//     });
+//   for (var i=0; i<urls.length;i++){
+//     scrape.route("https://mejuri.com/shop/t/type/"+urls[i], function(boolval){
+//           if(boolval){
+//             console.log("ASUH");
+//           }
+//         })
+//       }
 
 //HI CLUR, i just quickly set these routes up for you
 //just like with any other API, just let me know what kind of data needs to be
@@ -135,6 +197,17 @@ router.post('/addmerchant', function(req, res) {
   })
 })
 
+router.post('/addCartItem/:cartId', function(req, res){
+  var findCartPromise = new Promise(function(resolve, reject){
+    Cart.findById(req.params.cartId, function(err, cart){
+      if(err){
+        reject(err);
+      }
+      resolve(cart);
+    })
+  })
+
+})
 router.post('/addMerchantItem/:merchant', function(req, res) {
 
   var findMerchantPromise = new Promise(function(resolve, reject) {
