@@ -83,7 +83,6 @@ class LoginPage extends React.Component {
   }
 
   render() {
-    this.testing;
     return (
       <LoginForm
         onSubmit={this.processForm}

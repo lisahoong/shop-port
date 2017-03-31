@@ -8,7 +8,6 @@ function generateLink(param) {
   return `/shop/${sParameter}`;
 }
 
-
 const SelectMerchantMenu = ({
   merchants, onClick, selected, products
 }) => (
