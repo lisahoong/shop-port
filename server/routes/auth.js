@@ -126,6 +126,20 @@ function validateLoginForm(payload) {
 //         })
 //       }
 
+//HI CLUR, i just quickly set these routes up for you
+//just like with any other API, just let me know what kind of data needs to be
+//received from the front and then also tell me what kind of information
+//you will spit back out that I can use on the front
+//Obviously add additional routes as needed and change the names or whatever lol
+
+router.post('/createNewOrder', function(req, res) {
+
+})
+
+router.post('addItemToCart/:cartId', function(req, res) {
+
+})
+
 router.get('/loadmerchants', function(req, res) {
   Merchant.find({})
   .sort({name: 1})
@@ -138,11 +152,6 @@ router.get('/loadmerchants', function(req, res) {
   })
   .catch((err) => res.sendStatus(500).send(err))
 });
-
-// router.get('/showproducts/:merchid', function(req, res) {
-//   console.log('the id is: ', req.params.merchid);
-// })
-
 
 router.get('/showproducts/:merchId', function(req, res) {
   console.log('poop', req.params.merchId);
