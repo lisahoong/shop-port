@@ -6,7 +6,7 @@ const LaughAtSomeone = function(props) {
   console.log('sup');
   console.log(props.params.person);
   return (<div>
-    <h1>laughing @ {props.params.person}</h1>
+    <w>laughing @ {props.params.person}</w>
     {props.children}
   </div>)
 }
