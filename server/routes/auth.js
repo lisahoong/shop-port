@@ -97,7 +97,7 @@ scrape.on('https?://mejuri.com/shop/t/type/:id')
       var category = utils.params.id;
 
       for(var i=0; i <links.length;i++){
-        
+
         var product = new Product({
           merchantId: "58d1c46cb31f3e83b68ad78a",
           title:links[i].name,
@@ -167,6 +167,17 @@ router.post('/addmerchant', function(req, res) {
   })
 })
 
+router.post('/addCartItem/:cartId', function(req, res){
+  var findCartPromise = new Promise(function(resolve, reject){
+    Cart.findById(req.params.cartId, function(err, cart){
+      if(err){
+        reject(err);
+      }
+      resolve(cart);
+    })
+  })
+
+})
 router.post('/addMerchantItem/:merchant', function(req, res) {
 
   var findMerchantPromise = new Promise(function(resolve, reject) {

@@ -51,4 +51,51 @@ router.post('/additem', function(req, res) {
   res.status(200).send();
 })
 
+router.post('/addcartitem', function(req,res){
+
+  console.log(req.body);
+  var promise = User.findById(req.user._id).exec();
+  promise.then(function(user){
+    console.log("i here "+ user._id);
+    return Cart.findById(user.cartRef);
+    //found a cart
+  })
+    .then(function(cart){
+      console.log("I FOUND THE CART BITCHES" + cart);
+      var newItem = new CartItem({
+        merchantId: req.body.
+
+      })
+    }, function(rejectcart){
+      //cant fidn a cart, create a new one
+    })
+
+    // if (user.cartId){
+    //   console.log("asuh" + user.cartId)
+      // Cart.findById(user.cartId).exec()
+      // .then(function(cart){
+      //   console.log(cart);
+      //   var cartitem = new CartItem({merchantId: req.body.merchantId,
+      //   productName: req.body.title,
+      //   price: req.body.price,
+      //   orderedBy: req.user._id,
+      //   paidBy: req.user._id,
+      //   isPaidFor: false,
+      //   cartId: cart._id,
+      //   src: req.body.src
+      //
+      // }, function(rejection){
+      //   var newCart = new Cart({
+      //     creatorId: req.user._id,
+      //     users:[req.user],
+      //
+      //   })
+      // });
+      //
+      //
+      // })
+    // }
+  })
+
+
 module.exports = router;

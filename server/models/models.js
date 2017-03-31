@@ -16,7 +16,11 @@ const UserSchema = new mongoose.Schema({
   admin: {
     type: Boolean,
     default: false
-  }
+  },
+  cartRef: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Cart"
+  } //added by ClUR
 });
 
 UserSchema.methods.comparePassword = function comparePassword(password, cb) {
