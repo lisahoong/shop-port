@@ -17,37 +17,24 @@ class ShoppingPage extends React.Component {
 
       console.log(this.props.params.merchName)
       // use this to get DATUHHHB
-    var clothes = [
-      {
-        title: "Adalia Tank",
-        price: "$18",
-        link: "http://www.brandymelvilleusa.com/adalia-tank-467-002.html",
-        src: "https://cdn.brandymelvilleusa.com/media/catalog/product/cache/1/image/414x621/9df78eab33525d08d6e5fb8d27136e95/m/d/md073-467s0020000_f.jpg"
-      },
-      {
-        title: "Linda Dress",
-        price: "$38",
-        link: "http://www.brandymelvilleusa.com/linda-dress-g08-071-y12.html",
-        src: "https://cdn.brandymelvilleusa.com/media/catalog/product/cache/1/image/414x621/9df78eab33525d08d6e5fb8d27136e95/m/d/md320-g08s07100y12_3full.jpg"
-      },
-      {
-        title: "Jillian Tank",
-        price: "$16",
-        link: "http://www.brandymelvilleusa.com/jillian-tank-795-122.html",
-        src: "https://cdn.brandymelvilleusa.com/media/catalog/product/cache/1/image/414x621/9df78eab33525d08d6e5fb8d27136e95/m/w/mw861-795s1220000_b.jpg"
-      },
-      {
-        title: "James Tank",
-        price: "$15",
-        link: "http://www.brandymelvilleusa.com/james-tank-550-229mz.html",
-        src: "https://cdn.brandymelvilleusa.com/media/catalog/product/cache/1/image/414x621/9df78eab33525d08d6e5fb8d27136e95/m/l/mla168-550s22900mz_.jpg"
-      }
-    ]
 
-    this.setState({
-      products: clothes,
-      loading: false
+    const xhr = new XMLHttpRequest();
+    xhr.open('get', '/auth/findProductsByName/'+this.props.params.merchName);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', () => {
+      if (xhr.status === 200) {
+        console.log('success ', xhr.response.message);
+        this.setState({
+          products: xhr.response.products,
+          loading: false
+        });
+      }
+      else {
+        console.log('error');
+      }
     });
+    xhr.send();
   }
 
   showInfo(item) {
@@ -58,7 +45,7 @@ class ShoppingPage extends React.Component {
       //   tag: 'img#himalaya.picture',
       //   src: 'https://youthtextingculture.files.wordpress.com/2016/04/screen-shot-2015-08-15-at-4-12-02-am.png'
       // },
-      content: 'hallo',
+      content: 'hallo this should display item description but unfortunately we are not quite there yet',
       labelOk: 'Add to cart',
       labelCancel: 'Cancel',
       additionalButtonOkClass: 'additionalButton',
