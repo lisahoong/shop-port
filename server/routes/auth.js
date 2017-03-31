@@ -5,7 +5,6 @@ const Merchant = require('mongoose').model('Merchant');
 const Product = require('mongoose').model('Product');
 const User = require('mongoose').model('User');
 const CartItem = require('mongoose').model('CartItem');
-
 const router = new express.Router();
 
 function validateSignupForm(payload) {
@@ -63,7 +62,67 @@ function validateLoginForm(payload) {
     message,
     errors
   };
-}
+};
+
+//HI CLUR, i just quickly set these routes up for you
+//just like with any other API, just let me know what kind of data needs to be
+//received from the front and then also tell me what kind of information
+//you will spit back out that I can use on the front
+//Obviously add additional routes as needed and change the names or whatever lol
+
+router.post('/createNewOrder', function(req, res) {
+
+})
+
+router.post('addItemToCart/:cartId', function(req, res) {
+
+})
+
+router.get('/loadmerchants', function(req, res) {
+  Merchant.find({})
+  .sort({name: 1})
+  .exec()
+  .then((merchants) => {
+    res.status(200).json({
+      message: 'Here are all your merchants bitch',
+      allmerchants: merchants
+    });
+  })
+  .catch((err) => res.sendStatus(500).send(err))
+});
+
+router.get('/showproducts/:merchId', function(req, res) {
+  console.log('poop', req.params.merchId);
+  Product.findOne({merchantId: req.params.merchId})
+  .exec()
+  .then(function(products) {
+    res.status(200).json({
+      products: products
+    });
+  })
+  .catch((err)=>console.log('error: ', err));
+});
+
+router.get('/findProductsByName/:name', function(req, res) {
+
+  Merchant.findOne({name: req.params.name}, function(err, found) {
+    if (err) {
+      console.log('error: ', err);
+    } else {
+      Product.find({merchantId : found._id}, function(err, products) {
+        if (err) {
+          console.log('error: ', err);
+        } else {
+          res.status(200).json({
+            message: 'got the products for ' + found.name,
+            products: products
+          })
+        }
+      })
+    }
+  })
+
+})
 
 router.post('/addmerchant', function(req, res) {
   console.log('body:', req.body);
@@ -76,31 +135,37 @@ router.post('/addmerchant', function(req, res) {
   })
 })
 
-router.get('/allmerchants', function(req, res) {
-  Merchant.find({})
-  .sort({name: 1})
-  .exec(function(err, merchants) {
-    if (err) {
-      res.status(500).send(err);
-    } else {
-      res.status(200).json({
-        allmerchants: merchants
-      })
-    }
-  })
-})
-
 router.post('/addMerchantItem/:merchant', function(req, res) {
-  Merchant.findById(req.params.merchant)
-  .then((merchant) => console.log('name: ', merchant.name));
-  //console.log('body: ',req.body);
-  res.status(200).send();
-  // var product = new Product(req.body);
-  // product.save().catch(function(err) {
-  //   console.log('Error: ', err);
-  //   res.status(500).send();
-  // })
-})
+
+  var findMerchantPromise = new Promise(function(resolve, reject) {
+    Merchant.findById(req.params.merchant, function(err, merchant) {
+      if (err) {
+        reject(err);
+      }
+      resolve(merchant);
+    });
+  });
+
+  findMerchantPromise.then(function(foundMerchant) {
+    req.body.forEach(function(item) {
+      var product = new Product(item);
+      product.merchantId = foundMerchant._id;
+      product.save(function(err, prod) {
+        if (err) {
+          res.status(500).json({
+            message: 'problem saving product'
+          })
+        }
+      })
+    })
+    res.status(200).json({
+      message: 'new products have been saved for ' + foundMerchant.name
+    })
+  })
+  .catch((err) => res.status(500).json({
+    message: 'merchant does not exist'
+  }));
+});
 
 
 router.post('/signup', function(req, res, next) {
