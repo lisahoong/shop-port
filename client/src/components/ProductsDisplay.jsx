@@ -3,8 +3,6 @@ import { Link } from 'react-router';
 
 const ProductsDisplay = function({data, items, showInfo}) {
   return (<div>
-      <div>
-        <y>Look at the things you can buy</y>
       <div className="clothes-container">
         {items.map(function(item, i) {
           return (
@@ -19,8 +17,6 @@ const ProductsDisplay = function({data, items, showInfo}) {
         })
       }
       </div>
-      </div>
-
   </div>)
 }
 
