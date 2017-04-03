@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
-import Products from '../components/Products.jsx';
 import Auth from '../modules/Auth';
 import popupS from 'popups';
 import ProductsDisplay from '../components/ProductsDisplay.jsx';
+import LOL from '../components/LOL.jsx';
 
 
 class ShoppingContainer extends React.Component{
@@ -102,6 +102,7 @@ class ShoppingContainer extends React.Component{
         items={this.state.products}
         showInfo={this.showInfo}
         />
+      <LOL lol="sup clur"/>
     </div>)
   }
 }
