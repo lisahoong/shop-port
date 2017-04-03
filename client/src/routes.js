@@ -9,6 +9,7 @@ import LOL from './components/LOL.jsx';
 import rofl from './components/rofl.jsx';
 import LaughAtSomeone from './components/LaughAtSomeone.jsx';
 import LaughContainer from './components/LaughContainer.jsx';
+import CartItems from './components/CartItems.jsx';
 import DashBoardPage from './containers/DashboardPage.jsx';
 import CartPage from './containers/CartPage.jsx';
 import ShoppingContainer from './containers/ShoppingContainer.jsx';
@@ -37,7 +38,9 @@ module.exports = (
     <Route path = "/join" component = {JoinContainer}>
       <Route path =":cart" component= {JoinCart}/>
     </Route>
-    <Route path="/cart" component={CartPage}/>
+    <Route path="/cart" component={CartPage}>
+      <Route path=":clur" component={CartItems}/>
+    </Route>
     <Route path="/login" component={LoginPage}/>
     <Route path="/signup" component={SignUpPage}/>
     <Route path="/logout" onEnter={(nextState, replace) => {
