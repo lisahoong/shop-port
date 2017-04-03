@@ -164,6 +164,26 @@ h1 {
   flex: 4;
 }
 
+.cart-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.checkout-container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  border: 1px solid pink;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.cartitems-container {
+  display: flex;
+  flex: 3;
+  border: 5px solid #DDEDE3;
+}
+
 #border-btm {
   border-bottom: 1px solid black;
 }

@@ -9,7 +9,7 @@ const SignUpForm = ({
 }) => (
   <div className="container">
     <form action="/" onSubmit={onSubmit}>
-      <h2 className="card-heading">Sign Up</h2>
+      <h3 className="card-heading">Sign Up</h3>
 
       {errors.summary && <p className="error-message">{errors.summary}</p>}
 
