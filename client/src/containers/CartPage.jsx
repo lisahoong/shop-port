@@ -5,11 +5,22 @@ import CartItems from '../components/CartItems.jsx';
 class CartPage extends React.Component {
   constructor() {
     super();
+    this.state = {
+      cart: ''
+    }
+  }
+  componentDidMount() {
+    //logic to get data
+    this.setState({
+      cart: '123'
+    })
+
   }
   render() {
     return (<div className="cart-container">
+    {this.props.children}
       <div>
-      <CartItems/><br/>
+      <CartItems data={this.props.params.clur}/><br/>
       </div>
 
       <div>

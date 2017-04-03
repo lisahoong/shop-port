@@ -33,9 +33,26 @@
     src:url('../fonts/Cheddar.ttf');
 }
 
+@font-face {
+    font-family: Opificio;
+    src:url('../fonts/Opificio.ttf');
+}
+
+@font-face {
+    font-family: Goldoni;
+    src:url('../fonts/Goldoni.otf');
+}
+
+@font-face {
+    font-family: RegencieLight;
+    src:url('../fonts/RegencieLight.ttf');
+}
+
 body {
   margin: 0;
-  font-size: 16px;
+  font-size: 12px;
+  font-family: RegencieLight;
+  letter-spacing: 1px;
 }
 
 h1 {
@@ -102,6 +119,7 @@ h1 {
 .clothing-item-container {
   display: flex;
   margin: 10px 10px;
+  width: 120px;
   padding: 10px 10px;
   flex-direction: column;
   align-items: center;
@@ -113,26 +131,44 @@ h1 {
   display: flex;
   height: 100px;
   width: 75px;
-
+  align-self: center;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
 }
 
 .clothing-item-image {
   display: flex;
   align-self: center;
-  height: 150px;
-  width: 100px;
+  height: 180px;
+  width: 120px;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
 }
 
 .clothing-item-info {
   display: flex;
   align-self: center;
   text-align: center;
+  align-content: center;
+  padding: 0px 0px;
+  margin: 0px 0px;
+  color: black;
+  font-size: 14px;
+  font-family: Telegrafico;
+  justify-content: center;
 }
 
 .clothing-item-price {
   display: flex;
   align-self: center;
   text-align: center;
+  align-content: center;
+  justify-content: center;
+  padding: 0px 0px;
+  margin: 5px 0px;
+  font-family: RegencieLight;
 }
 
 .content{
@@ -195,7 +231,7 @@ width: auto;
 
 #nav-link {
   font-family: Telegrafico;
-  font-size: 12;
+  font-size: 16px;
   color: #797A7E
 }
 
@@ -220,6 +256,7 @@ width: auto;
 
 h2 {
   position: absolute;
+  font-family: Times;
   font-size: 50px;
   top: 50px;
   left: -250px;

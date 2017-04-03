@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
-const CartItems = function() {
+const CartItems = function(props) {
   return (<div className="cartitems-container">
-    <w>items here</w>
+    <w>Items here</w>
   </div>)
 }
 
