@@ -6,7 +6,7 @@ const LOL = function(props) {
   console.log('sup');
 
   return (<div>
-  <h2>yo {props.lol}</h2>
+  <h3>{props.lol}</h3>
   </div>)
 }
 

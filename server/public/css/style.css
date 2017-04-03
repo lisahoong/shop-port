@@ -23,6 +23,16 @@
     src:url('../fonts/YesevaOne-Regular.ttf');
 }
 
+@font-face {
+    font-family: Notera;
+    src:url('../fonts/Notera.ttf');
+}
+
+@font-face {
+    font-family: Cheddar;
+    src:url('../fonts/Cheddar.ttf');
+}
+
 body {
   margin: 0;
   font-size: 16px;
@@ -74,13 +84,19 @@ h1 {
   margin: 10px 40px;
   border: 1px solid #797A7E;
   background-color: white;
-  height: 800px;
+  height: 600px;
+  overflow: scroll;
+}
+
+.landing-container {
+  border: 1px solid #797A7E;
 }
 
 .clothes-container {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  overflow: hidden;
 }
 
 .clothing-item-container {
@@ -148,6 +164,26 @@ h1 {
   flex: 4;
 }
 
+.cart-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.checkout-container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  border: 1px solid pink;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.cartitems-container {
+  display: flex;
+  flex: 3;
+  border: 5px solid #DDEDE3;
+}
+
 #border-btm {
   border-bottom: 1px solid black;
 }
@@ -168,6 +204,37 @@ width: auto;
   font-family: Nordica;
   font-size: 12px;
   margin-left: 3px;
+}
+
+.txt-img {
+  position: relative;
+  width: 100%;
+
+}
+
+.txt-img img {
+  width: 100%;
+  border-bottom: 1px solid #797A7E;
+
+}
+
+h2 {
+  position: absolute;
+  font-size: 50px;
+  top: 50px;
+  left: -250px;
+  width: 100%;
+}
+
+h2 span {
+   font-family: Yeseva;
+   background: rgb(0, 0, 0); /* fallback color */
+   background: rgba(0, 0, 0, 0.1);
+   padding: 10px;
+}
+
+#top {
+  margin-top: 20px;
 }
 
 #mint {
@@ -209,6 +276,12 @@ z {
 w {
   font-family: Nordica;
   font-size: 12px
+}
+
+y {
+  font-family: Notera;
+  font-size: 60px;
+  color: #D8D3CD
 }
 
 .top-bar {
