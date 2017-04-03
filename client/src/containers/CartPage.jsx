@@ -13,7 +13,7 @@ class CartPage extends React.Component {
   componentDidMount() {
     //logic to get data
     this.setState({
-      cart: '123'
+      cart: '123',
       blah: 'eeek'
     })
 
