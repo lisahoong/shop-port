@@ -5,14 +5,14 @@ const Merchant = require('mongoose').model('Merchant');
 const Product = require('mongoose').model('Product');
 const User = require('mongoose').model('User');
 const CartItem = require('mongoose').model('CartItem');
-
+const Cart = require('mongoose').model('Cart');
 const scraperjs = require('scraperjs');
 const router = new express.Router();
 const scrape = new scraperjs.Router();
 
 
 scrape.otherwise(function(url){
-  console.log("FUCK YA'LL BITHCESS");
+  console.log("scrape doesn't work");
 })
 
 function validateSignupForm(payload) {
@@ -164,6 +164,25 @@ router.get('/showproducts/:merchId', function(req, res) {
   })
   .catch((err)=>console.log('error: ', err));
 });
+router.get('/join/:cartId', function(req, res) {
+  //Render join form
+  console.log('yo i am here', req.params.cartId);
+
+      Cart.findById(req.params.cartId).exec()
+      .then(function(cart){
+
+      User.findById(cart.creatorId).exec()
+      .then((user) => {
+
+        res.status(200).json({
+          message: 'HULLO I FOUND DA USER',
+          user: user
+        })
+      })
+      .catch((err) => res.sendStatus(500).send(err));
+    })
+  })
+
 
 router.get('/findProductsByName/:name', function(req, res) {
 

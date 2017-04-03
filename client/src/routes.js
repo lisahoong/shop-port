@@ -18,6 +18,8 @@ import SignUpPage from './containers/SignUpPage.jsx';
 import ShoppingPage from './containers/ShoppingPage.jsx';
 import SelectMerchantPage from './containers/SelectMerchantPage.jsx';
 import Auth from './modules/Auth';
+import JoinCart from './components/JoinCart.jsx';
+import JoinContainer from './containers/JoinContainer.jsx';
 
 module.exports = (
   <Route path="/" component={Base}>
@@ -38,6 +40,9 @@ module.exports = (
       <Route path=":person" component={LaughAtSomeone}>
           <Route path=":store" component={rofl}/>
       </Route>
+    </Route>
+    <Route path = "/join" component = {JoinContainer}>
+      <Route path =":cart" component= {JoinCart}/>
     </Route>
     <Route path="/login" component={LoginPage}/>
     <Route path="/signup" component={SignUpPage}/>
