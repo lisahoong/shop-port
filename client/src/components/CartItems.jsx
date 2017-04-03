@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 
 const CartItems = function(props) {
   return (<div className="cartitems-container">
-    <w>Items here</w>
+    <w>Items there</w>
   </div>)
 }
 
