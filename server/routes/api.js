@@ -67,7 +67,7 @@ router.post('/addcartitem', function(req,res){
     console.log("YO I AM HERE AND I MADE A NEW CART");
     //created an empty cart
     var cart = new Cart({
-      creatordId: req.user._id,
+      creatorId: req.user._id,
       users:[req.user],
       merchantId: req.body.merchantId,
       totalAmountDue: 0,
