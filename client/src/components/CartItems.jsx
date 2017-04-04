@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 
 const CartItems = function(props) {
   return (<div>
-    <w>Items there</w>
+    <w>Items there okayyy</w>
   </div>)
 }
 
