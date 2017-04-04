@@ -49,7 +49,8 @@ class ShoppingContainer extends React.Component{
       content: 'hallo this should display item description but unfortunately we are not quite there yet',
       labelOk: 'Add to cart',
       labelCancel: 'Cancel',
-      additionalButtonOkClass: 'additionalButton',
+      additionalButtonOkClass: 'ok-button',
+      additionalButtonCancelClass: 'cancel-button',
       ajax : {                        // only available for mode: 'modal-ajax'
         url : 'http://url.com',
         post : true,
