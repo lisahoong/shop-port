@@ -114,26 +114,17 @@ h1 {
   flex-direction: row;
   flex-wrap: wrap;
   overflow: hidden;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .clothing-item-container {
   display: flex;
-  margin: 10px 10px;
+  margin: 5px 20px;
   width: 120px;
   padding: 10px 10px;
   flex-direction: column;
-  align-items: center;
-  align-content: center;
-  justify-content: center;
-}
-
-.clothing-item-image {
-  display: flex;
-  height: 100px;
-  width: 75px;
-  align-self: center;
-  align-items: center;
-  align-content: center;
+  align-items: flex-start;
   justify-content: center;
 }
 
@@ -142,7 +133,7 @@ h1 {
   align-self: center;
   height: 180px;
   width: 120px;
-  align-items: center;
+  align-items: flex-start;
   align-content: center;
   justify-content: center;
 }
@@ -153,7 +144,7 @@ h1 {
   text-align: center;
   align-content: center;
   padding: 0px 0px;
-  margin: 0px 0px;
+  margin-top: 3px;
   color: black;
   font-size: 14px;
   font-family: Telegrafico;
@@ -167,7 +158,7 @@ h1 {
   align-content: center;
   justify-content: center;
   padding: 0px 0px;
-  margin: 5px 0px;
+  margin-top: 5px;
   font-family: RegencieLight;
 }
 
@@ -203,13 +194,15 @@ h1 {
 .cart-container {
   display: flex;
   justify-content: space-between;
+  height: 100%;
 }
 
 .checkout-container {
   display: flex;
   flex: 1;
   flex-direction: column;
-  border: 1px solid pink;
+  border: 3px solid #D8D3CD;
+  height: 100%;
   justify-content: flex-start;
   align-items: flex-start;
 }
@@ -217,6 +210,7 @@ h1 {
 .cartitems-container {
   display: flex;
   flex: 3;
+  height: inherit;
   border: 5px solid #DDEDE3;
 }
 

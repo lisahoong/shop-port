@@ -8,6 +8,7 @@ import HomePage from './components/HomePage.jsx';
 import LOL from './components/LOL.jsx';
 import rofl from './components/rofl.jsx';
 import LaughAtSomeone from './components/LaughAtSomeone.jsx';
+import EmptyComponent from './components/EmptyComponent.jsx';
 import LaughContainer from './components/LaughContainer.jsx';
 import CartItems from './components/CartItems.jsx';
 import DashBoardPage from './containers/DashboardPage.jsx';
@@ -24,7 +25,7 @@ module.exports = (
     <IndexRoute component={HomePage}/>
     <Route path="/select" component={SelectMerchantPage}/>
     <Route path="/shop" component={ShoppingContainer}>
-      <Route path=":person" component={LaughAtSomeone}>
+      <Route path=":person" component={EmptyComponent}>
           <Route path=":store" component={rofl}/>
       </Route>
     </Route>
