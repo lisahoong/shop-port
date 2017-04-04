@@ -170,18 +170,25 @@ router.get('/join/:cartId', function(req, res) {
 
       Cart.findById(req.params.cartId).exec()
       .then(function(cart){
-
-      User.findById(cart.creatorId).exec()
+        console.log("SUP BITCHES" + cart);
+      return User.findById(cart.creatorId).exec()
+    })
       .then((user) => {
+        console.log("yo dis mi user" + user.name);
+
 
         res.status(200).json({
           message: 'HULLO I FOUND DA USER',
-          user: user
+          user: user.name
         })
       })
       .catch((err) => res.sendStatus(500).send(err));
     })
+router.post('/cart/:cartId', function(req,res){
+  var newUser = new User({
+    name: req.body.name
   })
+})
 
 
 router.get('/findProductsByName/:name', function(req, res) {

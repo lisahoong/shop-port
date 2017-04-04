@@ -67,7 +67,7 @@ router.post('/addcartitem', function(req,res){
     console.log("YO I AM HERE AND I MADE A NEW CART");
     //created an empty cart
     var cart = new Cart({
-      creatordId: req.user,
+      creatorId: req.user._id,
       users:[req.user],
       merchantId: req.body.merchantId,
       totalAmountDue: 0,
@@ -82,7 +82,6 @@ router.post('/addcartitem', function(req,res){
   .then(function(cart){
 
     console.log("IM IN THE CART LALALA" + cart);
-
     cart.totalAmountDue = Number.parseInt(cart.totalAmountDue) + Number.parseInt(req.body.price.substring(1,req.body.price.length));
     cart.totalPrice = Number.parseInt(cart.totalPrice) + Number.parseInt(req.body.price.substring(1,req.body.price.length));
     return cart.save();
@@ -120,9 +119,6 @@ router.post('/addcartitem', function(req,res){
 
 
 })
-
-
-
 
 module.exports = router;
 
