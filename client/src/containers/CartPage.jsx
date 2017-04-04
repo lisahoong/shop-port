@@ -21,11 +21,11 @@ class CartPage extends React.Component {
   render() {
     return (<div className="cart-container">
     {this.props.children}
-      <div>
+      <div className="cartitems-container">
       <CartItems data={this.props.params.clur}/><br/>
       </div>
 
-      <div>
+      <div className="checkout-container">
       <CartCheckout/>
       </div>
     </div>)
