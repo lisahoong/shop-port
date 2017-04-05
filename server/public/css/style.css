@@ -194,24 +194,116 @@ h1 {
 .cart-container {
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
   height: 100%;
 }
 
 .checkout-container {
   display: flex;
   flex: 1;
-  flex-direction: column;
-  border: 3px solid #D8D3CD;
+  flex-direction: row;
+  border-left: 1px solid black;
   height: 100%;
   justify-content: flex-start;
   align-items: flex-start;
 }
 
+.shared-info {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid black;
+}
+
+.allitems-container {
+  display: flex;
+  flex: 5;
+  border: 3px solid #F6F2E6;
+}
+
 .cartitems-container {
   display: flex;
   flex: 3;
+  flex-direction: column;
+  align-items: flex-start;
   height: inherit;
-  border: 5px solid #DDEDE3;
+  padding: 5px 10px;
+}
+
+.cart-useritems-container {
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.cart-100 {
+  width: 100%;
+}
+
+.cart-userimage-desc-containter {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.cart-userimage {
+  display: flex;
+  height: 107px;
+  width: 72px;
+  margin: 5px;
+  border: 1px solid black;
+}
+
+.cart-userinfo {
+  display: flex;
+  margin: 5px;
+  font-size: 14px;
+  padding-top: 10px;
+  font-family: Telegrafico;
+  color: black;
+}
+
+.cart-userprice {
+  display: flex;
+  margin: 5px;
+  padding-top: 10px;
+  padding: 0px 50px;
+}
+
+.cart-useritem-display {
+  display: flex;
+  flex: 5;
+  align-items: flex-start;
+}
+
+.cart-userprice-display {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-bar {
+  border: 1px solid black;
+  width: 200px;
+  height: 20px;
+}
+
+.progress {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #D8D3CD;
+  height: 20px;
+  width: 175px;
+}
+
+line {
+  border-bottom: 1px solid black;
+  width: 80%;
+  align-self: center;
+  padding: 5px 0px;
 }
 
 #border-btm {
@@ -236,6 +328,11 @@ width: auto;
   margin-left: 3px;
 }
 
+#cart-img {
+  height: 100;
+  width: 75;
+}
+
 .txt-img {
   position: relative;
   width: 100%;
@@ -245,7 +342,15 @@ width: auto;
 .txt-img img {
   width: 100%;
   border-bottom: 1px solid #797A7E;
+}
 
+.pay-button{
+	background-color: black;
+	color: white;
+	font-family: Telegrafico;
+	padding: 10px;
+	margin-top: 15px;
+	border: 0px;
 }
 
 h2 {
