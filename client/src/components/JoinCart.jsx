@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 
 function shareLink(name){
   var sProp=encodeURIComponent(name.trim())
-  return `/cart/${sProp}`;
+  return `/signup/${sProp}`;
 }
 const JoinCart = function(props){
   console.log('yoyo join da cart');

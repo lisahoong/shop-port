@@ -43,7 +43,11 @@ module.exports = (
       <Route path=":clur" component={CartItems}/>
     </Route>
     <Route path="/login" component={LoginPage}/>
-    <Route path="/signup" component={SignUpPage}/>
+    <Route path="/signup" component={SignUpPage}>
+      <Route path=":cartid" component={SignUpPage}/>
+    </Route>
+
+
     <Route path="/logout" onEnter={(nextState, replace) => {
         Auth.deauthenticateUser();
         replace('/');

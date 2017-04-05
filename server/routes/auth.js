@@ -12,7 +12,7 @@ const scrape = new scraperjs.Router();
 
 
 scrape.otherwise(function(url){
-  console.log("scrape doesn't work");
+  console.log("scrape doesn't work: " + url);
 })
 
 function validateSignupForm(payload) {
@@ -72,6 +72,61 @@ function validateLoginForm(payload) {
   };
 };
 //
+// const urls = ["eyeshadow"]
+//
+// if(!urls || !urls.length) {
+// 	console.log("nooooo");
+// 	return;
+// }
+//
+// scrape.on('https?://sokoglam.com/collections/:id')
+// .createStatic()
+//     .scrape(function($) {
+//
+//       return $('.image-cont').map(function() {
+//         // return {name:$(this).first().text().trim(), colors: $(this).children().next().text().trim(), price: $(this).children().next().next().text().trim()}
+//         console.log($(this).children('.more-info').children('.inner').children('.innerer').chilren('.title').text());
+//         return({
+// 					name:$(this).children('.more-info').children('.inner').children('.innerer').children('.title').text().trim(),
+// 					price:$(this).children('.more-info').children(".inner").children('.innerer').children('.price').text().trim().split("\n")[0],
+// 					link:"https://sokoglam.com"+ $(this).children('.more-info').attr('href'),
+// 					img:"https:" + $(this).children('.more-info').children('img').attr('src')
+// 			})
+//       }).get();
+//
+//     })
+//     .then(function(links,utils) {
+//       console.log("betchs");
+//       console.log(links);
+//       var category = utils.params.id;
+//
+//       for(var i=0; i <links.length;i++){
+//
+//         var product = new Product({
+//           merchantId: "test",
+//           title:links[i].name,
+//           link:links[i].link,
+//           src: links[i].img,
+//           price: links[i].price
+//
+//         })
+//         product.save().catch(function(err) {
+//           console.log('Error: ', err);
+//           res.status(500).send();
+//         })
+//       }
+//
+//
+//     });
+//   for (var i=0; i<urls.length;i++){
+//     console.log("https://sokoglam.com/collections/"+urls[i]);
+//     scrape.route("https://sokoglam.com/collections/"+urls[i], function(boolval){
+//           if(boolval){
+//             console.log("ASUH betches");
+//           }
+//         })
+//       }
+//MEJURI STARTS HERE
 // const urls = ["rings","pendants","earrings","bracelets"]
 //
 // if(!urls || !urls.length) {
@@ -164,6 +219,7 @@ router.get('/showproducts/:merchId', function(req, res) {
   })
   .catch((err)=>console.log('error: ', err));
 });
+
 router.get('/join/:cartId', function(req, res) {
   //Render join form
   console.log('yo i am here', req.params.cartId);
@@ -184,25 +240,34 @@ router.get('/join/:cartId', function(req, res) {
   })
   .catch((err) => res.sendStatus(500).send(err));
 })
+
 router.post('/cart/:cartId/', function(req,res){
-  var newUser = new User({
-    name: req.body.name,
-    phone: req.body.phone
-  });
+  var newUser = new User(
+    {
+      name: req.body.name,
+      email: req.body.email,
+      cartRef: req.params.cartId
+    }
+  );
+  console.log("asuh");
   newUser.save()
   .then(function(){
+    res.send("hihi");
     return Cart.findById(req.params.cartId).exec()
   })
   .then(function(cart){
+    console.log("ash");
     cart.users.push(newUser);
     return cart.save();
   }).then(function(cart){
+    console.log(cart);
     console.log("YO IM REACHED");
     res.status(200).json({
       message:"asuh i got da shared cart",
-      cartId:cart._id
+      cartId:cart._id,
+      userId:newUser._id
     })
-  })
+  }).catch((err) => res.sendStatus(500).send(err));
 })
 
 
