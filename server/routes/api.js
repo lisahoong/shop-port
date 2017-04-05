@@ -55,12 +55,13 @@ router.post('/additem', function(req, res) {
 router.post('/addcartitem', function(req,res){
 
   console.log(req.body);
+
   var promise = User.findById(req.user._id).exec();
   promise.then(function(user){
     console.log("i here "+ user);
+    //this counts on the user always being logged in
     if (user.cartRef){
       console.log(user.cartRef + "I IS HERE");
-
     return Cart.findById(user.cartRef).exec();
   }
   else{
