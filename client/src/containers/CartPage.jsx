@@ -17,7 +17,8 @@ class CartPage extends React.Component {
       cartObjArray: null,
       user: '',
       userName: '',
-      userItems: null
+      userItems: null,
+      userTotal: null
     }
   }
   componentDidMount() {
@@ -29,6 +30,7 @@ class CartPage extends React.Component {
       addressLine2: 'San Francisco, CA 94103',
       minimum: 100,
       cartSubtotal: 70,
+      userTotal: 57,
       adminId: 'Moose',
       user: '789',
       userName: 'Shreesu',
@@ -124,8 +126,11 @@ render() {
       <div className="cartitems-container">
         <CartItems
           userName={this.state.userName}
-          userItems={this.state.userItems}/><br/>
+          userItems={this.state.userItems}
+          userTotal={this.state.userTotal}/>
+
       </div>
+
 
       <div className="checkout-container">
         <CartCheckout/>

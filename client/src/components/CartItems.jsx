@@ -3,17 +3,21 @@ import { Link } from 'react-router';
 
 const CartItems = function(props) {
   console.log('ddv', props.userItems);
-  return (<div>
+  return (<div className="cart-100">
     <w>{props.userName}&#39;s Cart</w>
     {props.userItems.map(function(item, i) {
-      return (<div key={i} className="clothing-item-container">
-      <div>
-        <img className="clothing-item-image" href={item.link} src={item.src}/>
-        <a className="clothing-item-info" href={item.link}>{item.title}</a>
-        <p className="clothing-item-price">{item.price}</p>
+      return (<div key={i} className="cart-useritems-container">
+          <div className="cart-userimage-desc-containter">
+        <img className="cart-userimage" href={item.link} src={item.src}/>
+      <a className="cart-userinfo" href={item.link}>{item.title}</a>
       </div>
+      <p className="cart-userprice">{item.price}</p>
+
     </div>)
   })}
+    <line/>
+    Subtotal: ${props.userTotal}<br/>
+  <div className="pay-button"><Link to="/lol">Pay share</Link></div>
 </div>
 )
 }
