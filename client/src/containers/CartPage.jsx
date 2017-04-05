@@ -107,6 +107,9 @@ class CartPage extends React.Component {
     ]
   })
 }
+createCharge() {
+  console.log('creating charge');
+}
 render() {
   if (this.state.loading) {
     return <div>Loading...</div>
@@ -127,7 +130,9 @@ render() {
         <CartItems
           userName={this.state.userName}
           userItems={this.state.userItems}
-          userTotal={this.state.userTotal}/>
+          userTotal={this.state.userTotal}
+          payShare={this.createCharge.bind(this)}
+          />
 
       </div>
 
