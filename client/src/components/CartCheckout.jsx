@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 
 const CartCheckout = function() {
   return (<div>
-    <z>checkout</z>
+    <w>Other users items here</w>
   </div>)
 }
 
