@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import SignUpForm from '../components/SignUpForm.jsx';
 
-
 class SignUpPage extends React.Component {
 
   /**
@@ -30,6 +29,39 @@ class SignUpPage extends React.Component {
       loading: false,
       cartRef: this.props.params.cartId
     });
+  }
+  cartExists() {
+    const xhr = new XMLHttpRequest();
+    //change the route here
+    xhr.open('post', '/auth/signup');
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', () => {
+      if (xhr.status === 200) {
+        // success
+
+        // change the component-container state
+        this.setState({
+          errors: {}
+        });
+
+        // set a message
+        localStorage.setItem('successMessage', xhr.response.message);
+
+        //redo logic here to get shop/store/cartid/user
+        this.context.router.replace('/shop/');
+      } else {
+        // failure
+
+        const errors = xhr.response.errors ? xhr.response.errors : {};
+        errors.summary = xhr.response.message;
+
+        this.setState({
+          errors
+        });
+      }
+    });
+    xhr.send(formData);
   }
   processForm(e) {
     // prevent default action. in this case, action is the form submission event
