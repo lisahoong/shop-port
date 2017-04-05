@@ -9,6 +9,7 @@ module.exports = new LocalStrategy({
   //to read other parameters in the POST body message
   passReqToCallback: true
 }, (req, email, password, done) => {
+  // console.log(" hskshfjhksaf bRUH" + req.body);
   const userData = {
     email: email.trim(),
     password: password.trim(),

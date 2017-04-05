@@ -44,7 +44,7 @@ module.exports = (
     </Route>
     <Route path="/login" component={LoginPage}/>
     <Route path="/signup" component={SignUpPage}>
-      <Route path=":cartid" component={SignUpPage}/>
+      <Route path=":cartId" component={SignUpPage}/>
     </Route>
 
 
