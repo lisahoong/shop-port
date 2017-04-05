@@ -12,6 +12,7 @@ class SignUpPage extends React.Component {
 
     // set the initial component state
     this.state = {
+      loading: true,
       errors: {},
       user: {
         email: '',
@@ -25,8 +26,10 @@ class SignUpPage extends React.Component {
     this.changeUser = this.changeUser.bind(this);
   }
   componentDidMount(){
-
-    this.setState({cartRef: this.props.params.cartId});
+    this.setState({
+      loading: false,
+      cartRef: this.props.params.cartId
+    });
   }
   processForm(e) {
     // prevent default action. in this case, action is the form submission event
@@ -37,10 +40,18 @@ class SignUpPage extends React.Component {
     const name = encodeURIComponent(this.state.user.name);
     const email = encodeURIComponent(this.state.user.email);
     const password = encodeURIComponent(this.state.user.password);
-    const cartRef = encodeURIComponent(this.state.cartRef);
-    var formData = `name=${name}&email=${email}&password=${password}`;
-    if(cartRef){
-      formData = `name=${name}&email=${email}&password=${password}$cartRef=${cartRef}`;
+    var cartRef;
+    var formData;
+    if (!this.state.loading && this.props.params.cartId) {
+      cartRef = encodeURIComponent(this.state.cartRef);
+    }
+    //console.log('loader: ', this.state.loading);
+    //console.log('params? ', this.props.params.cartId);
+    console.log('cart ref: ', cartRef);
+    if (cartRef) {
+      formData = `name=${name}&email=${email}&password=${password}&cartRef=${cartRef}`;
+    } else {
+      formData = `name=${name}&email=${email}&password=${password}`;
     }
     // const formData = `name=${name}&email=${email}&password=${password}`;
 
