@@ -17,22 +17,32 @@ class SignUpPage extends React.Component {
         email: '',
         name: '',
         password: ''
-      }
+      },
+      cartRef:''
     };
 
     this.processForm = this.processForm.bind(this);
     this.changeUser = this.changeUser.bind(this);
   }
+  componentDidMount(){
 
+    this.setState({cartRef: this.props.params.cartId});
+  }
   processForm(e) {
     // prevent default action. in this case, action is the form submission event
     e.preventDefault();
 
     // create a string for an HTTP body message
+    console.log("YOOO" + this.state.cartRef);
     const name = encodeURIComponent(this.state.user.name);
     const email = encodeURIComponent(this.state.user.email);
     const password = encodeURIComponent(this.state.user.password);
-    const formData = `name=${name}&email=${email}&password=${password}`;
+    const cartRef = encodeURIComponent(this.state.cartRef);
+    var formData = `name=${name}&email=${email}&password=${password}`;
+    if(cartRef){
+      formData = `name=${name}&email=${email}&password=${password}$cartRef=${cartRef}`;
+    }
+    // const formData = `name=${name}&email=${email}&password=${password}`;
 
     // create an AJAX request
     const xhr = new XMLHttpRequest();
