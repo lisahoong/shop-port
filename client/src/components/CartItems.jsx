@@ -17,7 +17,7 @@ const CartItems = function(props) {
   })}
     <line/>
     Subtotal: ${props.userTotal}<br/>
-  <div className="pay-button"><Link to="/lol">Pay share</Link></div>
+  <div className="pay-button"><Link to="/checkout">Pay share</Link></div>
 </div>
 )
 }

@@ -11,8 +11,6 @@ const PaymentForm = ({
     <form action="/" onSubmit={onSubmit}>
       <h3 className="card-heading">Sign Up</h3>
 
-      {errors.summary && <p className="error-message">{errors.summary}</p>}
-
       <div className="field-line">
         <input type="text"
           placeholder="Name"
@@ -50,11 +48,11 @@ const PaymentForm = ({
   </div>
 );
 
-SignUpForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired,
-  errors: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired
-};
+// SignUpForm.propTypes = {
+//   onSubmit: PropTypes.func.isRequired,
+//   onChange: PropTypes.func.isRequired,
+//   errors: PropTypes.object.isRequired,
+//   user: PropTypes.object.isRequired
+// };
 
 export default PaymentForm;
