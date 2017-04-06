@@ -3,9 +3,6 @@ import Products from '../components/Products.jsx';
 import Auth from '../modules/Auth';
 import popupS from 'popups';
 import JoinCart from '../components/JoinCart.jsx';
-
-
-
 class JoinContainer extends React.Component{
   constructor(props, context) {
     super(props, context);
@@ -32,12 +29,10 @@ class JoinContainer extends React.Component{
     xhr.send();
   }
   render(){
-    console.log(this.props.params.cart);
+    console.log("HJGVFC" + this.props.params.cart);
     return<div> asuh
       <JoinCart user={this.state.user} cart={this.props.params.cart}/>
     </div>
   }
 }
-
-
 export default JoinContainer;
