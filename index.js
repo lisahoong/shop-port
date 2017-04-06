@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const config = require('./config');
 const path = require('path');
+const stripe = require('stripe')(config.STRIPE_TOKEN);
 
 require('./server/models').connect(config.MONGODB_URI);
 
@@ -27,7 +28,7 @@ app.use('/api', authCheckMiddleware);
 
 const authRoutes = require('./server/routes/auth.js');
 app.use('/auth', authRoutes);
-const apiRoutes = require('./server/routes/api');
+const apiRoutes = require('./server/routes/api.js');
 app.use('/api', apiRoutes);
 
 app.get('/*', function(req, res) {

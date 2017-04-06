@@ -16,6 +16,7 @@ import CartPage from './containers/CartPage.jsx';
 import ShoppingContainer from './containers/ShoppingContainer.jsx';
 import ProductsDisplay from './components/ProductsDisplay.jsx';
 import LoginPage from './containers/LoginPage.jsx';
+import CheckoutPage from './containers/CheckoutPage.jsx';
 import SignUpPage from './containers/SignUpPage.jsx';
 import SelectMerchantPage from './containers/SelectMerchantPage.jsx';
 import Auth from './modules/Auth';
@@ -42,6 +43,7 @@ module.exports = (
     <Route path="/cart" component={CartPage}>
       <Route path=":clur" component={CartItems}/>
     </Route>
+
     <Route path="/login" component={LoginPage}>
       <Route path=":cartId" component={LoginPage}/>
     </Route>
