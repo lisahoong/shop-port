@@ -6,23 +6,29 @@ class CheckoutPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      errors: {},
       target: ''
     }
   }
-  laugh(e) {
-    this.setState({
-      target: e.target.name
+  componentDidMount() {
+    const xhr = new XMLHttpRequest();
+    xhr.open('get', '/api/testing');
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', () => {
+      if (xhr.status === 200) {
+        console.log(xhr.response.message);
+      } else {
+        console.log('boohoo');
+      }
     });
+    xhr.send();
   }
   render() {
     return (<div>
-      <h1>Let's laugh at someone</h1>
-      <z>Who should we laugh at?</z>
-      <div className="field-line">
-        <input type="text" name="person" placeholder="suh"/>
-      </div>
+      <h1>Checking out</h1>
       {this.props.children}
-      <LOL lol={"hab u seen shree"} />
     </div>)
   }
 }
