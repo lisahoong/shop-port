@@ -21,8 +21,12 @@ class CartPage extends React.Component {
       userTotal: null
     }
   }
+  calculateCurrentUserTotal() {
+
+  }
   componentDidMount() {
     //logic to get data
+
     this.setState({
       loading: false,
       merchant: 'Brandy Melville',

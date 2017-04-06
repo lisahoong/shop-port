@@ -5,6 +5,8 @@ const Merchant = require('mongoose').model('Merchant');
 const Product = require('mongoose').model('Product');
 const CartItem = require('mongoose').model('CartItem');
 const Cart = require('mongoose').model('Cart');
+const config = require('../../config');
+const stripe = require('stripe')(config.STRIPE_TOKEN);
 
 router.get('/dashboard', function(req, res) {
   res.status(200).json({
@@ -31,6 +33,26 @@ router.get('/allmerchants', function(req, res) {
         allmerchants: merchants
       })
     }
+  })
+})
+
+router.get('/testing', function(req, res) {
+  stripe.charges.create({
+    amount: 2000,
+    currency: "usd",
+    source: "tok_19zdzkHKnjVYU11siwfia2Tp", // obtained with Stripe.js
+    description: "Charge for testing purposes"
+  }, function(err, charge) {
+    // asynchronously called
+    if (err) {
+      console.log('err', err);
+    } else {
+      console.log('new charge', charge);
+    }
+  });
+  console.log('hello bitches i am tesing and api endpoint');
+  res.status(200).json({
+    message: 'sup'
   })
 })
 
@@ -62,21 +84,21 @@ router.post('/addcartitem', function(req,res){
     //this counts on the user always being logged in
     if (user.cartRef){
       console.log(user.cartRef + "I IS HERE");
-    return Cart.findById(user.cartRef).exec();
-  }
-  else{
-    console.log("YO I AM HERE AND I MADE A NEW CART");
-    //created an empty cart
-    var cart = new Cart({
-      creatorId: req.user._id,
-      users:[req.user],
-      merchantId: req.body.merchantId,
-      totalAmountDue: 0,
-      totalPrice: 0,
-      deliveryAddress:""//change later - clur
-    })
-    return cart.save();
-  }
+      return Cart.findById(user.cartRef).exec();
+    }
+    else{
+      console.log("YO I AM HERE AND I MADE A NEW CART");
+      //created an empty cart
+      var cart = new Cart({
+        creatorId: req.user._id,
+        users:[req.user],
+        merchantId: req.body.merchantId,
+        totalAmountDue: 0,
+        totalPrice: 0,
+        deliveryAddress:""//change later - clur
+      })
+      return cart.save();
+    }
     //found a cart
   })
 
@@ -90,17 +112,17 @@ router.post('/addcartitem', function(req,res){
   .then(function(cart){
     var newItem = new CartItem({
 
-        merchantId: req.body.merchantId,
-        productName: req.body.title,
-        price: req.body.price.substring(1,req.body.price.length),
-        orderedBy:req.user._id,
-        paidBy:req.user._id,
-        isPaidFor:false,//do i need to change this? - clur
-        cartId:cart._id,
-        src: req.user.link
+      merchantId: req.body.merchantId,
+      productName: req.body.title,
+      price: req.body.price.substring(1,req.body.price.length),
+      orderedBy:req.user._id,
+      paidBy:req.user._id,
+      isPaidFor:false,//do i need to change this? - clur
+      cartId:cart._id,
+      src: req.user.link
 
-      })
-      return newItem.save();
+    })
+    return newItem.save();
   }).then(function(cartItem){
     return Cart.findById(cartItem.cartId).exec()
   })
