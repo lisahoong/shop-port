@@ -1,13 +1,19 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import Auth from '../modules/Auth';
+import PaymentForm from '../components/PaymentForm.jsx';
 
 class CheckoutPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       errors: {},
-      target: ''
+      target: '',
+      user: {
+        name: '',
+        email: '',
+        password: ''
+      }
     }
   }
   componentDidMount() {
@@ -25,10 +31,19 @@ class CheckoutPage extends React.Component {
     });
     xhr.send();
   }
+  fillForm(e) {
+    console.log('user is filling out form');
+  }
   render() {
     return (<div>
       <h1>Checking out</h1>
       {this.props.children}
+      <PaymentForm
+        user={this.state.user}
+        errors={this.state.errors}
+        onChange={this.fillForm}
+        onSubmit={this.processForm}
+      />
     </div>)
   }
 }
