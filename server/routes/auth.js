@@ -242,22 +242,12 @@ router.get('/join/:cartId', function(req, res) {
 })
 
 router.post('/cart/:cartId/', function(req,res){
-  var newUser = new User(
-    {
-      name: req.body.name,
-      email: req.body.email,
-      cartRef: req.params.cartId
-    }
-  );
+  console.log("this ths uer "+ req.user);
   console.log("asuh");
-  newUser.save()
-  .then(function(){
-    res.send("hihi");
-    return Cart.findById(req.params.cartId).exec()
-  })
+  Cart.findById(req.params.cartId).exec()
   .then(function(cart){
     console.log("ash");
-    cart.users.push(newUser);
+    cart.users.push(req.user);
     return cart.save();
   }).then(function(cart){
     console.log(cart);
@@ -265,7 +255,7 @@ router.post('/cart/:cartId/', function(req,res){
     res.status(200).json({
       message:"asuh i got da shared cart",
       cartId:cart._id,
-      userId:newUser._id
+      userId:req.user._id
     })
   }).catch((err) => res.sendStatus(500).send(err));
 })
@@ -351,6 +341,7 @@ router.post('/addMerchantItem/:merchant', function(req, res) {
 
 router.post('/signup', function(req, res, next) {
   const validationResult = validateLoginForm(req.body);
+  console.log("IVE BEEN HIT");
   if (!validationResult.success) {
     return res.status(400).json({
       success: false,

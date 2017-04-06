@@ -32,7 +32,7 @@ class JoinContainer extends React.Component{
     xhr.send();
   }
   render(){
-    console.log(this.props.params.cart);
+    console.log("HJGVFC" + this.props.params.cart);
     return<div> asuh
       <JoinCart user={this.state.user} cart={this.props.params.cart}/>
     </div>

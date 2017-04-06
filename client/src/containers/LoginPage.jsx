@@ -21,11 +21,18 @@ class LoginPage extends React.Component {
       user: {
         email: '',
         password: ''
-      }
+      },
+      cartRef:''
     };
 
     this.processForm = this.processForm.bind(this);
     this.changeUser = this.changeUser.bind(this);
+  }
+  componentDidMount(){
+    this.setState({
+      loading: false,
+      cartRef: this.props.params.cartId
+    });
   }
 
   processForm(e) {
@@ -55,7 +62,15 @@ class LoginPage extends React.Component {
         Auth.authenticateUser(xhr.response.token);
         console.log('this login: ', this);
         // change the current URL to /
-        this.context.router.replace('/');
+        //if the user has a cart param already, hit the shopping endpoint.
+         if(this.state.cartRef){
+           console.log("i reached this part wuhduhhell");
+
+           this.context.router.replace('/select');
+         }else{
+           this.context.router.replace('/');
+         }
+
 
       } else {
         // failure
@@ -70,6 +85,7 @@ class LoginPage extends React.Component {
       }
     });
     xhr.send(formData);
+
   }
 
   changeUser(e) {

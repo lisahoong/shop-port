@@ -1,5 +1,6 @@
 class Auth {
   static authenticateUser(token) {
+    console.log('authenticating');
     localStorage.setItem('token', token);
   }
 

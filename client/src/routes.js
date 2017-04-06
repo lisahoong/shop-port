@@ -42,7 +42,9 @@ module.exports = (
     <Route path="/cart" component={CartPage}>
       <Route path=":clur" component={CartItems}/>
     </Route>
-    <Route path="/login" component={LoginPage}/>
+    <Route path="/login" component={LoginPage}>
+      <Route path=":cartId" component={LoginPage}/>
+    </Route>
     <Route path="/signup" component={SignUpPage}>
       <Route path=":cartId" component={SignUpPage}/>
     </Route>

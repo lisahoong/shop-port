@@ -31,6 +31,27 @@ class SignUpPage extends React.Component {
       cartRef: this.props.params.cartId
     });
   }
+  withParam(){
+    const xhr = new XMLHttpRequest();
+    console.log("OMG WHAT ARE YOU "+this.state.cartRef);
+    xhr.open('post', '/auth/cart/'+this.state.cartRef);
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', () => {
+      if (xhr.status === 200) {
+        // success
+
+        // make a redirect
+        console.log('this sign up w/param: ', this);
+
+      } else {
+        // failure
+        console.log("aylmao you failed");
+
+      }
+    });
+    xhr.send();
+  }
   processForm(e) {
     // prevent default action. in this case, action is the form submission event
     e.preventDefault();
@@ -57,6 +78,7 @@ class SignUpPage extends React.Component {
 
     // create an AJAX request
     const xhr = new XMLHttpRequest();
+
     xhr.open('post', '/auth/signup');
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhr.responseType = 'json';
@@ -74,7 +96,13 @@ class SignUpPage extends React.Component {
 
         // make a redirect
         console.log('this sign up: ', this);
-        this.context.router.replace('/login');
+        if (cartRef){
+          console.log("muddafucker");
+          this.context.router.replace('/login/'+ cartRef);
+        }else{
+          this.context.router.replace('/login');
+        }
+
       } else {
         // failure
 
