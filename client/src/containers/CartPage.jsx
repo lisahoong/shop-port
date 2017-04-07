@@ -21,9 +21,6 @@ class CartPage extends React.Component {
       userTotal: null
     }
   }
-  calculateCurrentUserTotal() {
-
-  }
   componentDidMount() {
     //logic to get data
 
@@ -141,6 +138,15 @@ class CartPage extends React.Component {
     ]
   })
 }
+calculateCurrentUserTotal() {
+
+}
+getUserItems() {
+
+}
+remove() {
+  console.log('removing item');
+}
 createCharge() {
   console.log('creating charge');
 }
@@ -165,6 +171,7 @@ render() {
           userName={this.state.userName}
           userItems={this.state.userItems}
           userTotal={this.state.userTotal}
+          remove={this.remove}
           payShare={this.createCharge.bind(this)}
           />
 
