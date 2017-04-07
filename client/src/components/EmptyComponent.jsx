@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 const EmptyComponent = function(props) {
   console.log('sup');
   console.log(props.params.person);
-  return (<div>
+  return (<div className="cart-100">
     {props.children}
   </div>)
 }

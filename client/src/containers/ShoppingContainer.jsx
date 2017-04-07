@@ -3,7 +3,7 @@ import Auth from '../modules/Auth';
 import popupS from 'popups';
 import ProductsDisplay from '../components/ProductsDisplay.jsx';
 import GroupOrder from '../components/GroupOrder.jsx';
-
+import CartLink from '../components/CartLink.jsx';
 
 class ShoppingContainer extends React.Component{
   constructor(props) {
@@ -11,6 +11,7 @@ class ShoppingContainer extends React.Component{
     this.state = {
       products: [],
       storeName: '',
+      joinLink: '',
       loading: true
     }
   }
@@ -37,6 +38,57 @@ class ShoppingContainer extends React.Component{
       }
     });
     xhr.send();
+  }
+  copyLink(elem) {
+    var targetId = "_hiddenCopyText_";
+    var isInput = elem.tagName === "INPUT" || elem.tagName === "TEXTAREA";
+    var origSelectionStart, origSelectionEnd;
+    if (isInput) {
+        // can just use the original source element for the selection and copy
+        target = elem;
+        origSelectionStart = elem.selectionStart;
+        origSelectionEnd = elem.selectionEnd;
+    } else {
+        // must use a temporary form element for the selection and copy
+        target = document.getElementById(targetId);
+        if (!target) {
+            var target = document.createElement("textarea");
+            target.style.position = "absolute";
+            target.style.left = "-9999px";
+            target.style.top = "0";
+            target.id = targetId;
+            document.body.appendChild(target);
+        }
+        target.textContent = elem.textContent;
+    }
+    // select the content
+    var currentFocus = document.activeElement;
+    target.focus();
+    target.setSelectionRange(0, target.value.length);
+
+    // copy the selection
+    var succeed;
+    try {
+        succeed = document.execCommand("copy");
+    } catch(e) {
+        succeed = false;
+    }
+    // restore original focus
+    if (currentFocus && typeof currentFocus.focus === "function") {
+        currentFocus.focus();
+    }
+
+    if (isInput) {
+        // restore prior selection
+        elem.setSelectionRange(origSelectionStart, origSelectionEnd);
+    } else {
+        // clear temporary content
+        target.textContent = "";
+    }
+    return succeed;
+  }
+  getJoinLink() {
+    return 'http://localhost:3000/join/58e55f05fe16946175fdd6c1';
   }
   showInfo(item) {
     popupS.confirm({
@@ -98,7 +150,11 @@ class ShoppingContainer extends React.Component{
   render(props) {
     return(<div className="products-containter">
       {this.props.children}
-      <GroupOrder/>
+      <div className="one">
+        <GroupOrder/><br/>
+        <CartLink
+          joinLink={this.getJoinLink}/>
+      </div>
       <ProductsDisplay
         data="hello"
         items={this.state.products}

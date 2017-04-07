@@ -315,10 +315,20 @@ h1 {
   position: fixed;
   overflow: hidden;
   flex: 1;
-  padding: 0px 100px;
   width: 100%;
   background-color: white;
   border: 5px solid pink;
+
+}
+
+.one{
+  display: flex;
+  flex: 1;
+  width: 100%;
+  position: fixed;
+  background-color: pink;
+  align-items: center;
+  justify-content: center;
 
 }
 
@@ -378,6 +388,16 @@ width: auto;
 	color: white;
 	font-family: Telegrafico;
 	padding: 10px;
+	margin-top: 15px;
+	border: 0px;
+}
+
+.startcart-button{
+	background-color: black;
+	color: white;
+	font-family: Telegrafico;
+	padding: 10px;
+  font-size: 18px;
 	margin-top: 15px;
 	border: 0px;
 }

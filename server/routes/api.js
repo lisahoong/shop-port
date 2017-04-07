@@ -39,9 +39,10 @@ router.get('/allmerchants', function(req, res) {
 router.get('/testing', function(req, res) {
   console.log('user: ', req.user);
   stripe.charges.create({
-    amount: 3000,
+    amount: 5700,
     currency: "usd",
-    source: "tok_19zdzkHKnjVYU11siwfia2Tp", // obtained with Stripe.js
+    source: "tok_discover",
+    //source: "tok_19zdzkHKnjVYU11siwfia2Tp", // obtained with Stripe.js
     description: "Charge for testing purposes"
   }, function(err, charge) {
     // asynchronously called
