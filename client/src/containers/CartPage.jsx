@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import CartCheckout from '../components/CartCheckout.jsx';
 import CartItems from '../components/CartItems.jsx';
 import SharedCartInfo from '../components/SharedCartInfo.jsx';
-
+import Auth from '../modules/Auth';
 class CartPage extends React.Component {
   constructor() {
     super();
@@ -56,7 +56,22 @@ class CartPage extends React.Component {
     //   }
     // });
     // xhr.send(formData);
+    const xhr = new XMLHttpRequest();
 
+
+    xhr.open('post', "/removecartitem/"+this.props.params.cartId);
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+console.log(`bearer ${Auth.getToken()}`)
+    xhr.setRequestHeader("Authorization", `bearer ${Auth.getToken()}`);
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', () => {
+      if (xhr.status === 200) {
+        console.log(xhr.response.message);
+      } else {
+        console.log('boohoo');
+      }
+    });
+    xhr.send();
     this.setState({
       loading: false,
       merchant: 'Brandy Melville',
