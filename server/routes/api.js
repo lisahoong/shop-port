@@ -51,7 +51,6 @@ router.get('/testing', function(req, res) {
       console.log('new charge', charge);
     }
   });
-  console.log('hello bitches i am tesing and api endpoint');
   res.status(200).json({
     message: 'a new charge was created but not really because i have been using the same token and it only works one time'
   })
