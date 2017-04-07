@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
+import Auth from "../modules/Auth";
 
 
 const CartItems = function(props) {

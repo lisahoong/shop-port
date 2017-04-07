@@ -75,13 +75,16 @@ router.post('/additem', function(req, res) {
   res.status(200).send();
 })
 router.post('/removecartitem/:cartId', function(req,res){
-  //send me the cartITem id
-  console.log("asuh im removed");
+
   CartItem.findOneAndRemove({
     cartId:req.params.cartId, productName: req.body.title,
     orderedBy:req.user._id}).exec()
-    .then(function(user){
-      console.log(user + " dis success");
+    .then(function(cartitem){
+      if (cartitem){
+      console.log(cartitem + " dis success");}
+      else{
+        console.log("thisshit failed");
+      }
     }).catch(function(err){
       console.log('error: ',err);
     })

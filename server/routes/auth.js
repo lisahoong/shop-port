@@ -260,6 +260,20 @@ router.post('/cart/:cartId/', function(req,res){
   }).catch((err) => res.sendStatus(500).send(err));
 })
 
+router.post('/removecartitem/:cartId', function(req,res){
+  //send me the cartITem id
+
+  console.log("asuh im removed");
+  CartItem.findOneAndRemove({
+    cartId:req.params.cartId, productName: req.body.title,
+    orderedBy:req.user._id}).exec()
+    .then(function(user){
+      console.log(user + " dis success");
+    }).catch(function(err){
+      console.log('error: ',err);
+    })
+
+})
 
 
 
