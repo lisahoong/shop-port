@@ -246,6 +246,8 @@ h1 {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  text-align: left;
+  align-items: flex-start;
 }
 
 .cart-userimage {
@@ -258,11 +260,14 @@ h1 {
 
 .cart-userinfo {
   display: flex;
+  align-items: flex-start;
+  align-self: flex-start;
   margin: 5px;
   font-size: 14px;
   padding-top: 10px;
   font-family: Telegrafico;
   color: black;
+  text-align: left;
 }
 
 .cart-userprice {
@@ -371,7 +376,6 @@ width: auto;
   height: 100;
   width: 75;
 }
-
 .txt-img {
   position: relative;
   width: 100%;
@@ -383,6 +387,11 @@ width: auto;
   border-bottom: 1px solid #797A7E;
 }
 
+.right {
+  display: flex;
+  align-items: flex-start;
+}
+
 .pay-button{
 	background-color: black;
 	color: white;
@@ -390,6 +399,20 @@ width: auto;
 	padding: 10px;
 	margin-top: 15px;
 	border: 0px;
+}
+
+.remove-button {
+  background-color: white;
+  border: 0px;
+  display: flex;
+  align-items: flex-start;
+  align-self: flex-start;
+  margin: 5px;
+  font-family: RegencieLight;
+  font-size: 10px;
+  text-decoration: underline;
+  color: black;
+  text-align: left;
 }
 
 .startcart-button{
