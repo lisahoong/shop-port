@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import Auth from '../modules/Auth';
 import popupS from 'popups';
 import ProductsDisplay from '../components/ProductsDisplay.jsx';
-import LOL from '../components/LOL.jsx';
+import GroupOrder from '../components/GroupOrder.jsx';
 
 
 class ShoppingContainer extends React.Component{
@@ -96,14 +96,14 @@ class ShoppingContainer extends React.Component{
     });
   }
   render(props) {
-    return(<div>
+    return(<div className="products-containter">
       {this.props.children}
+      <GroupOrder/>
       <ProductsDisplay
         data="hello"
         items={this.state.products}
         showInfo={this.showInfo}
         />
-      <LOL lol="sup clur"/>
     </div>)
   }
 }

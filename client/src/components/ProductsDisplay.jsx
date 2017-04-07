@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
 const ProductsDisplay = function({data, items, showInfo}) {
-  return (<div>
+  return (<div className="flex-four">
       <div className="clothes-container">
         {items.map(function(item, i) {
           return (
