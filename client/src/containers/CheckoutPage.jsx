@@ -16,7 +16,12 @@ class CheckoutPage extends React.Component {
       }
     }
   }
-  componentDidMount() {
+  fillForm(e) {
+    console.log('user is filling out form');
+  }
+  processForm(e) {
+    e.preventDefault();
+    console.log('clicking pay');
     const xhr = new XMLHttpRequest();
     xhr.open('get', '/api/testing');
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -30,9 +35,6 @@ class CheckoutPage extends React.Component {
       }
     });
     xhr.send();
-  }
-  fillForm(e) {
-    console.log('user is filling out form');
   }
   render() {
     return (<div>
