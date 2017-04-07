@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import SignUpForm from '../components/SignUpForm.jsx';
 
-
 class SignUpPage extends React.Component {
 
   /**
@@ -40,6 +39,7 @@ class SignUpPage extends React.Component {
     xhr.addEventListener('load', () => {
       if (xhr.status === 200) {
         // success
+
 
         // make a redirect
         console.log('this sign up w/param: ', this);

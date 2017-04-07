@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
 const CartItems = function(props) {
-  console.log('ddv', props.userItems);
   return (<div className="cart-100">
     <w>{props.userName}&#39;s Cart</w>
     {props.userItems.map(function(item, i) {
@@ -17,7 +16,7 @@ const CartItems = function(props) {
   })}
     <line/>
     Subtotal: ${props.userTotal}<br/>
-  <div className="pay-button"><Link to="/lol">Pay share</Link></div>
+  <div className="pay-button"><Link to="/checkout">Pay share</Link></div>
 </div>
 )
 }

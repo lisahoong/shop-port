@@ -21,8 +21,42 @@ class CartPage extends React.Component {
       userTotal: null
     }
   }
+  calculateCurrentUserTotal() {
+
+  }
   componentDidMount() {
     //logic to get data
+
+    // const title = encodeURIComponent(item.title);
+    // const link = encodeURIComponent(item.link);
+    // const price = encodeURIComponent(item.price);
+    // const merchantId = encodeURIComponent(item.merchantId);
+    // const formData = `title=${title}&link=${link}&price=${price}&merchantId=${merchantId}`;
+    //
+    // const xhr = new XMLHttpRequest();
+    // xhr.open('post', '/api/addcartitem');
+    // xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    // xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
+    // xhr.responseType = 'json';
+    // xhr.addEventListener('load', () => {
+    //   if (xhr.status === 200) {
+    //     console.log('gottem');
+    //   } else if (xhr.status === 401) {
+    //     popupS.confirm({
+    //       content:     'You must be logged in to start an order',
+    //       labelOk:     'Cancel',
+    //       labelCancel: 'Log in',
+    //       onSubmit: function() {
+    //         console.log(':)');
+    //       },
+    //       onClose: function() {
+    //         console.log(':(');
+    //       }
+    //     });
+    //   }
+    // });
+    // xhr.send(formData);
+
     this.setState({
       loading: false,
       merchant: 'Brandy Melville',
@@ -107,6 +141,9 @@ class CartPage extends React.Component {
     ]
   })
 }
+createCharge() {
+  console.log('creating charge');
+}
 render() {
   if (this.state.loading) {
     return <div>Loading...</div>
@@ -127,7 +164,9 @@ render() {
         <CartItems
           userName={this.state.userName}
           userItems={this.state.userItems}
-          userTotal={this.state.userTotal}/>
+          userTotal={this.state.userTotal}
+          payShare={this.createCharge.bind(this)}
+          />
 
       </div>
 

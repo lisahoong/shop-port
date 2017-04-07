@@ -3,9 +3,6 @@ import Products from '../components/Products.jsx';
 import Auth from '../modules/Auth';
 import popupS from 'popups';
 import JoinCart from '../components/JoinCart.jsx';
-
-
-
 class JoinContainer extends React.Component{
   constructor(props, context) {
     super(props, context);
@@ -38,6 +35,4 @@ class JoinContainer extends React.Component{
     </div>
   }
 }
-
-
 export default JoinContainer;
