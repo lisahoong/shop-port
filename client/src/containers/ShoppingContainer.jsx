@@ -113,9 +113,10 @@ class ShoppingContainer extends React.Component{
         console.log(':)');
         const title = encodeURIComponent(item.title);
         const link = encodeURIComponent(item.link);
+        const src = encodeURIComponent(item.src);
         const price = encodeURIComponent(item.price);
         const merchantId = encodeURIComponent(item.merchantId);
-        const formData = `title=${title}&link=${link}&price=${price}&merchantId=${merchantId}`;
+        const formData = `title=${title}&link=${link}&price=${price}&src=${src}&merchantId=${merchantId}`;
 
         const xhr = new XMLHttpRequest();
         xhr.open('post', '/api/addcartitem');
