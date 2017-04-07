@@ -37,8 +37,9 @@ router.get('/allmerchants', function(req, res) {
 })
 
 router.get('/testing', function(req, res) {
+  console.log('user: ', req.user);
   stripe.charges.create({
-    amount: 2000,
+    amount: 3000,
     currency: "usd",
     source: "tok_19zdzkHKnjVYU11siwfia2Tp", // obtained with Stripe.js
     description: "Charge for testing purposes"
@@ -52,7 +53,7 @@ router.get('/testing', function(req, res) {
   });
   console.log('hello bitches i am tesing and api endpoint');
   res.status(200).json({
-    message: 'sup'
+    message: 'a new charge was created but not really because i have been using the same token and it only works one time'
   })
 })
 

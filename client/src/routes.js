@@ -43,7 +43,9 @@ module.exports = (
     <Route path="/cart" component={CartPage}>
       <Route path=":clur" component={CartItems}/>
     </Route>
-
+    <Route path="/checkout" component={CheckoutPage}>
+      <Route path=":cart" component={CheckoutPage}/>
+    </Route>
     <Route path="/login" component={LoginPage}>
       <Route path=":cartId" component={LoginPage}/>
     </Route>

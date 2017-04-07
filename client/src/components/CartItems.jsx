@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
 const CartItems = function(props) {
-  console.log('ddv', props.userItems);
   return (<div className="cart-100">
     <w>{props.userName}&#39;s Cart</w>
     {props.userItems.map(function(item, i) {

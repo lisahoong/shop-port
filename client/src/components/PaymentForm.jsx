@@ -7,45 +7,31 @@ const PaymentForm = ({
   errors,
   user,
 }) => (
-  <div className="container">
-    <form action="/" onSubmit={onSubmit}>
-      <h3 className="card-heading">Sign Up</h3>
-
-      <div className="field-line">
-        <input type="text"
-          placeholder="Name"
-          name="name"
-          onChange={onChange}
-          value={user.name}
-        />
+  <form>
+    <div className="group">
+      <label>
+        <span>Name</span>
+        <input name="cardholder-name" className="field" placeholder="Jane Doe" />
+      </label>
+      <label>
+        <span>Phone</span>
+        <input className="field" placeholder="(123) 456-7890" type="tel" />
+      </label>
+    </div>
+    <div className="group">
+      <label>
+        <span>Card</span>
+        <div id="card-element" className="field"></div>
+      </label>
+    </div>
+    <button type="submit" onClick={onSubmit}>Pay $25</button>
+    <div className="outcome">
+      <div className="error"></div>
+      <div className="success">
+        Success! Your Stripe token is <span className="token"></span>
       </div>
-
-      <div className="field-line">
-        <input type="text"
-          placeholder="Email"
-          name="email"
-          onChange={onChange}
-          value={user.email}
-        />
-      </div>
-
-      <div className="field-line">
-        <input type="text"
-          placeholder="Password"
-          type="password"
-          name="password"
-          onChange={onChange}
-          value={user.password}
-        />
-      </div>
-
-      <div className="button-line">
-        <button type="submit">Create an account</button>
-      </div>
-
-      <p>Already have an account? <Link to={'/login'}>Log in</Link></p>
-    </form>
-  </div>
+    </div>
+  </form>
 );
 
 // SignUpForm.propTypes = {
