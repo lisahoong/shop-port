@@ -10,6 +10,7 @@ import rofl from './components/rofl.jsx';
 import LaughAtSomeone from './components/LaughAtSomeone.jsx';
 import EmptyComponent from './components/EmptyComponent.jsx';
 import LaughContainer from './components/LaughContainer.jsx';
+import ToDoList from './components/ToDoList.jsx';
 import CartItems from './components/CartItems.jsx';
 import DashBoardPage from './containers/DashboardPage.jsx';
 import CartPage from './containers/CartPage.jsx';
@@ -46,6 +47,7 @@ module.exports = (
     <Route path="/checkout" component={CheckoutPage}>
       <Route path=":cart" component={CheckoutPage}/>
     </Route>
+    <Route path="/later" component={ToDoList}/>
     <Route path="/login" component={LoginPage}>
       <Route path=":cartId" component={LoginPage}/>
     </Route>

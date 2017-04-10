@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
 function copyToClipboard(elem) {
+
   // create hidden text element, if it doesn't already exist
   var targetId = "_hiddenCopyText_";
   var isInput = elem.tagName === "INPUT" || elem.tagName === "TEXTAREA";

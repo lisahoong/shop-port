@@ -140,7 +140,13 @@ class CartPage extends React.Component {
   // })
 }
 calculateCurrentUserTotal() {
-
+  var total = 0;
+  this.state.userItems.forEach(function(item) {
+    console.log(item.price);
+    console.log('total: ', total);
+    total += parseInt(item.price);
+  })
+  return total;
 }
 getUserItems() {
   console.log('getting user items');
@@ -224,9 +230,9 @@ getUserItems() {
   xhr.send(formData);
 }
 remove(item) {
-  console.log('removing item', item.title);
+  console.log('removing item', item.productName);
   console.log('cart: ', this.props.params.cartId);
-  const title = encodeURIComponent(item.title);
+  const title = encodeURIComponent(item.productName);
   const formData = `title=${title}`;
 
   const xhr = new XMLHttpRequest();
@@ -253,14 +259,14 @@ render() {
   else {
     return (<div className="cart-container">
     {this.props.children}
-    <div className="shared-info">
+
       <SharedCartInfo
         merchant={this.state.merchant}
         addressLine1={this.state.addressLine1}
         addressLine2={this.state.addressLine2}
         goal={this.state.minimum}
         subtotal={this.state.cartSubtotal}/>
-    </div>
+
     <div className="allitems-container">
       <div className="cartitems-container">
         <CartItems
@@ -268,6 +274,7 @@ render() {
           userItems={this.state.userItems}
           userTotal={this.state.userTotal}
           remove={this.remove.bind(this)}
+          calculateTotal={this.calculateCurrentUserTotal.bind(this)}
           payShare={this.createCharge.bind(this)}
           />
 

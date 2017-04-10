@@ -30,7 +30,7 @@ class JoinContainer extends React.Component{
   }
   render(){
     console.log("HJGVFC" + this.props.params.cart);
-    return<div> asuh
+    return<div>
       <JoinCart user={this.state.user} cart={this.props.params.cart}/>
     </div>
   }
