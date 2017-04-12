@@ -90,17 +90,13 @@ router.post('/removecartitem/:cartId', function(req,res){
     })
 
 })
-router.post('/addcartitem', function(req,res){
-
-  console.log(req.body);
-
+router.post('/startgrouporder', function(req,res){
   var promise = User.findById(req.user._id).exec();
   promise.then(function(user){
     console.log("i here "+ user);
     //this counts on the user always being logged in
     if (user.cartRef){
-      console.log(user.cartRef + "I IS HERE");
-      return Cart.findById(user.cartRef).exec();
+      return new Error("this user has already started a group order");
     }
     else{
       console.log("YO I AM HERE AND I MADE A NEW CART");
@@ -114,6 +110,27 @@ router.post('/addcartitem', function(req,res){
         deliveryAddress:""//change later - clur
       })
       return cart.save();
+    }
+    //found a cart
+  }).catch(function(err){
+    console.log('error: ',err);
+  })
+})
+
+router.post('/addcartitem', function(req,res){
+
+  console.log(req.body);
+
+  var promise = User.findById(req.user._id).exec();
+  promise.then(function(user){
+    console.log("i here "+ user);
+    //this counts on the user always being logged in
+    if (user.cartRef){
+      console.log(user.cartRef + "I IS HERE");
+      return Cart.findById(user.cartRef).exec();
+    }
+    else{
+      return new Error('User has not created a cart yet');
     }
     //found a cart
   })
@@ -135,7 +152,7 @@ router.post('/addcartitem', function(req,res){
       paidBy:req.user._id,
       isPaidFor:false,//do i need to change this? - clur
       cartId:cart._id,
-      src: req.user.link
+      src: req.body.link
 
     })
     return newItem.save();
@@ -157,6 +174,38 @@ router.post('/addcartitem', function(req,res){
 
 
 
+})
+
+router.post('/organizecart/:cartId', function(req,res){
+  function test(user, cartId){
+    return CartItem.find({cartId:cartId, orderedBy:user}).exec()
+  }
+  Cart.findById(req.params.cartId).exec()
+  .then(function(cart){
+    var arr = cart.users;
+
+    console.log("first "+ arr);
+    var index = arr.indexOf(req.user._id);
+    if (index > -1){
+      arr.splice(index, 1);
+    }
+    console.log(arr);
+    var newArr = [];
+    arr.forEach(function(element){
+      newArr.push(test(element, req.params.cartId));
+    })
+    res.status(200).json({
+      user: req.user,
+      products: newArr
+    });
+  }).catch((err)=>console.log('error: ', err));
+  // CartItem.find({cartId:req.params.cartId, orderedBy:{$ne:req.user._id}}).exec()
+  // .then(function(cartitems){
+  //   res.status(200).json({
+  //     user: req.user,
+  //     products: cartitems
+  //   });
+  // }).catch((err)=>console.log('error: ', err));
 })
 
 module.exports = router;
