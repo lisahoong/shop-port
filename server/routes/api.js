@@ -57,6 +57,18 @@ router.get('/testing', function(req, res) {
   })
 })
 
+router.post('/getUserItems', function(req, res) {
+  CartItem.find({cartId: req.body.cart, orderedBy: req.user._id})
+  .exec()
+  .then(function(userItems) {
+    console.log('user has', userItems);
+    res.status(200).json({
+      userItems: userItems
+    })
+  })
+  .catch((err) => console.log('error: ', err))
+})
+
 router.post('addMerchantItem', function(req, res) {
   var product = new Product(req.body);
   product.save().catch(function(err) {
@@ -152,7 +164,8 @@ router.post('/addcartitem', function(req,res){
       paidBy:req.user._id,
       isPaidFor:false,//do i need to change this? - clur
       cartId:cart._id,
-      src: req.body.link
+      src: req.body.src
+
 
     })
     return newItem.save();
