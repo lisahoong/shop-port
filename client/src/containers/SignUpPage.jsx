@@ -14,8 +14,9 @@ class SignUpPage extends React.Component {
       loading: true,
       errors: {},
       user: {
+        first: '',
+        last: '',
         email: '',
-        name: '',
         password: ''
       },
       cartRef:''
@@ -58,7 +59,8 @@ class SignUpPage extends React.Component {
 
     // create a string for an HTTP body message
     console.log("YOOO" + this.state.cartRef);
-    const name = encodeURIComponent(this.state.user.name);
+    const first = encodeURIComponent(this.state.user.first);
+    const last = encodeURIComponent(this.state.user.last);
     const email = encodeURIComponent(this.state.user.email);
     const password = encodeURIComponent(this.state.user.password);
     var cartRef;
@@ -70,9 +72,10 @@ class SignUpPage extends React.Component {
     //console.log('params? ', this.props.params.cartId);
     console.log('cart ref: ', cartRef);
     if (cartRef) {
-      formData = `name=${name}&email=${email}&password=${password}&cartRef=${cartRef}`;
+      formData = `first=${first}&last=${last}&email=${email}&password=${password}&cartRef=${cartRef}`;
     } else {
-      formData = `name=${name}&email=${email}&password=${password}`;
+      console.log('wtf');
+      formData = `first=${first}&last=${last}&email=${email}&password=${password}`;
     }
     // const formData = `name=${name}&email=${email}&password=${password}`;
 

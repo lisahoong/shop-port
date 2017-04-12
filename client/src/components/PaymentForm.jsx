@@ -13,6 +13,7 @@ const PaymentForm = ({
         <span>Name</span>
         <input name="cardholder-name" className="field" placeholder="Jane Doe" />
       </label>
+      <br/>
       <label>
         <span>Phone</span>
         <input className="field" placeholder="(123) 456-7890" type="tel" />
@@ -28,17 +29,10 @@ const PaymentForm = ({
     <div className="outcome">
       <div className="error"></div>
       <div className="success">
-        Success! Your Stripe token is <span className="token"></span>
+
       </div>
     </div>
   </form>
 );
-
-// SignUpForm.propTypes = {
-//   onSubmit: PropTypes.func.isRequired,
-//   onChange: PropTypes.func.isRequired,
-//   errors: PropTypes.object.isRequired,
-//   user: PropTypes.object.isRequired
-// };
 
 export default PaymentForm;

@@ -9,35 +9,34 @@ const LoginForm = ({
   user
 }) => (
   <div className="container">
+  <br/>
+    <h10>Welcome back</h10>
+    <br/>
     <form action="/" onSubmit={onSubmit}>
-      <h3 className="card-heading">Login</h3>
-
-      {successMessage && <p className="success-message">{successMessage}</p>}
-      {errors.summary && <p className="error-message">{errors.summary}</p>}
-
-      <div className="field-line">
-        <input type="text"
-          placeholder="Email"
-          name="email"
-          onChange={onChange}
-          value={user.email}
-        />
+      <div className='form-container'>
+        <div className="form-field">
+          <div className="form-title">Email Address</div>
+            <div>
+              <input
+                type="text"
+                name="email"
+                onChange={onChange}
+                value={user.email}/>
+            </div>
+        </div>
+        <div className="form-field">
+          <div className="form-title">Password</div>
+            <div>
+              <input
+                type="password"
+                name="password"
+                onChange={onChange}
+                value={user.password}/>
+            </div>
+        </div>
       </div>
-
-      <div className="field-line">
-        <input type="password"
-          placeholder="Password"
-          name="password"
-          onChange={onChange}
-          value={user.password}
-        />
-      </div>
-
-      <div className="button-line">
-        <button type="submit">Log in</button>
-      </div>
-
-      <p>Don't have an account? <Link to={'/signup'}>Create one</Link>.</p>
+      <button type="submit" className="pay-button">Login</button>
+      <p>New to Port? <Link to={'/signup'}><b>Sign up</b></Link></p>
     </form>
   </div>
 );

@@ -5,20 +5,18 @@ module.exports = new LocalStrategy({
   usernameField: 'email',
   passwordField: 'password',
   session: false,
-  //passReqToCallback must be true if we want to be able
-  //to read other parameters in the POST body message
   passReqToCallback: true
 }, (req, email, password, done) => {
   var userData = {
     email: email.trim(),
     password: password.trim(),
-    name: req.body.name.trim(),
+    name: req.body.first.trim() + ' ' + req.body.last.trim(),
   };
   if (req.body.cartRef) {
     userData = {
       email: email.trim(),
       password: password.trim(),
-      name: req.body.name.trim(),
+      name: req.body.first.trim() + ' ' + req.body.last.trim(),
       cartRef: req.body.cartRef
     }
     var newUser = new User(userData);
@@ -40,10 +38,11 @@ module.exports = new LocalStrategy({
     });
   }else{
   var newUser = new User(userData);
-  newUser.save(function(err) {
+  newUser.save(function(err, u) {
     if (err) {
       return done(err);
     }
+    console.log('new user: ', u);
     return done(null);
   })};
 });

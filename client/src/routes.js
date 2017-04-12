@@ -10,9 +10,11 @@ import rofl from './components/rofl.jsx';
 import LaughAtSomeone from './components/LaughAtSomeone.jsx';
 import EmptyComponent from './components/EmptyComponent.jsx';
 import LaughContainer from './components/LaughContainer.jsx';
+import ToDoList from './components/ToDoList.jsx';
 import CartItems from './components/CartItems.jsx';
 import DashBoardPage from './containers/DashboardPage.jsx';
 import CartPage from './containers/CartPage.jsx';
+import Fonts from './containers/Fonts.jsx';
 import ShoppingContainer from './containers/ShoppingContainer.jsx';
 import ProductsDisplay from './components/ProductsDisplay.jsx';
 import LoginPage from './containers/LoginPage.jsx';
@@ -27,6 +29,8 @@ module.exports = (
   <Route path="/" component={Base}>
     <IndexRoute component={HomePage}/>
     <Route path="/select" component={SelectMerchantPage}/>
+    <Route path="/fonts" component={Fonts}/>
+    <Route path="/about" component={EmptyComponent}/>
     <Route path="/shop" component={ShoppingContainer}>
       <Route path=":person" component={EmptyComponent}>
           <Route path=":store" component={rofl}/>
@@ -43,9 +47,10 @@ module.exports = (
     <Route path="/cart" component={CartPage}>
       <Route path=":cartId" component={EmptyComponent}/>
     </Route>
-    <Route path="/checkout" component={CheckoutPage}>
-      <Route path=":cart" component={CheckoutPage}/>
+    <Route path="/checkout" component={CartPage}>
+      <Route path=":cart" component={CartPage}/>
     </Route>
+    <Route path="/later" component={ToDoList}/>
     <Route path="/login" component={LoginPage}>
       <Route path=":cartId" component={LoginPage}/>
     </Route>

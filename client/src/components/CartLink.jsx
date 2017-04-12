@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
 function copyToClipboard(elem) {
+
   // create hidden text element, if it doesn't already exist
   var targetId = "_hiddenCopyText_";
   var isInput = elem.tagName === "INPUT" || elem.tagName === "TEXTAREA";
@@ -52,6 +53,7 @@ function copyToClipboard(elem) {
 }
 
 const CartLink = function(props) {
+  //console.log('this.refs: ', this.refs);
   return (<div>
     <input type="text" id="copyTarget" value={props.joinLink()}/>
       <button onClick={copyToClipboard}>Copy</button>

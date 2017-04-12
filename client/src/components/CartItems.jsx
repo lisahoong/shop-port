@@ -14,13 +14,13 @@ const CartItems = function(props) {
       <button className="remove-button" id="remove" onClick={() => props.remove(item)}>REMOVE</button>
       </div>
       </div>
-      <p className="cart-userprice">{item.price}</p>
+      <p className="cart-userprice">${item.price}</p>
 
     </div>)
   })}
     <line/>
-    Subtotal: ${props.userTotal}<br/>
-  <div className="pay-button"><Link to="/checkout">Pay share</Link></div>
+    Subtotal: ${props.calculateTotal()}<br/>
+  <div className="pay-button" onClick={props.clickedPay}>Pay share</div>
 </div>
 )
 }
