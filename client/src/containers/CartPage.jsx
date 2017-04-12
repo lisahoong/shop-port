@@ -161,6 +161,9 @@ processForm(e) {
 }
 createCharge() {
   console.log('creating charge');
+}
+clickedPay() {
+  console.log('user wants to pay');
   this.setState({
     userPaying: true
   })
@@ -187,6 +190,7 @@ render() {
           userItems={this.state.userItems}
           userTotal={this.state.userTotal}
           remove={this.remove.bind(this)}
+          clickedPay={this.clickedPay.bind(this)}
           calculateTotal={this.calculateCurrentUserTotal.bind(this)}
           payShare={this.createCharge.bind(this)}
           />

@@ -53,6 +53,7 @@ function copyToClipboard(elem) {
 }
 
 const CartLink = function(props) {
+  //console.log('this.refs: ', this.refs);
   return (<div>
     <input type="text" id="copyTarget" value={props.joinLink()}/>
       <button onClick={copyToClipboard}>Copy</button>

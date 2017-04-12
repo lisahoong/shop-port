@@ -4,7 +4,8 @@ import { Link } from 'react-router';
 
 const GroupOrder = function(props) {
   return (<div>
-    <div className="startcart-button">Start a group order</div>
+    <button className="startcart-button" onClick={props.startGroupOrder}>
+      Start a group order</button>
   </div>)
 }
 

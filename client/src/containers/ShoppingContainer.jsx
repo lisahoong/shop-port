@@ -39,6 +39,9 @@ class ShoppingContainer extends React.Component{
     });
     xhr.send();
   }
+  startGroupOrder() {
+    console.log('starting group order');
+  }
   copyLink(elem) {
     var targetId = "_hiddenCopyText_";
     var isInput = elem.tagName === "INPUT" || elem.tagName === "TEXTAREA";
@@ -152,7 +155,8 @@ class ShoppingContainer extends React.Component{
     return(<div className="products-containter">
       {this.props.children}
       <div className="one">
-        <GroupOrder/><br/>
+        <GroupOrder
+          startGroupOrder={this.startGroupOrder.bind(this)}/><br/>
         <CartLink
           joinLink={this.getJoinLink}/>
       </div>
