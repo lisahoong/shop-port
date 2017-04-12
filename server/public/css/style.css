@@ -57,6 +57,11 @@ body {
 
 h1 {
   font-family: Yeseva;
+  font-size: 42px;
+}
+
+span {
+  display: block;
 }
 
 .container{
@@ -396,6 +401,13 @@ width: auto;
   align-items: flex-start;
 }
 
+.home-banner {
+  position: absolute;
+  width: 40%;
+  padding-top: 40px;
+  padding-left: 80px;
+}
+
 .pay-button{
 	background-color: black;
 	color: white;
@@ -550,4 +562,79 @@ c {
 .success-message {
   padding: 0 16px;
   color: green;
+}
+
+.form-container {
+  padding: 10px 20px;
+  display: flex;
+  width: auto;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+
+}
+
+.form-box {
+  display: flex;
+  align-items:center;
+  justify-content: center;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: row;
+  padding: 2px 2px;
+  justify-content: flex-end;
+  align-self: flex-end;
+  text-align: left;
+}
+
+.center-column {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+}
+
+.width-400px {
+  width: 400px;
+  overflow: scroll;
+}
+
+.form-title {
+  display: flex;
+  font-family: Telegrafico;
+  font-size: 14px;
+  padding: 0px 2px;
+  flex:1;
+}
+.form-input {
+  display: flex;
+  flex:4;
+  width: 200px;
+}
+
+nordica {
+  font-family: Nordica;
+  font-size: 12px;
+}
+
+opi {
+  font-family: Opificio;
+  font-size: 12px;
+}
+
+tele {
+  font-family: Telegrafico;
+  font-size: 24px;
+}
+
+yes {
+  font-family: Yeseva;
+  font-size: 24px;
+}
+
+h10 {
+  font-family: Telegrafico;
+  font-size: 24px;
 }

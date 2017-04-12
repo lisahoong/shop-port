@@ -4,8 +4,12 @@ const HomePage = () => (
   <div className='container'>
     <div className="txt-img">
       <img src="./images/landing.png" alt=""/>
-      <h2>Welcome child.<br/>
-      <w>Please buy some things from us. We need this.</w></h2>
+    </div>
+    <div className="home-banner">
+      <h1>Shop and save together.<br/>
+      <w>Never leave your cart behind again. #nocartsleftbehind
+        <span>Invite friends to contribute items to meet </span>
+    <span>free shipping minimums, volume discounts, freebie requirements, etc.</span></w></h1>
     </div>
     <z id="top">You must be wondering why there is empty space here.</z>
     <w>I'm not sure either but text is better than random white space.</w>
