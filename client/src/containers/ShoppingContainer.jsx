@@ -16,7 +16,6 @@ class ShoppingContainer extends React.Component{
     }
   }
   componentDidMount() {
-
       console.log('merchant is: ', this.props.params.person)
       // use this to get DATUHHHB
 
@@ -156,6 +155,7 @@ class ShoppingContainer extends React.Component{
       {this.props.children}
       <div className="one">
         <GroupOrder
+          ref={(input) => {this.orderButton = input}}
           startGroupOrder={this.startGroupOrder.bind(this)}/><br/>
         <CartLink
           joinLink={this.getJoinLink}/>
