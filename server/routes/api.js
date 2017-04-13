@@ -124,6 +124,10 @@ router.post('/startgrouporder', function(req,res){
       return cart.save();
     }
     //found a cart
+  }).then(function(cart){
+    console.log("DIS MY CARTID BITCHES"+ cart._id);
+    req.user.cartRef = cart._id;
+    return req.user.save();
   }).catch(function(err){
     console.log('error: ',err);
   })
@@ -132,7 +136,7 @@ router.post('/startgrouporder', function(req,res){
 router.post('/addcartitem', function(req,res){
 
   console.log(req.body);
-
+  // TODO: add back cartitem search
   var promise = User.findById(req.user._id).exec();
   promise.then(function(user){
     console.log("i here "+ user);
@@ -190,9 +194,7 @@ router.post('/addcartitem', function(req,res){
 })
 
 router.post('/organizecart/:cartId', function(req,res){
-  function test(user, cartId){
-    return CartItem.find({cartId:cartId, orderedBy:user}).exec()
-  }
+  var newArr = [];
   Cart.findById(req.params.cartId).exec()
   .then(function(cart){
     var arr = cart.users;
@@ -202,16 +204,32 @@ router.post('/organizecart/:cartId', function(req,res){
     if (index > -1){
       arr.splice(index, 1);
     }
-    console.log(arr);
-    var newArr = [];
-    arr.forEach(function(element){
-      newArr.push(test(element, req.params.cartId));
-    })
-    res.status(200).json({
-      user: req.user,
-      products: newArr
-    });
+    console.log(arr); //all users except logged in user
+    return CartItem.find({cartId:req.params.cartId, orderedBy:{$ne:req.user._id}}).exec()
+    // arr.forEach(function(element){
+      // console.log("user testing "+ element);
+      // console.log("cart "+ req.params.cartId);
+
+        //finds ALL cartitems ordered by a specific user in the cart
+        // (CartItem.find({cartId:req.params.cartId, orderedBy:element}).then(
+        //   function(cartitem){
+        //
+        //     if(cartitem){
+        //     console.log("GOTTEM "+cartitem)
+        //     newArr.push(cartitem);
+        //     console.log("this the array " + newArr)
+        //
+        //   }
+        //   }
+        // ))
+
+    // })
+
+  }).then(function(cartitems){
+    console.log(cartitems);
   }).catch((err)=>console.log('error: ', err));
+
+
   // CartItem.find({cartId:req.params.cartId, orderedBy:{$ne:req.user._id}}).exec()
   // .then(function(cartitems){
   //   res.status(200).json({
