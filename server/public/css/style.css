@@ -547,7 +547,7 @@ h2 span {
 }
 
 a {
-  color: #797A7E;
+  color: white;
   font-weight: bold;
   text-decoration: none;
   transition: color 0.4s;
@@ -681,6 +681,12 @@ c {
   display: flex;
   flex:4;
   width: 200px;
+}
+
+.payment-form {
+  font-family: Nordica;
+  font-size: 14px;
+  font-weight: bold;
 }
 
 nordica {

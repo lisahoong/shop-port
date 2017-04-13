@@ -167,6 +167,7 @@ clickedPay() {
   this.setState({
     userPaying: true
   })
+  React.unmountComponentAtNode(document.getElementById('paysharebutton'));
 }
 render() {
   if (this.state.loading) {
@@ -200,10 +201,9 @@ render() {
 
       <div className="checkout-container">
         {(this.state.userPaying) ? (<PaymentForm
-          user={this.state.user}
-          errors={this.state.errors}
           onChange={this.fillForm}
           onSubmit={this.processForm}
+          calculateTotal={this.calculateCurrentUserTotal.bind(this)}
         />) : <CartCheckout />}
       </div>
     </div>

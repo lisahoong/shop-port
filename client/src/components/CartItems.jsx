@@ -20,7 +20,7 @@ const CartItems = function(props) {
   })}
     <line/>
     Subtotal: ${props.calculateTotal()}<br/>
-  <div className="pay-button" onClick={props.clickedPay}>Pay share</div>
+  <div className="pay-button" id="paysharebutton" onClick={props.clickedPay}>Pay share</div>
 </div>
 )
 }
