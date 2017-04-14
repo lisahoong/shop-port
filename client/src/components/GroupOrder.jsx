@@ -21,10 +21,8 @@ class GroupOrder extends React.Component {
     //this.context.router.replace('/login');
     this.setState({
       orderStarted: true,
-      cartLink: 'ahafhsbdvjfbd'
+      cartLink: 'http://localhost:3000/join/58e55f05fe16946175fdd6c1'
     })
-    console.log('poop');
-    return 'http://localhost:3000/join/58e55f05fe16946175fdd6c1';
   }
   componentDidMount() {
     if (!this.state.orderStarted) {
@@ -53,6 +51,56 @@ class GroupOrder extends React.Component {
       }
     }
 
+  }
+  copyToClipboard() {
+    var elem = document.getElementById('copyTarget');
+    // create hidden text element, if it doesn't already exist
+    var targetId = "_hiddenCopyText_";
+    var isInput = elem.tagName === "INPUT" || elem.tagName === "TEXTAREA";
+    var origSelectionStart, origSelectionEnd;
+    if (isInput) {
+      // can just use the original source element for the selection and copy
+      target = elem;
+      origSelectionStart = elem.selectionStart;
+      origSelectionEnd = elem.selectionEnd;
+    } else {
+      // must use a temporary form element for the selection and copy
+      target = document.getElementById(targetId);
+      if (!target) {
+        var target = document.createElement("textarea");
+        target.style.position = "absolute";
+        target.style.left = "-9999px";
+        target.style.top = "0";
+        target.id = targetId;
+        document.body.appendChild(target);
+      }
+      target.textContent = elem.textContent;
+    }
+    // select the content
+    var currentFocus = document.activeElement;
+    target.focus();
+    target.setSelectionRange(0, target.value.length);
+
+    // copy the selection
+    var succeed;
+    try {
+      succeed = document.execCommand("copy");
+    } catch(e) {
+      succeed = false;
+    }
+    // restore original focus
+    if (currentFocus && typeof currentFocus.focus === "function") {
+      currentFocus.focus();
+    }
+
+    if (isInput) {
+      // restore prior selection
+      elem.setSelectionRange(origSelectionStart, origSelectionEnd);
+    } else {
+      // clear temporary content
+      target.textContent = "";
+    }
+    return succeed;
   }
   render() {
     if (!this.state.orderStarted) {
@@ -132,8 +180,10 @@ class GroupOrder extends React.Component {
     )
   } else  {
     return (<div>
-      <input type="text" id="copyTarget" value={this.state.cartLink}/>
-      <button onClick={this.generateLink}>Copy</button>
+      <h10>Your shared cart link: </h10>
+      <input className="link-input" type="text" id="copyTarget"
+        value={this.state.cartLink}/>
+      <button className="pay-button" onClick={this.generateLink}>Copy</button>
     </div>)
   }
 

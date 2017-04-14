@@ -6,6 +6,7 @@ import routes from './routes.js';
 import Base from './components/Base.jsx';
 import HomePage from './components/HomePage.jsx';
 import LOL from './components/LOL.jsx';
+import Height from './components/Height.jsx';
 import rofl from './components/rofl.jsx';
 import LaughAtSomeone from './components/LaughAtSomeone.jsx';
 import EmptyComponent from './components/EmptyComponent.jsx';
@@ -31,8 +32,8 @@ module.exports = (
     <Route path="/select" component={SelectMerchantPage}/>
     <Route path="/fonts" component={Fonts}/>
     <Route path="/about" component={EmptyComponent}/>
-    <Route path="/shop" component={ShoppingContainer}>
-      <Route path=":person" component={EmptyComponent}>
+    <Route path="/shop" component={Height}>
+      <Route path=":person" component={ShoppingContainer}>
           <Route path=":store" component={rofl}/>
       </Route>
     </Route>

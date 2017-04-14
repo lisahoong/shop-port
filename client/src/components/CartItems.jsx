@@ -22,7 +22,7 @@ class CartItems extends React.Component {
     }
   }
   render() {
-    return (<div className="cart-100">
+    return (<div className="width-100">
       <w>{this.state.userName}&#39;s Cart</w>
       {this.state.userItems.map(function(item, i) {
         return ( <div key={i} className="cart-useritems-container">

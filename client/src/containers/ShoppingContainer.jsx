@@ -159,17 +159,15 @@ class ShoppingContainer extends React.Component{
     });
   }
   render(props) {
-    return(<div className="products-containter">
+    return(<div className="products-container">
       {this.props.children}
-      <div className="one">
+      <div className="products-top">
         <GroupOrder
           onChange={this.fake}
           onSubmit={this.fake}
           getJoinLink={this.getJoinLink.bind(this)}
-          startGroupOrder={this.startGroupOrder.bind(this)}/><br/>
-        <CartLink
-          joinLink={this.getJoinLink}/>
-      </div>
+          startGroupOrder={this.startGroupOrder.bind(this)}/>
+        </div>
       <ProductsDisplay
         data="hello"
         items={this.state.products}
@@ -178,6 +176,7 @@ class ShoppingContainer extends React.Component{
     </div>)
   }
 }
+
 
 ShoppingContainer.contextTypes = {
   router: PropTypes.object.isRequired

@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 const EmptyComponent = function(props) {
   console.log('sup');
   console.log(props.params.person);
-  return (<div className="width-100">{props.children}</div>)
+  return (<div className="height-100">{props.children}</div>)
 }
 
 export default EmptyComponent;
