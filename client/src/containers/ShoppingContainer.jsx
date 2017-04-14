@@ -13,7 +13,7 @@ class ShoppingContainer extends React.Component{
       storeName: '',
       joinLink: '',
       loading: true,
-      linkGenerated: false
+      linkGenerated: true
     }
     this.showInfo = this.showInfo.bind(this);
     this.linkGenerated = this.linkGenerated.bind(this);
@@ -133,8 +133,9 @@ class ShoppingContainer extends React.Component{
           const link = encodeURIComponent(item.link);
           const src = encodeURIComponent(item.src);
           const price = encodeURIComponent(item.price);
+          const address = encodeURIComponent({});
           const merchantId = encodeURIComponent(item.merchantId);
-          const formData = `title=${title}&link=${link}&price=${price}&src=${src}&merchantId=${merchantId}`;
+          const formData = `title=${title}&link=${link}&price=${price}&src=${src}&address=${address}&merchantId=${merchantId}`;
 
           const xhr = new XMLHttpRequest();
           xhr.open('post', '/api/addcartitem');

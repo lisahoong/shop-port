@@ -149,7 +149,7 @@ router.post('/startgrouporder', function(req,res){
         merchantId: req.body.merchantId,
         totalAmountDue: 0,
         totalPrice: 0,
-        deliveryAddress:""//change later - clur
+        deliveryAddress: {}//change later - clur
       })
       return cart.save();
     }
