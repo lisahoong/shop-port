@@ -12,12 +12,15 @@ class ShoppingContainer extends React.Component{
       products: [],
       storeName: '',
       joinLink: '',
-      loading: true
+      loading: true,
+      linkGenerated: false
     }
+    this.showInfo = this.showInfo.bind(this);
+    this.linkGenerated = this.linkGenerated.bind(this);
   }
   componentDidMount() {
-      console.log('merchant is: ', this.props.params.person)
-      // use this to get DATUHHHB
+    console.log('merchant is: ', this.props.params.person)
+    // use this to get DATUHHHB
 
     const xhr = new XMLHttpRequest();
     xhr.open('get', '/auth/findProductsByName/'+this.props.params.person);
@@ -41,27 +44,30 @@ class ShoppingContainer extends React.Component{
   startGroupOrder() {
     console.log('starting group order');
   }
+  linkGenerated() {
+    console.log('ok cart starteddddd');
+  }
   copyLink(elem) {
     var targetId = "_hiddenCopyText_";
     var isInput = elem.tagName === "INPUT" || elem.tagName === "TEXTAREA";
     var origSelectionStart, origSelectionEnd;
     if (isInput) {
-        // can just use the original source element for the selection and copy
-        target = elem;
-        origSelectionStart = elem.selectionStart;
-        origSelectionEnd = elem.selectionEnd;
+      // can just use the original source element for the selection and copy
+      target = elem;
+      origSelectionStart = elem.selectionStart;
+      origSelectionEnd = elem.selectionEnd;
     } else {
-        // must use a temporary form element for the selection and copy
-        target = document.getElementById(targetId);
-        if (!target) {
-            var target = document.createElement("textarea");
-            target.style.position = "absolute";
-            target.style.left = "-9999px";
-            target.style.top = "0";
-            target.id = targetId;
-            document.body.appendChild(target);
-        }
-        target.textContent = elem.textContent;
+      // must use a temporary form element for the selection and copy
+      target = document.getElementById(targetId);
+      if (!target) {
+        var target = document.createElement("textarea");
+        target.style.position = "absolute";
+        target.style.left = "-9999px";
+        target.style.top = "0";
+        target.id = targetId;
+        document.body.appendChild(target);
+      }
+      target.textContent = elem.textContent;
     }
     // select the content
     var currentFocus = document.activeElement;
@@ -71,21 +77,21 @@ class ShoppingContainer extends React.Component{
     // copy the selection
     var succeed;
     try {
-        succeed = document.execCommand("copy");
+      succeed = document.execCommand("copy");
     } catch(e) {
-        succeed = false;
+      succeed = false;
     }
     // restore original focus
     if (currentFocus && typeof currentFocus.focus === "function") {
-        currentFocus.focus();
+      currentFocus.focus();
     }
 
     if (isInput) {
-        // restore prior selection
-        elem.setSelectionRange(origSelectionStart, origSelectionEnd);
+      // restore prior selection
+      elem.setSelectionRange(origSelectionStart, origSelectionEnd);
     } else {
-        // clear temporary content
-        target.textContent = "";
+      // clear temporary content
+      target.textContent = "";
     }
     return succeed;
   }
@@ -101,6 +107,7 @@ class ShoppingContainer extends React.Component{
     return 'http://localhost:3000/join/58e55f05fe16946175fdd6c1';
   }
   showInfo(item) {
+    var self = this;
     popupS.confirm({
       mode: 'modal-ajax ',
       title: item.title,
@@ -120,64 +127,73 @@ class ShoppingContainer extends React.Component{
       },
       //onOpen: function(){},      // gets called when popup is opened
       onSubmit: function(){
-        console.log(':)');
-        const title = encodeURIComponent(item.title);
-        const link = encodeURIComponent(item.link);
-        const src = encodeURIComponent(item.src);
-        const price = encodeURIComponent(item.price);
-        const merchantId = encodeURIComponent(item.merchantId);
-        const formData = `title=${title}&link=${link}&price=${price}&src=${src}&merchantId=${merchantId}`;
+        if (self.state.linkGenerated) {
+          console.log(':)');
+          const title = encodeURIComponent(item.title);
+          const link = encodeURIComponent(item.link);
+          const src = encodeURIComponent(item.src);
+          const price = encodeURIComponent(item.price);
+          const merchantId = encodeURIComponent(item.merchantId);
+          const formData = `title=${title}&link=${link}&price=${price}&src=${src}&merchantId=${merchantId}`;
 
-        const xhr = new XMLHttpRequest();
-        xhr.open('post', '/api/addcartitem');
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
-        xhr.responseType = 'json';
-        xhr.addEventListener('load', () => {
-          if (xhr.status === 200) {
-            console.log('gottem');
-          } else if (xhr.status === 401) {
-            popupS.confirm({
-              content:     'You must be logged in to start an order',
-              labelOk:     'Cancel',
-              labelCancel: 'Log in',
-              onSubmit: function() {
-                console.log(':)');
-              },
-              onClose: function() {
-                console.log(':(');
-              }
-            });
-          }
-        });
-        xhr.send(formData);
+          const xhr = new XMLHttpRequest();
+          xhr.open('post', '/api/addcartitem');
+          xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+          xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
+          xhr.responseType = 'json';
+          xhr.addEventListener('load', () => {
+            if (xhr.status === 200) {
+              console.log('gottem');
+            } else if (xhr.status === 401) {
+              popupS.confirm({
+                content:     'You must be logged in to start an order',
+                labelOk:     'Cancel',
+                labelCancel: 'Log in',
+                onSubmit: function() {
+                  console.log(':)');
+                },
+                onClose: function() {
+                  console.log(':(');
+                }
+              });
+            }
+          });
+          xhr.send(formData);
+        }
+        else {
+          alert('You must start a group cart in order to add items!')
+        }
 
       }, // gets called when submitted. val as an paramater for prompts
       onClose: function(){
         console.log(':(');
       }      // gets called when popup is closed
     });
+
+
   }
-  render(props) {
-    return(<div className="products-containter">
-      {this.props.children}
-      <div className="one">
-        <GroupOrder
-          onChange={this.fake}
-          onSubmit={this.fake}
-          getJoinLink={this.getJoinLink.bind(this)}
-          startGroupOrder={this.startGroupOrder.bind(this)}/><br/>
-        <CartLink
-          joinLink={this.getJoinLink}/>
-      </div>
-      <ProductsDisplay
-        data="hello"
-        items={this.state.products}
-        showInfo={this.showInfo}
-        />
-    </div>)
-  }
+  render(props){
+    console.log('state: ', this.state.linkGenerated);
+
+    return(<div className="products-container">
+    {this.props.children}
+    <div className="products-top">
+      <GroupOrder
+        onChange={this.fake}
+        onSubmit={this.fake}
+        getJoinLink={this.getJoinLink.bind(this)}
+        linkGenerated={this.state.linkGenerated}
+        triggerModal={this.startGroupOrder.bind(this)}/>
+    </div>
+    <ProductsDisplay
+      data="hello"
+      items={this.state.products}
+      showInfo={this.showInfo}
+      />
+  </div>)
 }
+}
+
 
 ShoppingContainer.contextTypes = {
   router: PropTypes.object.isRequired
