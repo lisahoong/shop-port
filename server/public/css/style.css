@@ -381,7 +381,7 @@ line {
     margin: auto;
     padding: 0;
     border: 1px solid #888;
-    width: 80%;
+    width: 60%;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
     -webkit-animation-name: animatetop;
     -webkit-animation-duration: 0.4s;
@@ -404,7 +404,7 @@ line {
 .close {
     color: white;
     float: right;
-    font-size: 28px;
+    font-size: 16px;
     font-weight: bold;
 }
 
@@ -421,11 +421,13 @@ line {
     color: white;
 }
 
-.modal-body {padding: 2px 16px;}
+.modal-body {
+  padding: 2px 16px;
+  padding-bottom: 15px;
+}
 
 .modal-footer {
     padding: 2px 16px;
-    color: white;
 }
 
 #border-btm {
@@ -659,6 +661,15 @@ c {
   text-align: left;
 }
 
+.delivery-field {
+  display: flex;
+  flex-direction: row;
+  padding: 2px 2px;
+  justify-content: stretch;
+  align-self: flex-end;
+  text-align: left;
+}
+
 .center-column {
   display: flex;
   flex-direction: column;
@@ -676,6 +687,7 @@ c {
   font-size: 14px;
   padding: 0px 2px;
   flex:1;
+  flex-direction: column;
 }
 .form-input {
   display: flex;
