@@ -155,8 +155,9 @@ router.post('/startgrouporder', function(req,res){
     }
     //found a cart
   }).then(function(cart){
-    if(validate.async({"deliveryAddress": req.body.deliveryAddress}, constraints)){
-      cart.deliveryAddress = req.body.deliveryAddress;
+    //TODO:this is an unhandled promise
+    if(validate.async({"deliveryAddress": req.body.address}, constraints)){
+      cart.deliveryAddress = req.body.address;
 
     };
     return cart.save()
@@ -192,7 +193,7 @@ router.post('/addcartitem', function(req,res){
         merchantId: req.body.merchantId,
         totalAmountDue: 0,
         totalPrice: 0,
-        deliveryAddress:req.body.deliveryAddress
+        deliveryAddress:req.body.address
       })
       return cart.save();
     }
