@@ -167,7 +167,6 @@ clickedPay() {
   this.setState({
     userPaying: true
   })
-  React.unmountComponentAtNode(document.getElementById('paysharebutton'));
 }
 render() {
   if (this.state.loading) {

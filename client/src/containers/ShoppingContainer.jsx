@@ -6,8 +6,8 @@ import GroupOrder from '../components/GroupOrder.jsx';
 import CartLink from '../components/CartLink.jsx';
 
 class ShoppingContainer extends React.Component{
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
     this.state = {
       products: [],
       storeName: '',
@@ -16,7 +16,6 @@ class ShoppingContainer extends React.Component{
     }
   }
   componentDidMount() {
-
       console.log('merchant is: ', this.props.params.person)
       // use this to get DATUHHHB
 
@@ -90,7 +89,15 @@ class ShoppingContainer extends React.Component{
     }
     return succeed;
   }
-  getJoinLink() {
+  fake(e) {
+    e.preventDefault();
+    console.log('ha');
+  }
+  getJoinLink(e) {
+    //e.preventDefault();
+    //do logic to return a cart
+    //this.context.router.replace('/login');
+
     return 'http://localhost:3000/join/58e55f05fe16946175fdd6c1';
   }
   showInfo(item) {
@@ -156,6 +163,9 @@ class ShoppingContainer extends React.Component{
       {this.props.children}
       <div className="one">
         <GroupOrder
+          onChange={this.fake}
+          onSubmit={this.fake}
+          getJoinLink={this.getJoinLink.bind(this)}
           startGroupOrder={this.startGroupOrder.bind(this)}/><br/>
         <CartLink
           joinLink={this.getJoinLink}/>
@@ -168,5 +178,9 @@ class ShoppingContainer extends React.Component{
     </div>)
   }
 }
+
+ShoppingContainer.contextTypes = {
+  router: PropTypes.object.isRequired
+};
 
 export default ShoppingContainer;
