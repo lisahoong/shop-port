@@ -19,7 +19,6 @@ function validateSignupForm(payload) {
   const errors = {};
   let isFormValid = true;
   let message = '';
-
   if (!payload || typeof payload.email !== 'string' || !validator.isEmail(payload.email)) {
     isFormValid = false;
     errors.email = 'Please provide a correct email address.';
@@ -30,7 +29,7 @@ function validateSignupForm(payload) {
     errors.password = 'Password must have at least 8 characters.';
   }
 
-  if (!payload || typeof payload.name !== 'string' || payload.name.trim().length === 0) {
+  if (!payload || typeof payload.first !== 'string' || payload.first.trim().length === 0) {
     isFormValid = false;
     errors.name = 'Please provide your name.';
   }
@@ -38,7 +37,8 @@ function validateSignupForm(payload) {
   if (!isFormValid) {
     message = 'Check the form for errors.';
   }
-
+  console.log(isFormValid);
+  console.log(errors);
   return {
     success: isFormValid,
     message,
@@ -56,14 +56,17 @@ function validateLoginForm(payload) {
     errors.email = 'Please provide your email address.';
   }
 
+
   if (!payload || typeof payload.password !== 'string' || payload.password.trim().length === 0) {
     isFormValid = false;
     errors.password = 'Please provide your password.';
   }
 
+
   if (!isFormValid) {
     message = 'Check the form for errors.';
   }
+
 
   return {
     success: isFormValid,
@@ -354,7 +357,8 @@ router.post('/addMerchantItem/:merchant', function(req, res) {
 
 
 router.post('/signup', function(req, res, next) {
-  const validationResult = validateLoginForm(req.body);
+  const validationResult = validateSignupForm(req.body);
+
   console.log("IVE BEEN HIT");
   if (!validationResult.success) {
     return res.status(400).json({

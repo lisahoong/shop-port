@@ -8,6 +8,35 @@ const Cart = require('mongoose').model('Cart');
 const config = require('../../config');
 const stripe = require('stripe')(config.STRIPE_TOKEN);
 const Promise = require('bluebird');
+const validate = require('validate.js');
+
+
+function success(attributes) {
+  console.log("Success!", attributes);
+  return true;
+}
+
+function error(errors) {
+  if (errors instanceof Error) {
+    // This means an exception was thrown from a validator
+    console.err("An error ocurred", errors);
+  } else {
+    console.log("Validation errors", errors);
+  }
+  return false;
+}
+
+var constraints = {
+  "deliveryAddress":{
+    presence: true,
+    format: {
+      // Must be numbers followed by a name
+      pattern: "^[0-9]+ .+$",
+      message: "^The street for the shipping address must be a valid street name"
+    }
+  }
+}
+
 router.get('/dashboard', function(req, res) {
   res.status(200).json({
     message: 'You are authorized to see this secret message'
@@ -111,6 +140,7 @@ router.post('/startgrouporder', function(req,res){
       return new Error("this user has already started a group order");
     }
     else{
+
       console.log("YO I AM HERE AND I MADE A NEW CART");
       //created an empty cart
       var cart = new Cart({
@@ -125,6 +155,16 @@ router.post('/startgrouporder', function(req,res){
     }
     //found a cart
   }).then(function(cart){
+    if(validate.async({"deliveryAddress": req.body.deliveryAddress}, constraints)){
+      cart.deliveryAddress = req.body.deliveryAddress;
+
+    };
+    return cart.save()
+
+  })
+
+
+  .then(function(cart){
     console.log("DIS MY CARTID BITCHES"+ cart._id);
     req.user.cartRef = cart._id;
     return req.user.save();
@@ -136,7 +176,7 @@ router.post('/startgrouporder', function(req,res){
 router.post('/addcartitem', function(req,res){
 
   console.log(req.body);
-  // TODO: add back cartitem search
+
   var promise = User.findById(req.user._id).exec();
   promise.then(function(user){
     console.log("i here "+ user);
@@ -146,7 +186,15 @@ router.post('/addcartitem', function(req,res){
       return Cart.findById(user.cartRef).exec();
     }
     else{
-      return new Error('User has not created a cart yet');
+      var cart = new Cart({
+        creatorId: req.user._id,
+        users:[req.user],
+        merchantId: req.body.merchantId,
+        totalAmountDue: 0,
+        totalPrice: 0,
+        deliveryAddress:req.body.deliveryAddress
+      })
+      return cart.save();
     }
     //found a cart
   })

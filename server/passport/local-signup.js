@@ -22,16 +22,11 @@ module.exports = new LocalStrategy({
     var newUser = new User(userData);
     newUser.save()
     .then(function(user){
-      console.log("FUCKMEUP FAM " + req.body.cartRef)
       return Cart.findById(req.body.cartRef).exec();
     }).then(function(cart){
-      console.log("MY USER IS DIS "+ newUser)
-      console.log("this the ofound cart "+ cart);
       cart.users.push(newUser);
       return cart.save();
     }).then(function(cart){
-      console.log(cart);
-      console.log("YO IM REACHED");
       return done(null);
     }).catch(function(err){console.log(err)
       return done(err);
@@ -42,7 +37,6 @@ module.exports = new LocalStrategy({
     if (err) {
       return done(err);
     }
-    console.log('new user: ', u);
     return done(null);
   })};
 });
