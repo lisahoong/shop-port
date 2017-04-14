@@ -6,11 +6,12 @@ class GroupOrder extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      startGroupOrder: props.startGroupOrder,
+      triggerModal: props.triggerModal,
       onChange: props.onChange,
       onSubmit: props.onSubmit,
       getJoinLink: props.getJoinLink,
       orderStarted: false,
+      linkGenerated: props.linkGenerated,
       cartLink:''
     }
     this.generateLink = this.generateLink.bind(this);
@@ -18,6 +19,7 @@ class GroupOrder extends React.Component {
   generateLink(e) {
     e.preventDefault();
     //do logic to return a cart
+    this.state.linkGenerated();
     //this.context.router.replace('/login');
     this.setState({
       orderStarted: true,
@@ -105,7 +107,7 @@ class GroupOrder extends React.Component {
   render() {
     if (!this.state.orderStarted) {
       return (<div>
-        <button className="startcart-button" id="startBtn" onClick={this.state.startGroupOrder}>
+        <button className="startcart-button" id="startBtn" onClick={() => this.state.triggerModal}>
           Start a group order</button>
 
         <div id="myModal" className="modal">

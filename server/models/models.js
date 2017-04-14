@@ -110,7 +110,8 @@ const CartSchema = mongoose.Schema({
     type: Boolean,
     default: false
   },
-  deliveryAddress: String
+  deliveryAddressLine1: String,
+  deliveryAddressLine2: String,
 });
 
 
