@@ -7,7 +7,7 @@ const CartItem = require('mongoose').model('CartItem');
 const Cart = require('mongoose').model('Cart');
 const config = require('../../config');
 const stripe = require('stripe')(config.STRIPE_TOKEN);
-
+const Promise = require('bluebird');
 router.get('/dashboard', function(req, res) {
   res.status(200).json({
     message: 'You are authorized to see this secret message'
@@ -194,49 +194,57 @@ router.post('/addcartitem', function(req,res){
 })
 
 router.post('/organizecart/:cartId', function(req,res){
-  var newArr = [];
-  Cart.findById(req.params.cartId).exec()
-  .then(function(cart){
+
+  //returns an organized array of objects with structure of
+  //{name: "name",products:[related product objects]}
+  //example: [ { name: 'bob bob', products: [ [Object] ] },
+  // { name: 'dan dan', products: [ [Object], [Object] ] } ]
+  var bigArr = []; //array of products in cart except that of user's
+  var users = []; //array of all users in cart except that of primary user's
+  var returnedArr = []; //returned array of name and products associated
+  function getUsername(id){
+    return User.findById(id).exec()
+  }
+
+   CartItem.find({cartId:req.params.cartId, orderedBy:{$ne:req.user._id}}).exec()
+   .then(function(array){
+     bigArr=array;
+    return Cart.findById(req.params.cartId).exec()
+  }).then(function(cart){
     var arr = cart.users;
+      var index = arr.indexOf(req.user._id);
+      if (index > -1){
+        arr.splice(index, 1);
+      }
+      users = arr;
+      console.log(arr);
+      return Promise.resolve(users);
+   }).then(function(users){
+     for (var i = 0; i < users.length; i++){
+       users[i] = getUsername(users[i])
+     }
+     return Promise.all(users);
+   })
+   .then(function(users){
+     for(var i = 0; i <users.length; i++){
+       obj = {};
+       obj.name = users[i].name;
+       userProducts =[]
+       for(var x = 0; x< bigArr.length; x++){
+         if(JSON.stringify(bigArr[x].orderedBy) === JSON.stringify(users[i]._id)){
+           userProducts.push(bigArr[x])
+         }
+       }
+       obj.products = userProducts;
+       returnedArr.push(obj);;
+     }
+     return Promise.resolve(returnedArr)
+   }).then(function(returnedObj){
+     res.status(200).json({
+       returnedArray: returnedObj
+     })
+   }).catch((err)=>console.log('error: ', err));
 
-    console.log("first "+ arr);
-    var index = arr.indexOf(req.user._id);
-    if (index > -1){
-      arr.splice(index, 1);
-    }
-    console.log(arr); //all users except logged in user
-    return CartItem.find({cartId:req.params.cartId, orderedBy:{$ne:req.user._id}}).exec()
-    // arr.forEach(function(element){
-      // console.log("user testing "+ element);
-      // console.log("cart "+ req.params.cartId);
-
-        //finds ALL cartitems ordered by a specific user in the cart
-        // (CartItem.find({cartId:req.params.cartId, orderedBy:element}).then(
-        //   function(cartitem){
-        //
-        //     if(cartitem){
-        //     console.log("GOTTEM "+cartitem)
-        //     newArr.push(cartitem);
-        //     console.log("this the array " + newArr)
-        //
-        //   }
-        //   }
-        // ))
-
-    // })
-
-  }).then(function(cartitems){
-    console.log(cartitems);
-  }).catch((err)=>console.log('error: ', err));
-
-
-  // CartItem.find({cartId:req.params.cartId, orderedBy:{$ne:req.user._id}}).exec()
-  // .then(function(cartitems){
-  //   res.status(200).json({
-  //     user: req.user,
-  //     products: cartitems
-  //   });
-  // }).catch((err)=>console.log('error: ', err));
 })
 
 module.exports = router;
