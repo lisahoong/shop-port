@@ -19,8 +19,6 @@ class GroupOrder extends React.Component {
   generateLink(e) {
     e.preventDefault();
     //do logic to return a cart
-    this.state.linkGenerated();
-    //this.context.router.replace('/login');
     this.setState({
       orderStarted: true,
       cartLink: 'http://localhost:3000/join/58e55f05fe16946175fdd6c1'
@@ -138,7 +136,7 @@ class GroupOrder extends React.Component {
                       <div className="form-field">
                         <div className="form-title">
                           <div>
-                            Delivery
+                            Street
                           </div>
                           <div>Address</div>
                         </div>
@@ -155,6 +153,33 @@ class GroupOrder extends React.Component {
                           <input
                             type="text"
                             name="address2"
+                            onChange={this.state.onChange}/>
+                        </div>
+                      </div>
+                      <div className="form-field">
+                        <div className="form-title">City</div>
+                        <div>
+                          <input
+                            type="text"
+                            name="city"
+                            onChange={this.state.onChange}/>
+                        </div>
+                      </div>
+                      <div className="form-field">
+                        <div className="form-title">State</div>
+                        <div>
+                          <input
+                            type="text"
+                            name="state"
+                            onChange={this.state.onChange}/>
+                        </div>
+                      </div>
+                      <div className="form-field">
+                        <div className="form-title">Zip Code</div>
+                        <div>
+                          <input
+                            type="text"
+                            name="zip"
                             onChange={this.state.onChange}/>
                         </div>
                       </div>
