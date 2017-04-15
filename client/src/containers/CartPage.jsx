@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import Auth from '../modules/Auth';
-import CartCheckout from '../components/CartCheckout.jsx';
+import OtherUserItems from '../components/OtherUserItems.jsx';
 import OtherItems from '../components/OtherItems.jsx';
 import PaymentForm from '../components/PaymentForm.jsx';
 import CartItems from '../components/CartItems.jsx';
@@ -24,6 +24,7 @@ class CartPage extends React.Component {
       userTotal: null,
       userPaying: false
     }
+    this.remove = this.remove.bind(this);
   }
 componentDidMount() {
     //logic to get data
@@ -60,7 +61,7 @@ getUserItems() {
         userTotal: 57,
         adminId: 'Moose',
         user: '789',
-        userName: 'Shreesu',
+        userName: 'Abhi',
         userItems: xhr.response.userItems,
         cartObjArray: [{
           name: 'Lisa',
@@ -189,7 +190,7 @@ render() {
           userName={this.state.userName}
           userItems={this.state.userItems}
           userTotal={this.state.userTotal}
-          remove={this.remove.bind(this)}
+          remove={this.remove}
           clickedPay={this.clickedPay.bind(this)}
           calculateTotal={this.calculateCurrentUserTotal.bind(this)}
           payShare={this.createCharge.bind(this)}
@@ -203,7 +204,8 @@ render() {
           onChange={this.fillForm}
           onSubmit={this.processForm}
           calculateTotal={this.calculateCurrentUserTotal.bind(this)}
-        />) : <CartCheckout />}
+        />) : <OtherUserItems
+        otherItems={this.state.cartObjArray}/>}
       </div>
     </div>
   </div>)

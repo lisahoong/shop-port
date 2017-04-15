@@ -21,7 +21,7 @@ class GroupOrder extends React.Component {
     //do logic to return a cart
     this.setState({
       orderStarted: true,
-      cartLink: 'http://localhost:3000/join/58e55f05fe16946175fdd6c1'
+      cartLink: 'http://localhost:3000/join/58f13be1b24f0e8516682bb8'
     })
   }
   componentDidMount() {
