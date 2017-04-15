@@ -253,6 +253,8 @@ span {
 .cartitems-container {
   display: flex;
   flex: 3;
+  height: 100%;
+  overflow: scroll;
   flex-direction: column;
   align-items: flex-start;
   height: inherit;
@@ -312,6 +314,41 @@ span {
   align-items: center;
   justify-content: center;
 }
+
+.other-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  width: 100%
+}
+
+.user-package {
+  align-items: flex-start;
+  width: 100%;
+  padding: 10px;
+}
+
+.other-item {
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  justify-content: space-between;
+}
+
+.cart-otherimage {
+  display: flex;
+  height: 45px;
+  width: 30px;
+  border: 1px solid black;
+}
+
+.other-item-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
 
 .progress-bar {
   align-items: center;
@@ -499,7 +536,7 @@ width: auto;
 .link-input {
   border: 1px solid black;
   margin-right: 5px;
-  padding: 6px 3px;
+  padding: 7px 3px;
 }
 
 .remove-button {
@@ -738,4 +775,25 @@ yes {
 h10 {
   font-family: Telegrafico;
   font-size: 24px;
+}
+
+h9 {
+  font-family: Telegrafico;
+  font-size: 12px;
+}
+
+h8 {
+  font-family: Nordica;
+  font-size: 10px;
+}
+
+h7 {
+  font-family: Nordica;
+  font-size: 12px;
+}
+
+xx {
+  font-family: Nordica;
+  font-size: 10px;
+  font-style: italic;
 }

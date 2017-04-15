@@ -72,7 +72,7 @@ const PaymentForm = ({
             </div>
         </div>
       </div>
-      <button type="submit" className="pay-button">Pay ${calculateTotal()}</button>
+      <button type="submit" className="pay-button">Pay</button>
     </form>
   </div>
 );
