@@ -13,7 +13,7 @@ const validate = require('validate.js');
 
 function success(attributes) {
   console.log("Success!", attributes);
-  return true;
+  return attributes
 }
 
 function error(errors) {
@@ -23,11 +23,12 @@ function error(errors) {
   } else {
     console.log("Validation errors", errors);
   }
-  return false;
+  return errors;
 }
+const pattern = new RegExp("^[0-9]+ .+$")
 
 var constraints = {
-  "deliveryAddress":{
+  "address":{
     presence: true,
     format: {
       // Must be numbers followed by a name
@@ -131,6 +132,21 @@ router.post('/removecartitem/:cartId', function(req,res){
     })
 
 })
+router.post('/lmao', function(req,res){
+  var promise = User.findById(req.user._id).exec();
+  promise.then(function(user){
+    user.cartRef=undefined
+    return user.save();
+  }).then(function(user){
+    res.status(200).json({
+      user:user
+    })
+
+  }).catch(function(err){
+    console.log('error: ',err);
+  })
+
+})
 router.post('/startgrouporder', function(req,res){
   var promise = User.findById(req.user._id).exec();
   promise.then(function(user){
@@ -140,6 +156,7 @@ router.post('/startgrouporder', function(req,res){
       return new Error("this user has already started a group order");
     }
     else{
+      console.log(req.body)
 
       console.log("YO I AM HERE AND I MADE A NEW CART");
       //created an empty cart
@@ -149,25 +166,38 @@ router.post('/startgrouporder', function(req,res){
         merchantId: req.body.merchantId,
         totalAmountDue: 0,
         totalPrice: 0,
-        deliveryAddress: {}//change later - clur
+        address: {}//change later - clur
       })
       return cart.save();
     }
     //found a cart
   }).then(function(cart){
     //TODO:this is an unhandled promise
-    if(validate.async({"deliveryAddress": req.body.address}, constraints)){
-      cart.deliveryAddress = req.body.address;
-
-    };
-    return cart.save()
-
-  })
+    // const add = req.body.address.
+    console.log(req.body.merchantId)
+    const yo = req.body.address.line1 +""+ req.body.address.line2+ req.body.address.city + req.body.address.state+req.body.address.zip
+    if(pattern.test(yo)){
+      console.log("im in here");
+      cart.deliveryAddress=req.body.address
+    }
+    return cart.save();
+    // return(validate.async({"address": "329 12th street"}, constraints))
+    //   cart.deliveryAddress = req.body.address;
+    // return cart.save()
+})
+  // }).then(function(attributes){
+  //   console.log(attributes);
+  //   cart.address = attributes.address
+  //   return cart.save();
+  // })
 
 
   .then(function(cart){
     console.log("DIS MY CARTID BITCHES"+ cart._id);
     req.user.cartRef = cart._id;
+    res.status(200).json({
+      user: req.user
+    })
     return req.user.save();
   }).catch(function(err){
     console.log('error: ',err);
@@ -193,7 +223,7 @@ router.post('/addcartitem', function(req,res){
         merchantId: req.body.merchantId,
         totalAmountDue: 0,
         totalPrice: 0,
-        deliveryAddress:req.body.address
+        address:req.body.address
       })
       return cart.save();
     }
@@ -297,58 +327,3 @@ router.post('/organizecart/:cartId', function(req,res){
 })
 
 module.exports = router;
-
-
-
-
-
-//
-//
-// if(cart){
-//   console.log("I FOUND THE CART BITCHES" + cart);
-//   var newItem = new CartItem({
-//
-//     merchantId: req.body.merchantId,
-//     productName: req.body.title,
-//     price: req.body.price.substring(2,req.body.price.length),
-//     orderedBy:req.user._id,
-//     paidBy:req.user._id,
-//     isPaidFor:false,//do i need to change this? - clur
-//     cartId:cart._id,
-//     src: req.user.link
-//
-//   })
-//   return newItem.save();
-// } else{
-//
-//
-//   console.log("YO I AM HERE AND I MADE A NEW CART");
-//   var newCart = new Cart({
-//     creatordId: req.user._id,
-//     users:[req.user],
-//     merchantId: req.body.merchantId,
-//     totalAmountDue: req.body.price.substring(1,req.body.price.length),
-//     totalPrice: req.body.price.substring(1,req.body.price.length),
-//     deliveryAddress:""//change later - clur
-//   })
-//   newCart.save();
-//
-//   var newItem = new CartItem({
-//     merchantId: req.body.merchantId,
-//     productName: req.body.title,
-//     price: req.body.price.substring(1,req.body.price.length),
-//     orderedBy:req.user._id,
-//     paidBy:req.user._id,
-//     isPaidFor:false,//do i need to change this? - clur
-//     cartId:newCart._id, //wut
-//     src: req.user.link
-//
-//   })
-//   req.user.cartRef = newCart;
-//   req.user.save();
-//   return newItem.save();
-// }
-// //this thing is nested..how to fix? - clur
-// }).catch(function(err){
-// console.log('error: ',err);
-// })
