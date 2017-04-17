@@ -267,13 +267,10 @@ router.post('/addcartitem', function(req,res){
   .catch(function(err){
     console.log('error: ',err);
   })
-
-
-
 })
 
 router.post('/organizecart/:cartId', function(req,res){
-
+  console.log('Trying to get other items for cart: ', req.params.cartId);
   //returns an organized array of objects with structure of
   //{name: "name",products:[related product objects]}
   //example: [ { name: 'bob bob', products: [ [Object] ] },
@@ -322,7 +319,9 @@ router.post('/organizecart/:cartId', function(req,res){
      res.status(200).json({
        returnedArray: returnedObj
      })
-   }).catch((err)=>console.log('error: ', err));
+   }).catch((err)=>{res.status(500).send({
+     error:err
+   })});
 
 })
 
