@@ -18,7 +18,7 @@ const Base = function({children}) {
           </div>
           <div className="link-container">
             <div><Link to="/" id="nav-link" >Home</Link></div>
-            <div><Link to="/cart/58f13be1b24f0e8516682bb8" id="nav-link">Cart</Link></div>
+            <div><Link to="/cart/58f134b32125663f51e8946c" id="nav-link">Cart</Link></div>
             <div><Link to="/select" id="nav-link">Shop</Link></div>
             <div><Link to="/later" id="nav-link">More</Link></div>
             {Auth.isUserAuthenticated() ?

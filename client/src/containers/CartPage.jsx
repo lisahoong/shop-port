@@ -17,7 +17,8 @@ class CartPage extends React.Component {
       minimum: null,
       cartSubtotal: null,
       adminId: null,
-      cartObjArray: null,
+      otherItems: null,
+      cartObjArray: [],
       user: '',
       userName: '',
       userItems: null,
@@ -41,7 +42,23 @@ calculateCurrentUserTotal() {
   return total;
 }
 getOtherItems() {
-
+  console.log('hihihihih');
+  const xhr = new XMLHttpRequest();
+  xhr.open('post', 'api/organizecart/'+this.props.params.cartId);
+  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
+  xhr.responseType = 'json';
+  xhr.addEventListener('load', () => {
+    if (xhr.status === 200) {
+      console.log('other stuff:', xhr.response.returnedArr);
+      this.setState({
+        otherItems: xhr.response.returnedArr
+      })
+    } else {
+      console.log('error');
+    }
+  })
+  xhr.send();
 }
 getUserItems() {
   console.log('getting user items');
