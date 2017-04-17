@@ -29,6 +29,7 @@ class CartPage extends React.Component {
 componentDidMount() {
     //logic to get data
     this.getUserItems();
+    this.getOtherItems();
 }
 calculateCurrentUserTotal() {
   var total = 0;
@@ -38,6 +39,9 @@ calculateCurrentUserTotal() {
     total += parseInt(item.price);
   })
   return total;
+}
+getOtherItems() {
+
 }
 getUserItems() {
   console.log('getting user items');
@@ -75,10 +79,10 @@ getUserItems() {
               "url": "https://www.brandymelvilleusa.com/clothing"
             },
             {
-              "title": "Erica Sweatshirt",
+              "title": "Danny Denim",
               "price": "$28",
               "link": "http://www.brandymelvilleusa.com/erica-sweatshirt-st-l14.html",
-              "src": "https://cdn.brandymelvilleusa.com/media/catalog/product/cache/1/image/414x621/9df78eab33525d08d6e5fb8d27136e95/i/m/img_0282-2.jpg",
+              "src": "https://cdn.brandymelvilleusa.com/media/catalog/product/cache/1/image/414x621/9df78eab33525d08d6e5fb8d27136e95/m/d/md195-343s0720000_3f.jpg",
               "url": "https://www.brandymelvilleusa.com/clothing"
             },
             {
