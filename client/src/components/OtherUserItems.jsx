@@ -4,11 +4,11 @@ import { Link } from 'react-router';
 const OtherUserItems = function(props) {
   return (<div className="other-container">
 
-  {props.otherItems.map((obj) => {
-    return (<div className="user-package">
+  {props.otherItems.map((obj, i) => {
+    return (<div key={i}className="user-package">
     <h7>{obj.name},</h7> <xx>{obj.status}</xx>
-    {obj.items.map((item) => {
-      return (<div className="other-item">
+    {obj.items.map((item, j) => {
+      return (<div key={j} className="other-item">
       <div>
         <img className="cart-otherimage" src={item.src}/>
       </div>
