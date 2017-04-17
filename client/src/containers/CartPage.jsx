@@ -42,26 +42,28 @@ calculateCurrentUserTotal() {
   return total;
 }
 getOtherItems() {
-  console.log('hihihihih');
+  const cart = encodeURIComponent(this.props.params.cartId);
+  const formData = `cart=${cart}`;
+
   const xhr = new XMLHttpRequest();
-  xhr.open('post', 'api/organizecart/'+this.props.params.cartId);
+  xhr.open('post', '/api/organizecart/'+this.props.params.cartId);
   xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
   xhr.responseType = 'json';
   xhr.addEventListener('load', () => {
     if (xhr.status === 200) {
-      console.log('other stuff:', xhr.response.returnedArr);
+      console.log('ITEMS: ', xhr.response.returnedArray);
       this.setState({
-        otherItems: xhr.response.returnedArr
+        otherItems: xhr.response.returnedArray
       })
     } else {
       console.log('error');
     }
-  })
+  });
   xhr.send();
 }
 getUserItems() {
-  console.log('getting user items');
+  console.log('getting user items for: ', this.props.params.cartId);
   const cart = encodeURIComponent(this.props.params.cartId);
   const formData = `cart=${cart}`;
 
