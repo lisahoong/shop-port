@@ -21,6 +21,7 @@ class CartPage extends React.Component {
       cartObjArray: [],
       user: '',
       userName: '',
+      otherItemsLoading: true,
       userItems: null,
       userTotal: null,
       userPaying: false
@@ -54,6 +55,7 @@ getOtherItems() {
     if (xhr.status === 200) {
       console.log('ITEMS: ', xhr.response.returnedArray);
       this.setState({
+        otherItemsLoading: false,
         otherItems: xhr.response.returnedArray
       })
     } else {
@@ -228,7 +230,8 @@ render() {
           onSubmit={this.processForm}
           calculateTotal={this.calculateCurrentUserTotal.bind(this)}
         />) : <OtherUserItems
-        otherItems={this.state.cartObjArray}/>}
+        otherItems={this.state.otherItems}
+        loading={this.state.otherItemsLoading}/>}
       </div>
     </div>
   </div>)
