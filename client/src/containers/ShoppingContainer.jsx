@@ -18,6 +18,8 @@ class ShoppingContainer extends React.Component{
     }
     this.showInfo = this.showInfo.bind(this);
     this.newCartStarted = this.newCartStarted.bind(this);
+    this.doesCartExist = this.doesCartExist.bind(this);
+    this.getLinkIfExists = this.getLinkIfExists.bind(this);
   }
   componentDidMount() {
     console.log('merchant is: ', this.props.params.person)
@@ -45,11 +47,26 @@ class ShoppingContainer extends React.Component{
   startGroupOrder() {
     console.log('starting group order');
   }
+  doesCartExist() {
+    if (this.props.params.cart) {
+      return true;
+    } else {
+      console.log('THERE IS NO CART');
+      return false;
+    }
+  }
+  getLinkIfExists() {
+    if (this.props.params.cart) {
+      return '';
+    } else {
+      return 'http://localhost:3000/join/58f13be1b24f0e8516682bb8';
+    }
+  }
   newCartStarted() {
 
       var sParameter = encodeURIComponent(this.props.params.person.trim());
       var carty = encodeURIComponent('58f4319619f79e4d3dbb7fe1');
-      var poop = `/cart/${sParameter}/${carty}`;
+      var poop = `/shop/${sParameter}/${carty}`;
 
     console.log('ok cart starteddddd');
     this.setState({
@@ -183,22 +200,25 @@ class ShoppingContainer extends React.Component{
 
       }, // gets called when submitted. val as an paramater for prompts
       onClose: function(){
-        console.log(':(');
+        console.log(':( item not added');
       }      // gets called when popup is closed
     });
   }
   render(props){
     console.log('state: ', this.state.linkGenerated);
-
+    console.log('if there is a cart id, this is it: ', this.props.params.cart);
     return(<div className="products-container">
     {this.props.children}
     <div className="products-top">
       <GroupOrder
         onChange={this.fake2}
         onSubmit={this.fake}
+        cartPresent={this.state.cartExists}
         newCartStarted={this.newCartStarted}
+        cartAlreadyExists={this.doesCartExist}
         getJoinLink={this.getJoinLink.bind(this)}
         linkGenerated={this.state.linkGenerated}
+        getCartLink={this.state.getLinkIfExists}
         triggerModal={this.startGroupOrder.bind(this)}/>
     </div>
     <ProductsDisplay

@@ -12,6 +12,7 @@ import LaughAtSomeone from './components/LaughAtSomeone.jsx';
 import EmptyComponent from './components/EmptyComponent.jsx';
 import LaughContainer from './components/LaughContainer.jsx';
 import ToDoList from './components/ToDoList.jsx';
+import GroupOrder from './components/GroupOrder.jsx';
 import CartItems from './components/CartItems.jsx';
 import DashBoardPage from './containers/DashboardPage.jsx';
 import CartPage from './containers/CartPage.jsx';
@@ -32,12 +33,12 @@ module.exports = (
     <Route path="/select" component={SelectMerchantPage}/>
     <Route path="/fonts" component={Fonts}/>
     <Route path="/about" component={EmptyComponent}/>
-    <Route path="/shop/:person">
-      <IndexRoute component={ShoppingContainer}/>
-      <Route path=":cart">
+      <Route path="/shop/:person">
         <IndexRoute component={ShoppingContainer}/>
+        <Route path=":cart">
+          <IndexRoute component={ShoppingContainer}/>
+        </Route>
       </Route>
-    </Route>
     <Route path="/lol" component={LaughContainer}>
       <Route path=":person" component={LaughAtSomeone}>
           <Route path=":store" component={rofl}/>
