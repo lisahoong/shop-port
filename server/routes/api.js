@@ -256,6 +256,13 @@ router.post('/addcartitem', function(req,res){
   })
 })
 
+router.get('/joinCartShop/:cartId', function(req, res) {
+  console.log('joining the cart: ', req.params.cartId);
+  res.status(200).send({
+    cart: '123'
+  });
+})
+
 
 router.post('/organizecart/:cartId', function(req,res){
   console.log('Trying to get other items for cart: ', req.params.cartId);
