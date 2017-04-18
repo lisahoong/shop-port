@@ -10,8 +10,8 @@ class GroupOrder extends React.Component {
       onChange: props.onChange,
       onSubmit: props.onSubmit,
       getJoinLink: props.getJoinLink,
-      orderStarted: false,
-      cartLink:'',
+      orderStarted: props.cartAlreadyExists(),
+      cartLink: 'place holder',
       newCartStarted: props.newCartStarted
     }
     this.generateLink = this.generateLink.bind(this);
@@ -19,6 +19,7 @@ class GroupOrder extends React.Component {
   }
   generateLink(e) {
     e.preventDefault();
+
     //do logic to return a cart
     this.state.newCartStarted();
     this.setState({

@@ -3,7 +3,6 @@ import { Link, IndexLink } from 'react-router';
 import Auth from '../modules/Auth';
 
 function findCart() {
-  console.log('hello can u hear me');
   return '58f4319619f79e4d3dbb7fe1'
 }
 
