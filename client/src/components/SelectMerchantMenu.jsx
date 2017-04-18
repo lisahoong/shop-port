@@ -12,9 +12,6 @@ const SelectMerchantMenu = ({
   merchants, onClick, selected, products
 }) => (
   <div>
-    {console.log('auth = ', Auth.isUserAuthenticated())}
-
-
     <z>Select a merchant from the list below</z>
     <div>
       {merchants.map(function(merch, i) {

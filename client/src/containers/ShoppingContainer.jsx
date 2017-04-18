@@ -13,10 +13,11 @@ class ShoppingContainer extends React.Component{
       storeName: '',
       joinLink: '',
       loading: true,
-      linkGenerated: true
+      linkGenerated: false,
+      cart: '58f4319619f79e4d3dbb7fe1'
     }
     this.showInfo = this.showInfo.bind(this);
-    this.linkGenerated = this.linkGenerated.bind(this);
+    this.newCartStarted = this.newCartStarted.bind(this);
   }
   componentDidMount() {
     console.log('merchant is: ', this.props.params.person)
@@ -44,8 +45,17 @@ class ShoppingContainer extends React.Component{
   startGroupOrder() {
     console.log('starting group order');
   }
-  linkGenerated() {
+  newCartStarted() {
+
+      var sParameter = encodeURIComponent(this.props.params.person.trim());
+      var carty = encodeURIComponent('58f4319619f79e4d3dbb7fe1');
+      var poop = `/cart/${sParameter}/${carty}`;
+
     console.log('ok cart starteddddd');
+    this.setState({
+      linkGenerated: true
+    })
+    this.context.router.replace(poop);
   }
   copyLink(elem) {
     var targetId = "_hiddenCopyText_";
@@ -98,6 +108,12 @@ class ShoppingContainer extends React.Component{
   fake(e) {
     e.preventDefault();
     console.log('ha');
+  }
+  fake2(e) {
+    console.log('poopy pants');
+  }
+  fake3(){
+    console.log('ahahahahaah');
   }
   getJoinLink(e) {
     //e.preventDefault();
@@ -170,8 +186,6 @@ class ShoppingContainer extends React.Component{
         console.log(':(');
       }      // gets called when popup is closed
     });
-
-
   }
   render(props){
     console.log('state: ', this.state.linkGenerated);
@@ -180,8 +194,9 @@ class ShoppingContainer extends React.Component{
     {this.props.children}
     <div className="products-top">
       <GroupOrder
-        onChange={this.fake}
+        onChange={this.fake2}
         onSubmit={this.fake}
+        newCartStarted={this.newCartStarted}
         getJoinLink={this.getJoinLink.bind(this)}
         linkGenerated={this.state.linkGenerated}
         triggerModal={this.startGroupOrder.bind(this)}/>

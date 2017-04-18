@@ -11,14 +11,16 @@ class GroupOrder extends React.Component {
       onSubmit: props.onSubmit,
       getJoinLink: props.getJoinLink,
       orderStarted: false,
-      linkGenerated: props.linkGenerated,
-      cartLink:''
+      cartLink:'',
+      newCartStarted: props.newCartStarted
     }
     this.generateLink = this.generateLink.bind(this);
+    //this.linkGenerated = this.linkGenerated.bind(this);
   }
   generateLink(e) {
     e.preventDefault();
     //do logic to return a cart
+    this.state.newCartStarted();
     this.setState({
       orderStarted: true,
       cartLink: 'http://localhost:3000/join/58f13be1b24f0e8516682bb8'
@@ -103,6 +105,7 @@ class GroupOrder extends React.Component {
     return succeed;
   }
   render() {
+    var self = this;
     if (!this.state.orderStarted) {
       return (<div>
         <button className="startcart-button" id="startBtn" onClick={() => this.state.triggerModal}>
@@ -210,7 +213,7 @@ class GroupOrder extends React.Component {
       <h10>Your shared cart link: </h10>
       <input className="link-input" type="text" id="copyTarget"
         value={this.state.cartLink}/>
-      <button className="pay-button" onClick={this.generateLink}>Copy</button>
+      <button className="pay-button" onClick={this.copyToClipboard}>Copy</button>
     </div>)
   }
 

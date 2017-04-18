@@ -4,12 +4,12 @@ import Auth from '../modules/Auth';
 
 function findCart() {
   console.log('hello can u hear me');
-
+  return '58f4319619f79e4d3dbb7fe1'
 }
 
 
 const Base = function({children}) {
-  findCart();
+  var poop = findCart();
   return (<div className="container">
       <div>
         <div className="nav-container">

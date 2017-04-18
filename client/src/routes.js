@@ -32,9 +32,10 @@ module.exports = (
     <Route path="/select" component={SelectMerchantPage}/>
     <Route path="/fonts" component={Fonts}/>
     <Route path="/about" component={EmptyComponent}/>
-    <Route path="/shop" component={Height}>
-      <Route path=":person" component={ShoppingContainer}>
-          <Route path=":store" component={rofl}/>
+    <Route path="/shop/:person">
+      <IndexRoute component={ShoppingContainer}/>
+      <Route path=":cart">
+        <IndexRoute component={ShoppingContainer}/>
       </Route>
     </Route>
     <Route path="/lol" component={LaughContainer}>
