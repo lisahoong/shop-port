@@ -43,8 +43,8 @@ module.exports = (
           <Route path=":store" component={rofl}/>
       </Route>
     </Route>
-    <Route path = "/join" component = {JoinContainer}>
-      <Route path =":cart" component= {JoinCart}/>
+    <Route path = "/join/:cartId">
+      <IndexRoute component = {JoinContainer}/>
     </Route>
     <Route path="/cart" component={CartPage}>
       <Route path=":cartId" component={EmptyComponent}/>

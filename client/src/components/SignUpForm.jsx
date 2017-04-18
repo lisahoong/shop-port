@@ -48,11 +48,12 @@ import { Link } from 'react-router';
 const SignUpForm = ({
   onSubmit,
   onChange,
+  message,
   errors,
   user,
 }) => (<div className="container">
 <br/>
-  <h10>Shop til you drop betch hahaha!</h10>
+  <h10>{message}</h10>
   <form action="/" onSubmit={onSubmit}>
     <div className='form-container'>
       <div className="center-column">
@@ -99,7 +100,7 @@ const SignUpForm = ({
       </div>
     </div>
     <button type="submit" className="pay-button">Create an account</button>
-    <p>Already have an account? <Link to={'/login'}><b>Log in</b></Link></p>
+    <p>Already have an account? <Link id="reg-link" to={'/login'}><b>Log in</b></Link></p>
   </form>
 </div>
 )
