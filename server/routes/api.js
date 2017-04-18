@@ -184,17 +184,11 @@ router.post('/startgrouporder', function(req,res){
     }
     return cart.save();
 })
-  // }).then(function(attributes){
-  //   console.log(attributes);
-  //   cart.address = attributes.address
-  //   return cart.save();
-  // })
-
-
   .then(function(cart){
     console.log("DIS MY CARTID BITCHES"+ cart._id);
     req.user.cartRef = cart._id;
     res.status(200).json({
+      cartId:cart._id,
       user: req.user
     })
     return req.user.save();
