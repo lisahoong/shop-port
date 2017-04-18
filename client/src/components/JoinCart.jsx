@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
+import SignUpPage from '../containers/SignUpPage.jsx';
 
 
 // <div>
@@ -14,10 +15,14 @@ function shareLink(name){
   return `/signup/${sProp}`;
 }
 const JoinCart = function(props){
-  console.log('yoyo join da cart');
+  console.log('user:', props.user, 'cart: ', props.cart);
   return(<div className="container">
+  <br/>
+
   <h10>Hello there. Your friend Moose has invited you to shop!</h10>
-  <h7>In order to join, please sign up for an account below!</h7>
+  <span><h7>In order to join, please sign up for an account below!</h7></span>
+  <span><h7>Already have an account? Log in here</h7></span>
+
   </div>)
 }
 export default JoinCart;

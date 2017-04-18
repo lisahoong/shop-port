@@ -493,6 +493,12 @@ width: auto;
   color: #797A7E
 }
 
+#reg-link {
+  font-family: Telegrafico;
+  font-size: 12px;
+  color: black;
+}
+
 #side-link {
   color: #797A7E;
   font-family: Nordica;
