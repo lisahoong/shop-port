@@ -15,8 +15,33 @@ function shareLink(name){
   return `/signup/${sProp}`;
 }
 const JoinCart = function(props){
-  return(<div>
-    I am about to log in to my existing account
+  return(<div className='center-column'>
+  <br/>
+    <form action="/" onSubmit={props.test}>
+      <div className="form-container">
+        <div className="form-field">
+          <div className="form-title">Name</div>
+          <div>
+            <input
+              type="text"
+              name="name"
+              onChange={props.test}
+              />
+          </div>
+        </div>
+        <div className="form-field">
+          <div className="form-title">Phone</div>
+          <div>
+            <input
+              type="text"
+              name="name"
+              onChange={props.test}
+              />
+          </div>
+        </div>
+      </div>
+      <button type="submit" className="pay-button">Join Now!</button>
+    </form>
   </div>)
 }
 export default JoinCart;
