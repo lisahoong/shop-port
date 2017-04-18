@@ -133,6 +133,7 @@ router.post('/removecartitem/:cartId', function(req,res){
 
 })
 router.post('/lmao', function(req,res){
+  //for clur's testing purposes only
   var promise = User.findById(req.user._id).exec();
   promise.then(function(user){
     user.cartRef=undefined
@@ -147,6 +148,7 @@ router.post('/lmao', function(req,res){
   })
 
 })
+
 router.post('/startgrouporder', function(req,res){
   var promise = User.findById(req.user._id).exec();
   promise.then(function(user){
@@ -181,9 +183,6 @@ router.post('/startgrouporder', function(req,res){
       cart.deliveryAddress=req.body.address
     }
     return cart.save();
-    // return(validate.async({"address": "329 12th street"}, constraints))
-    //   cart.deliveryAddress = req.body.address;
-    // return cart.save()
 })
   // }).then(function(attributes){
   //   console.log(attributes);
@@ -216,18 +215,6 @@ router.post('/addcartitem', function(req,res){
       console.log(user.cartRef + "I IS HERE");
       return Cart.findById(user.cartRef).exec();
     }
-    else{
-      var cart = new Cart({
-        creatorId: req.user._id,
-        users:[req.user],
-        merchantId: req.body.merchantId,
-        totalAmountDue: 0,
-        totalPrice: 0,
-        address:req.body.address
-      })
-      return cart.save();
-    }
-    //found a cart
   })
 
   .then(function(cart){
@@ -272,6 +259,7 @@ router.post('/addcartitem', function(req,res){
 
 })
 
+
 router.post('/organizecart/:cartId', function(req,res){
 
   //returns an organized array of objects with structure of
@@ -308,6 +296,7 @@ router.post('/organizecart/:cartId', function(req,res){
      for(var i = 0; i <users.length; i++){
        obj = {};
        obj.name = users[i].name;
+       obj.paid = users[i].paid;
        userProducts =[]
        for(var x = 0; x< bigArr.length; x++){
          if(JSON.stringify(bigArr[x].orderedBy) === JSON.stringify(users[i]._id)){

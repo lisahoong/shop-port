@@ -21,7 +21,11 @@ const UserSchema = new mongoose.Schema({
   cartRef: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Cart"
-  } //added by ClUR
+  }, //added by ClUR
+  paid:{
+    type: Boolean,
+    default: false
+  }
 });
 
 UserSchema.methods.comparePassword = function comparePassword(password, cb) {
@@ -79,10 +83,10 @@ const CartItemSchema = mongoose.Schema({
   price: Number,
   orderedBy: String, //userId
   paidBy: String, //userId
-  isPaidFor: {
-    type: Boolean,
-    default: false
-  },
+  // isPaidFor: {
+  //   type: Boolean,
+  //   default: false
+  // },
   cartId: String,
   src: String
 });
