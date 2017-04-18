@@ -137,6 +137,9 @@ class JoinContainer extends React.Component{
     });
     xhr.send(formData);
   }
+  holder(){
+    console.log('something is happening');
+  }
 
   changeUser(e) {
     const field = e.target.name;
@@ -170,7 +173,14 @@ class JoinContainer extends React.Component{
     <br/>
       <h10>Your friend has invited you to shop!</h10>
       {(Auth.isUserAuthenticated() ?
-        <JoinCartLogin/> :
+        <div className="center-column">
+          <div>
+            <span><h7>It looks like you already have an account with us!</h7></span>
+            <span><h7>Enter your information below to join the cart</h7></span>
+            </div>
+        <JoinCartLogin
+          test={this.holder}/>
+        </div> :
         <JoinCartSignUp/>)}
     </div>)
   }

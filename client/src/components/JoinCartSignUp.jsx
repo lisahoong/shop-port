@@ -8,7 +8,7 @@ function shareLink(name){
 
 const JoinCart = function(props){
   return(<div>
-    <form action="/" onSubmit={onLoginSubmit}>
+    <form action="/" onSubmit={props.test}>
       <div className="form-container">
         <div className="form-field">
           <div className="form-title">Name</div>
@@ -16,7 +16,7 @@ const JoinCart = function(props){
             <input
               type="text"
               name="name"
-              onChange={onLoginChange}
+              onChange={props.test}
               />
           </div>
         </div>
