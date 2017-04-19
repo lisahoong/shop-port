@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import Auth from '../modules/Auth';
 import popupS from 'popups';
+import {Link} from 'react-router'
 import ProductsDisplay from '../components/ProductsDisplay.jsx';
 import GroupOrder from '../components/GroupOrder.jsx';
 import CartLink from '../components/CartLink.jsx';
@@ -11,17 +12,21 @@ class ShoppingContainer extends React.Component{
     this.state = {
       products: [],
       storeName: '',
+      hasAccount: false,
+      userCart: null,
       joinLink: '',
       loading: true,
       linkGenerated: false,
+      userLoading: true,
+      cartLinkToShare: '',
       cart: '58f4319619f79e4d3dbb7fe1'
     }
     this.showInfo = this.showInfo.bind(this);
+    this.checkUser = this.checkUser.bind(this);
     this.newCartStarted = this.newCartStarted.bind(this);
-    this.doesCartExist = this.doesCartExist.bind(this);
-    this.getLinkIfExists = this.getLinkIfExists.bind(this);
   }
   componentDidMount() {
+    this.checkUser();
     console.log('merchant is: ', this.props.params.person)
     // use this to get DATUHHHB
 
@@ -44,36 +49,37 @@ class ShoppingContainer extends React.Component{
     });
     xhr.send();
   }
-  startGroupOrder() {
-    console.log('starting group order');
-  }
-  doesCartExist() {
-    if (this.props.params.cart) {
-      return true;
-    } else {
-      console.log('THERE IS NO CART');
-      return false;
+
+  checkUser() {
+    console.log('alright checking user stats');
+    if (Auth.isUserAuthenticated()) {
+      const xhr = new XMLHttpRequest();
+      xhr.open('get', '/api/checkUser/');
+      xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+      xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
+      xhr.responseType = 'json';
+      xhr.addEventListener('load', () => {
+        if (xhr.status === 200) {
+          if (xhr.response.userCart) {
+            this.setState({
+              userLoading: false,
+              hasAccount: true,
+              userCart: xhr.response.userCart,
+              cartLinkToShare: 'http://localhost:3000/join/' + xhr.response.userCart
+            })
+          }
+          else {
+            this.setState({
+              userLoading: false,
+              hasAccount: true
+            })
+          }
+        }
+      })
+      xhr.send();
     }
   }
-  getLinkIfExists() {
-    if (this.props.params.cart) {
-      return '';
-    } else {
-      return 'http://localhost:3000/join/58f13be1b24f0e8516682bb8';
-    }
-  }
-  newCartStarted() {
 
-      var sParameter = encodeURIComponent(this.props.params.person.trim());
-      var carty = encodeURIComponent('58f4319619f79e4d3dbb7fe1');
-      var poop = `/shop/${sParameter}/${carty}`;
-
-    console.log('ok cart starteddddd');
-    this.setState({
-      linkGenerated: true
-    })
-    this.context.router.replace(poop);
-  }
   copyLink(elem) {
     var targetId = "_hiddenCopyText_";
     var isInput = elem.tagName === "INPUT" || elem.tagName === "TEXTAREA";
@@ -132,13 +138,40 @@ class ShoppingContainer extends React.Component{
   fake3(){
     console.log('ahahahahaah');
   }
-  getJoinLink(e) {
-    //e.preventDefault();
-    //do logic to return a cart
-    //this.context.router.replace('/login');
 
-    return 'http://localhost:3000/join/58e55f05fe16946175fdd6c1';
+  newCartStarted() {
+
+    const address = encodeURIComponent({
+      line1: '221 7th Street',
+      line2: '',
+      city: 'San Francisco',
+      state: 'CA',
+      zip: '94103'
+    });
+    const merchantId = encodeURIComponent('58d1c45db31f3e83b68ad789');
+    const formData = `address=${address}&merchantId=${merchantId}`;
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('post', '/api/startOrder/');
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', () => {
+      if (xhr.status === 200) {
+        console.log('alright the user now has a cart');
+        this.setState({
+          cartLinkToShare: 'http://localhost:3000/join/' + xhr.response.newCartLink
+        })
+      }
+      else {
+        console.log('error');
+      }
+    });
+    xhr.send();
+
+
   }
+
   showInfo(item) {
     var self = this;
     popupS.confirm({
@@ -160,7 +193,7 @@ class ShoppingContainer extends React.Component{
       },
       //onOpen: function(){},      // gets called when popup is opened
       onSubmit: function(){
-        if (self.state.linkGenerated) {
+        if (self.state.userCart) {
           console.log(':)');
           const title = encodeURIComponent(item.title);
           const link = encodeURIComponent(item.link);
@@ -204,29 +237,32 @@ class ShoppingContainer extends React.Component{
       }      // gets called when popup is closed
     });
   }
+  startGroupOrder() {
+    console.log('starting group order');
+  }
   render(props){
-    console.log('state: ', this.state.linkGenerated);
-    console.log('if there is a cart id, this is it: ', this.props.params.cart);
-    return(<div className="products-container">
-    {this.props.children}
-    <div className="products-top">
-      <GroupOrder
-        onChange={this.fake2}
-        onSubmit={this.fake}
-        cartPresent={this.state.cartExists}
-        newCartStarted={this.newCartStarted}
-        cartAlreadyExists={this.doesCartExist}
-        getJoinLink={this.getJoinLink.bind(this)}
-        linkGenerated={this.state.linkGenerated}
-        getCartLink={this.state.getLinkIfExists}
-        triggerModal={this.startGroupOrder.bind(this)}/>
-    </div>
-    <ProductsDisplay
-      data="hello"
-      items={this.state.products}
-      showInfo={this.showInfo}
-      />
-  </div>)
+    if (this.state.userLoading) {
+      return (<div>Loading...</div>)
+    } else {
+      return (<div className="products-container">
+      {this.props.children}
+      <div className="products-top">
+        <GroupOrder
+          onChange={this.fake2}
+          onSubmit={this.fake}
+          hasAccount={this.state.hasAccount}
+          hasCartRef={this.state.userCart}
+          newCartStarted={this.newCartStarted}
+          cartLinkToShare={this.state.cartLinkToShare}
+          triggerModal={this.startGroupOrder.bind(this)}/>
+      </div>
+      <ProductsDisplay
+        data="hello"
+        items={this.state.products}
+        showInfo={this.showInfo}
+        />
+    </div>)
+    }
 }
 }
 

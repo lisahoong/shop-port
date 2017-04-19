@@ -10,21 +10,23 @@ class GroupOrder extends React.Component {
       onChange: props.onChange,
       onSubmit: props.onSubmit,
       getJoinLink: props.getJoinLink,
-      orderStarted: props.cartAlreadyExists(),
-      cartLink: 'place holder',
+      orderStarted: props.hasCartRef,
+      cartLink: props.cartLinkToShare,
       newCartStarted: props.newCartStarted
     }
     this.generateLink = this.generateLink.bind(this);
     //this.linkGenerated = this.linkGenerated.bind(this);
   }
   generateLink(e) {
-    e.preventDefault();
-
-    //do logic to return a cart
+    //e.preventDefault();
     this.state.newCartStarted();
+    //do logic to return a cart
+    // this.setState({
+    //   orderStarted: true,
+    //   cartLink: 'http://localhost:3000/join/58f13be1b24f0e8516682bb8'
+    // })
     this.setState({
-      orderStarted: true,
-      cartLink: 'http://localhost:3000/join/58f13be1b24f0e8516682bb8'
+      orderStarted: true
     })
   }
   componentDidMount() {

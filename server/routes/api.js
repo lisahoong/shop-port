@@ -87,8 +87,39 @@ router.get('/testing', function(req, res) {
   })
 })
 
+router.get('/joinCart/:cartId', function(req, res) {
+  var promise = User.findById(req.user._id).exec();
+  promise.then(function(user) {
+    console.log('req.user is: ', user);
+    user.cartRef = req.params.cartId;
+    return user.save();
+  })
+  .then(function(user) {
+    console.log('user updated cart: ', user.cartRef);
+    return Cart.findById(user.cartRef).exec();
+  })
+  .then(function(updatedCart) {
+    console.log('UPDATE CART: ', updatedCart);
+    updatedCart.users.push(req.user)
+    return updatedCart.save();
+  })
+  .then(function(cart) {
+    console.log(cart);
+    res.status(200).send({
+      cart: req.user.cartRef
+    })
+  })
+  .catch((err) => {
+    console.log('error: ', err);
+    res.status(500).send({
+      error: err
+    })
+  })
+})
+
 router.post('/getUserItems', function(req, res) {
-  CartItem.find({cartId: req.body.cart, orderedBy: req.user._id})
+
+  CartItem.find({cartId: req.user.cartRef, orderedBy: req.user._id})
   .exec()
   .then(function(userItems) {
     console.log('user has', userItems);
@@ -116,10 +147,10 @@ router.post('/additem', function(req, res) {
   })
   res.status(200).send();
 })
-router.post('/removecartitem/:cartId', function(req,res){
+router.post('/removecartitem', function(req,res){
 
   CartItem.findOneAndRemove({
-    cartId:req.params.cartId, productName: req.body.title,
+    cartId:req.user.cartRef, productName: req.body.title,
     orderedBy:req.user._id}).exec()
     .then(function(cartitem){
       if (cartitem){
@@ -146,6 +177,60 @@ router.post('/lmao', function(req,res){
   }).catch(function(err){
     console.log('error: ',err);
   })
+
+})
+
+router.post('/startOrder', function(req, res) {
+
+  var cart = new Cart({
+    creatorId: req.user._id,
+    users:[req.user],
+    merchantId: req.body.merchantId,
+    totalAmountDue: 0,
+    totalPrice: 0,
+    deliveryAddress: req.body.address//change later - clur
+  });
+  var promise = cart.save();
+  promise.then(function(cart) {
+    console.log('cart: ', cart._id);
+    req.user.cartRef = cart._id;
+    return req.user.save();
+  })
+  .catch((err) => {
+    console.log('error: ', err);
+    res.status(500).send({
+      error: err
+    })
+  })
+
+  // var promise = User.findById(req.user._id).exec();
+  // promise.then(function(user) {
+  //   if (user.cartRef) {
+  //     res.status(500).send({
+  //       error: 'This user already has a cart started'
+  //     })
+  //   } else {
+  //     var cart = new Cart({
+  //       creatorId: req.user._id,
+  //       users:[req.user],
+  //       merchantId: req.body.merchantId,
+  //       totalAmountDue: 0,
+  //       totalPrice: 0,
+  //       deliveryAddress: req.body.address//change later - clur
+  //     })
+  //     return cart.save();
+  //   }
+  // })
+  // .then(function(cart) {
+  //   console.log('cart info: ', cart);
+  //   req.user.cartRef = cart._id
+  //   res.status(200).send({
+  //     newCartLink: cart._id
+  //   });
+  // })
+  // .catch((err) => {
+  //   console.log('error');
+  // })
 
 })
 
@@ -194,6 +279,29 @@ router.post('/startgrouporder', function(req,res){
     return req.user.save();
   }).catch(function(err){
     console.log('error: ',err);
+  })
+})
+
+router.get('/checkUser', function(req, res) {
+  if (req.user) {
+    var promise = User.findById(req.user._id).exec();
+    promise.then(function(user) {
+      if (user.cartRef) {
+        res.status(200).send({
+          userCart: user.cartRef
+        })
+      } else {
+        res.status(200).send({
+          userCart: null
+        })
+      }
+    })
+    .catch((err) => res.status(500).send({
+      error: err
+    }))
+  }
+  else res.status(500).send({
+    error: 'No user is signed in'
   })
 })
 
@@ -258,8 +366,7 @@ router.get('/joinCartShop/:cartId', function(req, res) {
 })
 
 
-router.post('/organizecart/:cartId', function(req,res){
-  console.log('Trying to get other items for cart: ', req.params.cartId);
+router.post('/organizecart/', function(req,res){
   //returns an organized array of objects with structure of
   //{name: "name",products:[related product objects]}
   //example: [ { name: 'bob bob', products: [ [Object] ] },
@@ -271,10 +378,10 @@ router.post('/organizecart/:cartId', function(req,res){
     return User.findById(id).exec()
   }
 
-   CartItem.find({cartId:req.params.cartId, orderedBy:{$ne:req.user._id}}).exec()
+   CartItem.find({cartId:req.user.cartRef, orderedBy:{$ne:req.user._id}}).exec()
    .then(function(array){
      bigArr=array;
-    return Cart.findById(req.params.cartId).exec()
+    return Cart.findById(req.user.cartRef).exec()
   }).then(function(cart){
     var arr = cart.users;
       var index = arr.indexOf(req.user._id);
@@ -309,7 +416,9 @@ router.post('/organizecart/:cartId', function(req,res){
      res.status(200).json({
        returnedArray: returnedObj
      })
-   }).catch((err)=>{res.status(500).send({
+   }).catch((err)=>{
+     console.log('error: ', err);
+     res.status(500).send({
      error:err
    })});
 

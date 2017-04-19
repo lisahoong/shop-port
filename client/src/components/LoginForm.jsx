@@ -36,7 +36,7 @@ const LoginForm = ({
         </div>
       </div>
       <button type="submit" className="pay-button">Login</button>
-      <p>New to Port? <Link to={'/signup'}><b>Sign up</b></Link></p>
+      <p>New to Port? <Link id="reg-link" to={'/signup'}><b>Sign up</b></Link></p>
     </form>
   </div>
 );

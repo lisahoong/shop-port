@@ -223,6 +223,26 @@ router.get('/showproducts/:merchId', function(req, res) {
   .catch((err)=>console.log('error: ', err));
 });
 
+router.get('/joinCart/:cartId', function(req, res) {
+
+  var promise = User.findById(req.user._id).exec();
+  promise.then(function(user) {
+    console.log('req.user is: ', user);
+    user.cartRef = req.params.cartId;
+    user.save();
+    console.log('user updated cart: ', req.user.cartRef);
+    res.status(200).send({
+      cart: req.user.cartRef
+    })
+  })
+  .catch((err) => {
+    console.log('error: ', err);
+    res.status(500).send({
+      error: err
+    })
+  })
+})
+
 router.get('/join/:cartId', function(req, res) {
   //Render join form
   console.log('yo i am here', req.params.cartId);
@@ -264,9 +284,6 @@ router.post('/cart/:cartId/', function(req,res){
 })
 
 router.post('/removecartitem/:cartId', function(req,res){
-  //send me the cartITem id
-
-  console.log("asuh im removed");
   CartItem.findOneAndRemove({
     cartId:req.params.cartId, productName: req.body.title,
     orderedBy:req.user._id}).exec()
