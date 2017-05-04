@@ -87,9 +87,13 @@ router.get('/testing', function(req, res) {
   })
 })
 
-router.get('/joinCart/:cartId', function(req, res) {
+router.post('/joinCart/:cartId', function(req, res) {
   var promise = User.findById(req.user._id).exec();
   promise.then(function(user) {
+    if (req.user.cartRef) {
+      console.log('User with cart cannot join again or join another cart');
+      throw error;
+    }
     console.log('req.user is: ', user);
     user.cartRef = req.params.cartId;
     return user.save();
@@ -117,7 +121,7 @@ router.get('/joinCart/:cartId', function(req, res) {
   })
 })
 
-router.post('/getUserItems', function(req, res) {
+router.get('/getUserItems', function(req, res) {
 
   CartItem.find({cartId: req.user.cartRef, orderedBy: req.user._id})
   .exec()
@@ -270,7 +274,6 @@ router.post('/startgrouporder', function(req,res){
     return cart.save();
 })
   .then(function(cart){
-    console.log("DIS MY CARTID BITCHES"+ cart._id);
     req.user.cartRef = cart._id;
     res.status(200).json({
       cartId:cart._id,
@@ -306,22 +309,17 @@ router.get('/checkUser', function(req, res) {
 })
 
 router.post('/addcartitem', function(req,res){
-
-  console.log(req.body);
-
+  console.log("************************************************************");
   var promise = User.findById(req.user._id).exec();
   promise.then(function(user){
     console.log("i here "+ user);
     //this counts on the user always being logged in
     if (user.cartRef){
-      console.log(user.cartRef + "I IS HERE");
       return Cart.findById(user.cartRef).exec();
     }
   })
 
   .then(function(cart){
-
-    console.log("IM IN THE CART LALALA" + cart);
     cart.totalAmountDue = Number.parseInt(cart.totalAmountDue) + Number.parseInt(req.body.price.substring(1,req.body.price.length));
     cart.totalPrice = Number.parseInt(cart.totalPrice) + Number.parseInt(req.body.price.substring(1,req.body.price.length));
     return cart.save();
@@ -345,14 +343,9 @@ router.post('/addcartitem', function(req,res){
     return Cart.findById(cartItem.cartId).exec()
   })
   .then(function(cart){
-    console.log("DIS MY CARTID BITCHES"+ cart._id);
     req.user.cartRef = cart._id;
     return req.user.save();
   })
-
-
-
-
   .catch(function(err){
     console.log('error: ',err);
   })
@@ -366,7 +359,8 @@ router.get('/joinCartShop/:cartId', function(req, res) {
 })
 
 
-router.post('/organizecart/', function(req,res){
+router.get('/organizecart/', function(req,res){
+  console.log('getting other user items in API');
   //returns an organized array of objects with structure of
   //{name: "name",products:[related product objects]}
   //example: [ { name: 'bob bob', products: [ [Object] ] },

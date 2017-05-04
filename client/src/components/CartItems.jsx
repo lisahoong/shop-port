@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import Auth from "../modules/Auth";
+//import uuid from ""
 
 class CartItems extends React.Component {
   constructor(props) {
@@ -26,7 +27,7 @@ class CartItems extends React.Component {
     return (<div className="width-100">
       <w>{this.state.userName}&#39;s Cart</w>
       {this.state.userItems.map(function(item, i) {
-        return ( <div key={i} className="cart-useritems-container">
+        return ( <div key={item._id} className="cart-useritems-container">
             <div className="cart-userimage-desc-containter">
         <div><img className="cart-userimage" href={item.link} src={item.src}/></div>
         <div><a className="cart-userinfo" href={item.link}>{item.productName}</a>

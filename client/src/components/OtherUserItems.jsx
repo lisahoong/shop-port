@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
+import uuid from 'uuid/v4'
 
 const OtherUserItems = function(props) {
   if (props.loading) {
@@ -7,10 +8,10 @@ const OtherUserItems = function(props) {
   } else {
     return (<div className="other-container">
     {props.otherItems.map((obj, i) => {
-      return (<div key={i}className="user-package">
+      return (<div key={uuid()} className="user-package">
       <h7>{obj.name},</h7> <xx>ordering</xx>
       {obj.products.map((item, j) => {
-        return (<div key={j} className="other-item">
+        return (<div key={item._id} className="other-item">
         <div>
           <img className="cart-otherimage" src={item.src}/>
         </div>
