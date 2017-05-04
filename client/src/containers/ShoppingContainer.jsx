@@ -205,12 +205,12 @@ class ShoppingContainer extends React.Component{
 
           const xhr = new XMLHttpRequest();
           xhr.open('post', '/api/addcartitem');
-          xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+          //xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
           xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
           xhr.responseType = 'json';
           xhr.addEventListener('load', () => {
             if (xhr.status === 200) {
-              console.log('gottem');
+              alert("something added!")
             } else if (xhr.status === 401) {
               popupS.confirm({
                 content:     'You must be logged in to start an order',

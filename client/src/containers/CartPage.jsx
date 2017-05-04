@@ -44,7 +44,7 @@ calculateCurrentUserTotal() {
 }
 getOtherItems() {
   const xhr = new XMLHttpRequest();
-  xhr.open('post', '/api/organizecart/');
+  xhr.open('get', '/api/organizecart/');
   xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
   xhr.responseType = 'json';
@@ -53,7 +53,7 @@ getOtherItems() {
       console.log('ITEMS: ', xhr.response.returnedArray);
       this.setState({
         otherItemsLoading: false,
-        otherItems: xhr.response.returnedArray
+        otherItems: [...xhr.response.returnedArray]
       })
     } else {
       console.log('error');
@@ -63,7 +63,7 @@ getOtherItems() {
 }
 getUserItems() {
   const xhr = new XMLHttpRequest();
-  xhr.open('post', '/api/getUserItems');
+  xhr.open('get', '/api/getUserItems');
   xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
   xhr.responseType = 'json';
@@ -135,6 +135,9 @@ clickedPay() {
   this.setState({
     userPaying: true
   })
+}
+userSubmitted() {
+
 }
 render() {
   if (this.state.loading) {

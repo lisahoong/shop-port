@@ -24,6 +24,7 @@ class JoinContainer extends React.Component{
     }
     this.checkUser = this.checkUser.bind(this);
     this.holder= this.holder.bind(this);
+    this.userJoined= this.userJoined.bind(this);
     this.fakeSignUp = this.fakeSignUp.bind(this);
     this.changeUser = this.changeUser.bind(this);
   }
@@ -168,10 +169,10 @@ class JoinContainer extends React.Component{
     e.preventDefault();
     console.log('someone is typing');
   }
-  holder(e){
+  userJoined(e) {
     e.preventDefault();
     const xhr = new XMLHttpRequest();
-    xhr.open('get', '/api/joinCart/'+this.props.params.cartId);
+    xhr.open('post', '/api/joinCart/'+this.props.params.cartId);
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
     xhr.responseType = 'json';
@@ -185,6 +186,26 @@ class JoinContainer extends React.Component{
       }
     })
     xhr.send();
+  }
+  holder(e){
+    e.preventDefault();
+
+    // e.preventDefault();
+    // const xhr = new XMLHttpRequest();
+    // xhr.open('post', '/api/joinCart/'+this.props.params.cartId);
+    // xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    // xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
+    // xhr.responseType = 'json';
+    // xhr.addEventListener('load', () => {
+    //   if (xhr.status === 200) {
+    //     console.log('ok we got the user to have the right cart');
+    //     console.log('here: ', xhr.response.cart);
+    //   }
+    //   else {
+    //     console.log('error');
+    //   }
+    // })
+    // xhr.send();
   }
   fakeSignUp(e){
     e.preventDefault();
@@ -290,7 +311,8 @@ class JoinContainer extends React.Component{
             <span><h7>Enter your information below to join the cart</h7></span>
             </div>
         <JoinCartLogin
-          test={this.holder}/>
+          test={this.holder}
+          onSubmit={this.userJoined}/>
         </div> :
         <div>
           <div className="center-column">

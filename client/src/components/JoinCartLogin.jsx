@@ -17,7 +17,7 @@ function shareLink(name){
 const JoinCart = function(props){
   return(<div className='center-column'>
   <br/>
-    <form action="/" onSubmit={props.test}>
+    <form action="/" onSubmit={props.onSubmit}>
       <div className="form-container">
         <div className="form-field">
           <div className="form-title">Name</div>
