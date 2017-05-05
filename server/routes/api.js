@@ -126,7 +126,6 @@ router.get('/getUserItems', function(req, res) {
   CartItem.find({cartId: req.user.cartRef, orderedBy: req.user._id})
   .exec()
   .then(function(userItems) {
-    console.log('user has', userItems);
     res.status(200).json({
       userItems: userItems
     })
@@ -189,6 +188,7 @@ router.post('/startOrder', function(req, res) {
   var cart = new Cart({
     creatorId: req.user._id,
     users:[req.user],
+    creatorName: req.user.name,
     merchantId: req.body.merchantId,
     totalAmountDue: 0,
     totalPrice: 0,
@@ -309,6 +309,7 @@ router.get('/checkUser', function(req, res) {
 })
 
 router.post('/addcartitem', function(req,res){
+  console.log("++++++", req.body);
   console.log("************************************************************");
   var promise = User.findById(req.user._id).exec();
   promise.then(function(user){
