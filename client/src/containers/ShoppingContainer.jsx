@@ -205,7 +205,7 @@ class ShoppingContainer extends React.Component{
 
           const xhr = new XMLHttpRequest();
           xhr.open('post', '/api/addcartitem');
-          //xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+          xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
           xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
           xhr.responseType = 'json';
           xhr.addEventListener('load', () => {

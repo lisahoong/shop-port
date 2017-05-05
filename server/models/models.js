@@ -98,6 +98,7 @@ const CartSchema = mongoose.Schema({
     ref: 'User'
   }], //userIds
   merchantId: String,  // MerchantId
+  creatorName: String,
   totalAmountDue: { //Amount due for the cart
     type: Number,
     default: 0
