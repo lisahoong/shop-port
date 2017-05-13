@@ -13,8 +13,6 @@ const HomePage = () => (
     <span>volume discounts, freebie requirements, etc.</span></w></h1>
     <button className="pay-button"><Link to="/select">Start shopping</Link></button>
   </div>
-    <z id="top">You must be wondering why there is empty space here.</z>
-    <w>I'm not sure either but text is better than random white space.</w>
   </div>
 );
 
