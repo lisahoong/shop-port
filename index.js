@@ -3,9 +3,9 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const config = require('./config');
 const path = require('path');
-const stripe = require('stripe')(process.env.STRIPE_TOKEN || config.STRIPE_TOKEN);
+const stripe = require('stripe')(process.env.STRIPE_TOKEN);
 
-require('./server/models').connect(process.env.MONGODB_URI || config.MONGODB_URI);
+require('./server/models').connect(process.env.MONGODB_URI);
 
 const app = express();
 
