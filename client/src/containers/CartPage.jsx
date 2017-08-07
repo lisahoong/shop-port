@@ -6,6 +6,8 @@ import PaymentForm from '../components/PaymentForm.jsx';
 import CartItems from '../components/CartItems.jsx';
 import SharedCartInfo from '../components/SharedCartInfo.jsx';
 
+console.log("pathname: ", window.location.href);
+
 class CartPage extends React.Component {
   constructor() {
     super();
