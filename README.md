@@ -17,6 +17,6 @@ Have you ever seen a deal with some variation of "Buy # for $ each, otherwise fu
 
 Well we have. Many times. And what did we naturally do when we ran into these scenarios? We spammed our friends, sorority sisters, housemates, etc. etc. asking if they needed anything from [insert popular store here]. So they looked, they liked, they sent links of items they wanted to add, I added, I paid, and I charged them on Venmo afterwards. Gets pretty annoying after a few times. 
 
-So we built Port.
+So we built Port. One user starts a cart, shares a link, every one browses, adds, checks out individually, and we all share the savings.
 
 ### Demo
