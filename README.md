@@ -20,9 +20,20 @@ Well we have. Many times. And what did we naturally do when we ran into these sc
 So we built Port. One user starts a cart, shares a link, every one browses, adds, checks out individually, and we all share the savings.
 
 ### Snapshots
+Landing page
 ![landing](http://i67.tinypic.com/sc3vyx.png)
+
+User selects a merchant, in this case Brandy Melville
 ![selected](http://i64.tinypic.com/2zf2v6e.png)
+
+User has option to start a cart
 ![start](http://i65.tinypic.com/eh18b4.png)
+
+Enter delivery address
 ![address](http://i67.tinypic.com/fx54ow.png)
+
+Link to cart is generated- when new users sign up through a shared cart link, after they log in, they will be automatically be added to the cart
 ![add](http://i67.tinypic.com/dfeomg.png)
+
+All users' items on checkout page with option to pay own share
 ![cart](http://i68.tinypic.com/3346df9.png)
