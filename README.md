@@ -5,7 +5,7 @@ Users add their items to the shared cart, contributing to reach a free shipping 
 
 ### Table of Contents
 * [Project Overview](#project-overview)
-* [Demo](#demo)
+* [Snapshots](#snapshots)
 
 ### Project-Overview
 
@@ -19,4 +19,5 @@ Well we have. Many times. And what did we naturally do when we ran into these sc
 
 So we built Port. One user starts a cart, shares a link, every one browses, adds, checks out individually, and we all share the savings.
 
-### Demo
+### Snapshots
+![landing](http://i67.tinypic.com/sc3vyx.png)
